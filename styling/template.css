@@ -3,20 +3,26 @@
 .logo {
     position: fixed;
     left:0;
-    top:0;
-    padding:10px;
+    top:20px;
+    padding:10px; 
+}
+
+.logo img {
+  height: 100px;
+  width: 200px;
 }
 
 
 
 /* Styling button de connection et inscription */
-.button {
+.auth {
+  position: fixed;
+  top:30px;
   background: linear-gradient(to bottom right, #b6a404, #FF9A5A);
-  border: 0;
+  border: 10px;
   border-radius: 12px;
   color: #FFFFFF;
   cursor: pointer;
-  display: inline-block;
   font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -32,13 +38,20 @@
   white-space: nowrap;
 }
 
-.button:not([disabled]):focus {
+.auth:not([disabled]):focus {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
   }
   
-.button:not([disabled]):hover {
+.auth:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
   }
+
+#connec {
+  right: 20px;
+}
+#ins {
+  right:110px;
+}
 
 
 

@@ -28,9 +28,8 @@ class AccueilVue {
     private function show_button_connec()
     {
         ?>
-        <button class="connec"> Sign In </button>
-        <button class="connec"> Sign Up </button>
-
+        <button class="auth" id="connec"> Sign In </button>
+        <button class="auth" id="ins"> Sign Up </button>
        <?php
 
     }
