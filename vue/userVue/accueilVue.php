@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+require_once('../../controller/diapormaContoller.php');
 class AccueilVue {
 
 
@@ -9,30 +11,51 @@ class AccueilVue {
         <?php
     }
 
-    private function show_styling()
+    private function show_styling() {
     {
        ?>
-       <link rel="stylesheet" type="text/css" href="../../styling/template.css">
+       <link rel="stylesheet" type="text/css" href="../../styling/accueil.css">
        <?php
     }
-    private function show_logo()
+
+    }
+
+    private function show_top_bar ()
     {
         ?>
-        <div class="logo">
-        <img src="../../images/logo">
-        </div>
+      <div class="topBar" id="top">
+             <img src="../../images/logo"   >
+             <button class="auth" id="connec"> Sign In </button>
+             <button class="auth" id="ins"> Sign Up </button>       
+      </div>
        <?php
         
     }
 
-    private function show_button_connec()
+    private function show_diaporma()
     {
+        $ctr = new diapormaController();
+        $table = $ctr->get_diaporma();
         ?>
-        <button class="auth" id="connec"> Sign In </button>
-        <button class="auth" id="ins"> Sign Up </button>
-       <?php
-
+        <div class="diap">
+        <?php
+        $images = array();
+    
+        foreach ($table as $row) {
+            $images[] = $row['image_diap']; 
+        }
+    
+        foreach ($images as $imgData) {
+            $base64Img = base64_encode($imgData);
+            $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+            echo '<img src="' . $imgSrc . '" alt="Image">';
+        }
+        ?>
+        </div>
+        <?php
     }
+    
+    
 
     public function Head_Page ()
     {
@@ -45,10 +68,9 @@ class AccueilVue {
     public function Body_Page()
     {
         echo '<body>';
-        $this->show_logo();
-        $this->show_button_connec();
+        $this->show_top_bar();
+        $this->show_diaporma();
         echo '</body>';
-
     }
 
     public function show_website ()

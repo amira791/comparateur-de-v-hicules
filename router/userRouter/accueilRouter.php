@@ -1,7 +1,8 @@
 <?php
 
-require_once('../vue/accueilVue.php');
-$vue = new AccueilVue();
-$vue -> show_website();
+require_once('../../vue/userVue/accueilVue.php');
+
+$vue = new accueilVue();
+$vue->show_website();
 
 ?>

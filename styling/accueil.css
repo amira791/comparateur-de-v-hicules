@@ -1,0 +1,102 @@
+/* Styling for the logo */
+.topBar {
+  background-color: black;
+  color: #FFFFFF;
+}
+
+ .topBar img {
+    position: fixed;
+    left: 0;
+    top: 10px;
+    padding: 10px;
+    height: 80px;
+    width: 200px;
+
+  }
+  
+  /* Styling for the connection and registration buttons */
+  .topBar .auth {
+    position: fixed;
+    top: 30px;
+    background: linear-gradient(to bottom right, #b6a404, #FF9A5A);
+    border: 10px;
+    border-radius: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+
+  }
+  
+  .topBar .auth:not([disabled]):focus,
+  .topBar .auth:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  }
+  
+  /* Adjust the position of the connection and registration buttons */
+  #connec {
+    right: 20px;
+  }
+  
+  #ins {
+    right: 110px;
+  }
+
+  .diap{
+
+    position: relative;
+    padding: 40px;
+    margin-left: 0px;
+    margin-right: 100px;
+    display: flex;
+    align-items: center;
+    
+  }
+
+  .diap img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 100px;
+    animation-name: imagefade;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    justify-content: center;
+ 
+  }
+  @keyframes imagefade {
+    0% {
+      opacity:1;
+    }
+    17% {
+      opacity:1;
+    }
+    25% {
+      opacity:0;
+    }
+    92% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+
+  .diap img:nth-of-type(1) {
+    animation-delay: 2s;
+  }
+  .diap img:nth-of-type(2) {
+    animation-delay: 5s;
+  }
