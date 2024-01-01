@@ -157,3 +157,29 @@ h1 {
   margin: 5px; /* Adjust the margin around each logo image as needed */
 }
 
+
+
+
+h2 {
+  color: #333; /* Set text color */
+}
+
+
+
+.custom-list {
+  list-style: none; /* Remove default list styles */
+  padding: 0; /* Remove default padding */
+}
+
+.list-item {
+  background-color: #f0f0f0; /* Set background color */
+  padding: 8px; /* Add padding to each list item */
+  margin: 5px 0; /* Add margin between list items */
+  border-radius: 5px; /* Add rounded corners */
+}
+
+.list-item:hover {
+  background-color: #ddd; /* Change background color on hover */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+

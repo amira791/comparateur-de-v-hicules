@@ -3,6 +3,7 @@
 require_once('../../controller/diapormaContoller.php');
 require_once('../../controller/menuController.php');
 require_once('../../controller/marqueController.php');
+require_once('../../controller/vehiculeController.php');
 class AccueilVue {
 
 
@@ -113,6 +114,25 @@ class AccueilVue {
         <?php
     }
     
+
+    private function show_list_type()
+{
+    $ctr = new vehiculeController();
+    $table = $ctr->get_typeVh();
+    ?>
+    <h2> Selectionner le type du vehicule </h2> 
+    <select>
+        <?php
+        foreach ($table as $row) {
+            $type = $row['type'];
+            echo "<option value='$type'>$type</option>";
+        }
+        ?>
+    </select>
+    <?php
+}
+
+    
    
     public function Head_Page ()
     {
@@ -129,6 +149,7 @@ class AccueilVue {
         $this->show_diaporma();
         $this->show_menu();
         $this->show_marque();
+        $this->show_list_type();
         echo '</body>';
     }
 
