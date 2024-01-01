@@ -125,3 +125,35 @@
 .menu-item:hover {
   text-decoration: underline;
 }
+
+/* Styling for the logos container */
+h1 {
+  font-size: 24px; /* Adjust the font size as needed */
+  font-weight: bold; /* Set the font weight to bold */
+  color: #333; /* Set the text color to a desired color */
+  text-align: center; /* Center-align the text */
+  margin-top: 20px; /* Adjust the top margin as needed */
+  margin-bottom: 20px; /* Adjust the bottom margin as needed */
+}
+.marque {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 20px; /* Adjust the margin as needed */
+}
+
+/* Styling for each row of logos */
+.logo-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%; /* Ensure each row takes the full width */
+  margin-bottom: 20px; /* Adjust the margin between rows as needed */
+}
+
+/* Styling for each logo image */
+.marque img {
+  width: 100px; /* Adjust the width of each logo image */
+  height: auto;
+  margin: 5px; /* Adjust the margin around each logo image as needed */
+}
+

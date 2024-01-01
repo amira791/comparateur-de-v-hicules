@@ -2,6 +2,7 @@
 
 require_once('../../controller/diapormaContoller.php');
 require_once('../../controller/menuController.php');
+require_once('../../controller/marqueController.php');
 class AccueilVue {
 
 
@@ -76,11 +77,43 @@ class AccueilVue {
         </div>
         <?php
     }
-   
- 
-    
-    
 
+    private function show_marque()
+    {
+        $ctr = new marqueController();
+        $table = $ctr->get_marque();
+        ?>
+        <h1> Les principales marques </h1> 
+        <div class="marque">
+        <?php
+        $images = array();
+    
+        foreach ($table as $row) {
+            $images[] = $row['logo']; 
+        }
+    
+        // Split the images into rows of 4
+        $rows = array_chunk($images, 4);
+    
+        // Loop through each row
+        foreach ($rows as $rowImages) {
+            echo '<div class="logo-row">';
+    
+            // Loop through each image in the row
+            foreach ($rowImages as $imgData) {
+                $base64Img = base64_encode($imgData);
+                $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+                echo '<img src="' . $imgSrc . '" alt="Image">';
+            }
+    
+            echo '</div>';
+        }
+        ?>
+        </div>
+        <?php
+    }
+    
+   
     public function Head_Page ()
     {
         echo '<head>';
@@ -95,6 +128,7 @@ class AccueilVue {
         $this->show_top_bar();
         $this->show_diaporma();
         $this->show_menu();
+        $this->show_marque();
         echo '</body>';
     }
 
