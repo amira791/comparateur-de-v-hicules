@@ -1,6 +1,7 @@
 <?php
 
 require_once('../../controller/diapormaContoller.php');
+require_once('../../controller/menuController.php');
 class AccueilVue {
 
 
@@ -24,7 +25,7 @@ class AccueilVue {
     {
         ?>
       <div class="topBar" id="top">
-             <img src="../../images/logo"   >
+             <img src="../../images/logo" id="logo"   >
              <button class="auth" id="connec"> Sign In </button>
              <button class="auth" id="ins"> Sign Up </button>       
       </div>
@@ -54,6 +55,29 @@ class AccueilVue {
         </div>
         <?php
     }
+
+    private function show_menu()
+    {
+        $ctr = new menuController();
+        $table = $ctr->get_menu();
+        ?>
+        <div class="menu">
+            <?php
+            $menu_items = array();
+    
+            foreach ($table as $row) {
+                $menu_items[] = $row['designation'];
+            }
+    
+            foreach ($menu_items as $item) {
+                echo '<div class="menu-item">' . htmlspecialchars($item) . '</div>';
+            }
+            ?>
+        </div>
+        <?php
+    }
+   
+ 
     
     
 
@@ -70,6 +94,7 @@ class AccueilVue {
         echo '<body>';
         $this->show_top_bar();
         $this->show_diaporma();
+        $this->show_menu();
         echo '</body>';
     }
 
