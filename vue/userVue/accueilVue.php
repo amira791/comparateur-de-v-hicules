@@ -1,9 +1,15 @@
 <?php
 
-require_once('../../controller/diapormaContoller.php');
-require_once('../../controller/menuController.php');
-require_once('../../controller/marqueController.php');
-require_once('../../controller/vehiculeController.php');
+require_once(__DIR__ . '/../../controller/diapormaContoller.php');
+require_once(__DIR__ . '/../../controller/menuController.php');
+require_once(__DIR__ . '/../../controller/marqueController.php');
+require_once(__DIR__ . '/../../controller/vehiculeController.php');
+
+
+
+
+
+
 class AccueilVue {
 
 
@@ -20,6 +26,14 @@ class AccueilVue {
        <link rel="stylesheet" type="text/css" href="../../styling/accueil.css">
        <?php
     }
+
+    }
+
+    private function define_library()
+    {
+        ?>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <?php
 
     }
 
@@ -113,24 +127,370 @@ class AccueilVue {
         </div>
         <?php
     }
+
+
     
 
     private function show_list_type()
-{
-    $ctr = new vehiculeController();
-    $table = $ctr->get_typeVh();
-    ?>
-    <h2> Selectionner le type du vehicule </h2> 
-    <select>
+    {
+        $ctr = new vehiculeController();
+        $table = $ctr->get_typeVh();
+        ?>
+        <h2>Selectionner le type du vehicule</h2>
+        <select id="typeSelector">
+        <option value="" selected>type</option> 
+            <?php
+            foreach ($table as $row) {
+                $id_type = $row['id_type'];
+                $type = $row['type'];
+                echo "<option value='$id_type'>$type</option>";
+            }
+            ?>
+        </select>
         <?php
-        foreach ($table as $row) {
-            $type = $row['type'];
-            echo "<option value='$type'>$type</option>";
+    }
+    
+    private function show_form1()
+{
+    ?>
+     <form action="" method="post"> 
+    <?php
+    $ctr = new marqueController();
+    $table_marque_type = $ctr->get_mrqType();
+    
+    ?>
+    <h4>Selectionner la marque </h4>
+    <select id="mrqSelector">
+    <option value="" selected>marque</option> 
+        <?php
+        foreach ($table_marque_type as $row) {
+            $id_mrq = $row['id_mrq'];
+            $id_typ = $row['id_typ'];
+            $mrq = $row['val_mrq'];
+            echo "<option data-type='$id_typ' value='$id_mrq'>$mrq</option>";
         }
         ?>
     </select>
+
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#mrqSelector").html();
+
+            // Listen for changes in the type selector
+            $("#typeSelector").change(function () {
+                // Get the selected type ID
+                var selectedType = $("#typeSelector").val();
+
+                // If a type is selected, filter the options
+                if (selectedType) {
+                    // Filter the options based on the selected type
+                    var filteredOptions = $(originalOptions).filter("[data-type='" + selectedType + "']");
+                    $("#mrqSelector").html(filteredOptions);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#mrqSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
     <?php
-}
+
+     $ctr = new vehiculeController();
+     $table_vehicule = $ctr->get_vehicule(); //this table contient tous les combinaisons possible mrq-modele-version-annee
+     ?>
+     <h4>Selectionner le modele </h4>
+    <select id="modSelector">
+    <option value="" selected> modele</option> 
+        <?php
+        foreach ($table_vehicule as $row) {
+            $id_mrq = $row['marque'];
+            $modele = $row['modele'];
+            echo "<option data-mrq='$id_mrq' value='$modele'>$modele</option>";
+        }
+        ?>
+    </select>
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#modSelector").html();
+
+            // Listen for changes in the type selector
+            $("#mrqSelector").change(function () {
+                // Get the selected type ID
+                var selectedmrq = $("#mrqSelector").val();
+
+                // If a type is selected, filter the options
+                if (selectedmrq) {
+                    // Filter the options based on the selected type
+                    var filteredOptions = $(originalOptions).filter("[data-mrq='" + selectedmrq + "']");
+                    $("#modSelector").html(filteredOptions);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#modSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+     <?php
+     $ctr = new vehiculeController();
+     $table_vehicule = $ctr->get_vehicule(); //this table contient tous les combinaisons possible mrq-modele-version-annee
+     ?>
+     <h4>Selectionner la version </h4>
+    <select id="verSelector">
+    <option value="" selected> version</option> 
+        <?php
+        foreach ($table_vehicule as $row) {
+            $modele = $row['modele'];
+            $marque = $row['marque'];
+            $version= $row['version'];
+            echo "<option data-mod='$modele' data-mrq='$marque' value='$version'>$version</option>";
+        }
+        ?>
+    </select>
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#verSelector").html();
+
+            // Listen for changes in the type selector
+            $("#modSelector").change(function () {
+                // Get the selected type ID
+                var selectedmod = $("#modSelector").val();
+                var selectedmrq = $("#mrqSelector").val();
+
+                // If a type is selected, filter the options
+                if (selectedmod && selectedmrq ) {
+                    // Filter the options based on the selected type
+                    var filteredOptions = $(originalOptions).filter("[data-mod='" + selectedmod + "'][data-mrq='" + selectedmrq + "']");
+                    $("#verSelector").html("<option value='' selected>version</option>");
+                    $("#verSelector").append(filteredOptions);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#verSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+     <?php
+     $ctr = new vehiculeController();
+     $table_vehicule = $ctr->get_vehicule(); //this table contient tous les combinaisons possible mrq-modele-version-annee
+     ?>
+     <h4>Selectionner l'annee  </h4>
+    <select id="anSelector">
+    <option value="" selected>l'annee</option> 
+        <?php
+        foreach ($table_vehicule as $row) {
+            $modele = $row['modele'];
+            $marque = $row['marque'];
+            $version= $row['version'];
+            $annee= $row['annee'];
+            echo "<option data-mod='$modele' data-mrq='$marque' data-ver='$version' value='$annee'>$annee</option>";
+        }
+        ?>
+    </select>
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#anSelector").html();
+
+            // Listen for changes in the type selector
+            $("#verSelector").change(function () {
+                // Get the selected type ID
+                var selectedmod = $("#modSelector").val();
+                var selectedmrq = $("#mrqSelector").val();
+                var selectedver = $("#verSelector").val();
+                
+
+                // If a type is selected, filter the options
+                if (selectedmod && selectedmrq && selectedver ) {
+                    // Filter the options based on the selected type
+                    var filteredOptionsAnnee = $(originalOptions).filter("[data-mod='" + selectedmod + "'][data-mrq='" + selectedmrq + "'][data-ver='" + selectedver + "']");
+                    $("#anSelector").html(filteredOptionsAnnee);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#anSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+   
+  </form>
+    <?php
+} 
+
+    
+private function show_form2()
+{
+    ?>
+     <form action="" method="post"> 
+    <?php
+    $ctr = new marqueController();
+    $table_marque_type = $ctr->get_mrqType();
+    
+    ?>
+    <h4>Selectionner la marque </h4>
+    <select id="mrqSelector">
+    <option value="" selected>marque</option> 
+        <?php
+        foreach ($table_marque_type as $row) {
+            $id_mrq = $row['id_mrq'];
+            $id_typ = $row['id_typ'];
+            $mrq = $row['val_mrq'];
+            echo "<option data-type='$id_typ' value='$id_mrq'>$mrq</option>";
+        }
+        ?>
+    </select>
+
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#mrqSelector").html();
+
+            // Listen for changes in the type selector
+            $("#typeSelector").change(function () {
+                // Get the selected type ID
+                var selectedType = $("#typeSelector").val();
+
+                // If a type is selected, filter the options
+                if (selectedType) {
+                    // Filter the options based on the selected type
+                    var filteredOptions = $(originalOptions).filter("[data-type='" + selectedType + "']");
+                    $("#mrqSelector").html(filteredOptions);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#mrqSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+    <?php
+
+     $ctr = new vehiculeController();
+     $table_vehicule = $ctr->get_vehicule(); //this table contient tous les combinaisons possible mrq-modele-version-annee
+     ?>
+     <h4>Selectionner le modele </h4>
+    <select id="modSelector">
+    <option value="" selected> modele</option> 
+        <?php
+        foreach ($table_vehicule as $row) {
+            $id_mrq = $row['marque'];
+            $modele = $row['modele'];
+            echo "<option data-mrq='$id_mrq' value='$modele'>$modele</option>";
+        }
+        ?>
+    </select>
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#modSelector").html();
+
+            // Listen for changes in the type selector
+            $("#mrqSelector").change(function () {
+                // Get the selected type ID
+                var selectedmrq = $("#mrqSelector").val();
+
+                // If a type is selected, filter the options
+                if (selectedmrq) {
+                    // Filter the options based on the selected type
+                    var filteredOptions = $(originalOptions).filter("[data-mrq='" + selectedmrq + "']");
+                    $("#modSelector").html(filteredOptions);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#modSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+     <?php
+     $ctr = new vehiculeController();
+     $table_vehicule = $ctr->get_vehicule(); //this table contient tous les combinaisons possible mrq-modele-version-annee
+     ?>
+     <h4>Selectionner la version </h4>
+    <select id="verSelector">
+    <option value="" selected> version</option> 
+        <?php
+        foreach ($table_vehicule as $row) {
+            $modele = $row['modele'];
+            $marque = $row['marque'];
+            $version= $row['version'];
+            echo "<option data-mod='$modele' data-mrq='$marque' value='$version'>$version</option>";
+        }
+        ?>
+    </select>
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#verSelector").html();
+
+            // Listen for changes in the type selector
+            $("#modSelector").change(function () {
+                // Get the selected type ID
+                var selectedmod = $("#modSelector").val();
+                var selectedmrq = $("#mrqSelector").val();
+
+                // If a type is selected, filter the options
+                if (selectedmod && selectedmrq ) {
+                    // Filter the options based on the selected type
+                    var filteredOptions = $(originalOptions).filter("[data-mod='" + selectedmod + "'][data-mrq='" + selectedmrq + "']");
+                    $("#verSelector").html("<option value='' selected>version</option>");
+                    $("#verSelector").append(filteredOptions);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#verSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+     <?php
+     $ctr = new vehiculeController();
+     $table_vehicule = $ctr->get_vehicule(); //this table contient tous les combinaisons possible mrq-modele-version-annee
+     ?>
+     <h4>Selectionner l'annee  </h4>
+    <select id="anSelector">
+    <option value="" selected>l'annee</option> 
+        <?php
+        foreach ($table_vehicule as $row) {
+            $modele = $row['modele'];
+            $marque = $row['marque'];
+            $version= $row['version'];
+            $annee= $row['annee'];
+            echo "<option data-mod='$modele' data-mrq='$marque' data-ver='$version' value='$annee'>$annee</option>";
+        }
+        ?>
+    </select>
+    <script>
+        $(document).ready(function () {
+            // Store the original options for reference
+            var originalOptions = $("#anSelector").html();
+
+            // Listen for changes in the type selector
+            $("#verSelector").change(function () {
+                // Get the selected type ID
+                var selectedmod = $("#modSelector").val();
+                var selectedmrq = $("#mrqSelector").val();
+                var selectedver = $("#verSelector").val();
+                
+
+                // If a type is selected, filter the options
+                if (selectedmod && selectedmrq && selectedver ) {
+                    // Filter the options based on the selected type
+                    var filteredOptionsAnnee = $(originalOptions).filter("[data-mod='" + selectedmod + "'][data-mrq='" + selectedmrq + "'][data-ver='" + selectedver + "']");
+                    $("#anSelector").html(filteredOptionsAnnee);
+                } else {
+                    // If no type is selected, reset to the original options
+                    $("#anSelector").html(originalOptions);
+                }
+            });
+        });
+    </script>
+   
+  </form>
+    <?php
+}  
+
+    
+    
 
     
    
@@ -138,6 +498,7 @@ class AccueilVue {
     {
         echo '<head>';
         $this-> show_title_page();
+        $this-> define_library();
         $this-> show_styling();
         echo '</head>';
     }
@@ -150,6 +511,21 @@ class AccueilVue {
         $this->show_menu();
         $this->show_marque();
         $this->show_list_type();
+        // First line of forms
+        '<div class="form-container1">';
+        $this->show_form1();
+        echo '<div class="form-space"></div>';
+        $this->show_form1();
+        echo '</div>';
+
+        // Second line of forms
+        echo '<div class="form-container2">';
+        $this->show_form1();
+        echo '<div class="form-space"></div>';
+        $this->show_form1();
+        echo '</div>';
+ 
+        
         echo '</body>';
     }
 

@@ -53,6 +53,24 @@ class vehiculeModel {
     }
     return $type;
    }
+  
+   // get vehicule table 
+   public function get_vehicule_table()
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM vehicule"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $veh = array();
+    while ($row = $res->fetch_assoc()) {
+        $veh[] = $row;
+    }
+    return  $veh;
+
+
+   }
 
 
 

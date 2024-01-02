@@ -11,10 +11,17 @@ class vehiculeController {
     //Utilisation du model pour recuperer le tableau
     public function get_typeVh ()
     {
-        $diap_model = new vehiculeModel();
-        $res = $diap_model->get_typeVh_table();
+        $typeVh = new vehiculeModel();
+        $res = $typeVh->get_typeVh_table();
         return $res;
     }
+
+   public function get_vehicule ()
+   {
+        $vh_model = new vehiculeModel();
+        $res = $vh_model->get_vehicule_table();
+        return $res;
+   }
 
    public function show_website()
    {

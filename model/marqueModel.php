@@ -7,6 +7,9 @@ class marqueModel {
     private $password = "";
     private $database = "tdw";
 
+
+    
+
     
     // Connection avec la base de donnes
     private function connect($servername, $username, $password, $database) {
@@ -53,6 +56,47 @@ class marqueModel {
     }
     return $marq;
    }
+
+// get marques a partir le type 
+public function get_marq_typ_table( $idType)
+{
+
+        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+        // Use a prepared statement to prevent SQL injection
+        $query = "SELECT * FROM marque_typevh WHERE id_typ = ?";
+        $res = $this->requete($conn, $query);
+        $this->deconnect($conn);
+
+        $marques = array();
+        while ($row = $res->fetch_assoc()) {
+            $marques[] = $row;
+        }
+
+      return $marques ; 
+    
+}
+
+
+// get table marque 
+public function get_mrqType_table ()
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM marque_typevh"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $marq_typ = array();
+    while ($row = $res->fetch_assoc()) {
+        $marq_typ[] = $row;
+    }
+    return  $marq_typ;
+
+}
+
+
+   
 
 
 
