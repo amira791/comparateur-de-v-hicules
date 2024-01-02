@@ -29,6 +29,13 @@ class marqueController {
         $res = $mrq_model->get_mrqType_table();
         return $res;
    }
+
+   public function get_details ($id)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->get_mrq_details ($id);
+        return $res;
+   }
     
 
    public function show_website()

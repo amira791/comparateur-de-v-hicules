@@ -1,16 +1,14 @@
 <?php
-require_once('../../vue/userVue/marqueVue.php');
+require_once('marqueVue.php');
 
 $vue = new marqueVue();
 $vue->show_website();
 
-$router = new marqueRouter();
+
 
 if (isset($_GET['id_mrq'])) {
     // Get the id_mrq value from the URL
     $id_mrq = $_GET['id_mrq'];
-    $id = $id_mrq;
-    $router->show_details($id);
 
     // Now you can use $id_mrq as needed, for example, display it
     echo '<h1>Selected Marque ID: ' . htmlspecialchars($id_mrq) . '</h1>';
@@ -20,11 +18,4 @@ if (isset($_GET['id_mrq'])) {
 }
 
 
-class marqueRouter 
-{
-    public function show_details($id) {
-        $marqueVue = new marqueVue();
-        $marqueVue->show_details_marque($id);
-    }
-}
 ?>

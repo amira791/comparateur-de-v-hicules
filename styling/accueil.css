@@ -228,3 +228,11 @@ input[type="submit"]:hover {
 .form-space {
   width: 20px; 
 }
+
+
+
+
+#hiddenSelect,
+  #filteredSelect {
+    display: none; /* or visibility: hidden; */
+  }

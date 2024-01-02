@@ -1,0 +1,128 @@
+/*********************************** Styling TopBar **********************/
+/* Styling for the top bar background */
+/* Styling for the background container */
+.background-container {
+    position: relative;
+}
+
+/* Styling for the background rectangle */
+.background-rectangle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    z-index: -1; /* Place it behind other elements */
+}
+
+/* Styling for the logo */
+#logo {
+    position: fixed;
+    left: 0;
+    top: 10px;
+    padding: 10px;
+    height: 80px;
+    width: 200px;
+}
+
+/* Styling for the connection and registration buttons */
+ .auth {
+    position: fixed;
+    top: 30px;
+    background: linear-gradient(to bottom right, #b6a404, #FF9A5A);
+    border: 10px;
+    border-radius: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+}
+ .auth:not([disabled]):focus,
+.auth:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+/* Adjust the position of the connection and registration buttons */
+#connec {
+    right: 20px;
+}
+
+#ins {
+    right: 110px;
+}
+
+
+    
+    /********************************* Styling Menu **********************************/
+    /* Styling Menu */
+.menu {
+    display: flex;
+    background-color: #333;
+    padding: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 120px; /* Adjusted margin to create space between diap and menu */
+  }
+  
+  .menu-item {
+    margin: 0 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+
+  /******************************** Styling les logos des marques ********************/
+  h1 {
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold; /* Set the font weight to bold */
+    color: #333; /* Set the text color to a desired color */
+    text-align: center; /* Center-align the text */
+    margin-top: 20px; /* Adjust the top margin as needed */
+    margin-bottom: 20px; /* Adjust the bottom margin as needed */
+  }
+  .marque {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px; /* Adjust the margin as needed */
+  }
+  
+  /* Styling for each row of logos */
+  .logo-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%; /* Ensure each row takes the full width */
+    margin-bottom: 20px; /* Adjust the margin between rows as needed */
+  }
+  
+  /* Styling for each logo image */
+  .marque img {
+    width: 100px; /* Adjust the width of each logo image */
+    height: auto;
+    margin: 5px; /* Adjust the margin around each logo image as needed */
+  }
+  
+  
+  
+  
+  h2 {
+    color: #333; /* Set text color */
+  }
+  

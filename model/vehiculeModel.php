@@ -72,6 +72,42 @@ class vehiculeModel {
 
    }
 
+   // get carac table 
+   public function get_carac_table()
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM caracteristique"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $carac = array();
+    while ($row = $res->fetch_assoc()) {
+        $carac[] = $row;
+    }
+    return  $carac;
+
+
+   }
+
+   // get carac_vh table 
+   public function get_caracvh_table()
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM vehicule_carac"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $carvh = array();
+    while ($row = $res->fetch_assoc()) {
+        $carvh[] = $row;
+    }
+    return  $carvh;
+
+
+   }
+
 
 
 

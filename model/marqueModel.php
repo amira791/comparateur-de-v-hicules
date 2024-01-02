@@ -95,6 +95,23 @@ public function get_mrqType_table ()
 
 }
 
+// get  marque details 
+public function get_mrq_details ($id)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM marque WHERE id_mrq = $id"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $marq = array();
+    while ($row = $res->fetch_assoc()) {
+        $marq[] = $row;
+    }
+    return  $marq;
+
+}
+
 
    
 

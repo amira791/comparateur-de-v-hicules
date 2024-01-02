@@ -23,6 +23,21 @@ class vehiculeController {
         return $res;
    }
 
+   public function get_caracvh ()
+   {
+        $caracvh_model = new vehiculeModel();
+        $res = $caracvh_model-> get_caracvh_table();
+        return $res;
+   }
+
+   public function get_carac ()
+   {
+        $caracvh_model = new vehiculeModel();
+        $res = $caracvh_model->get_carac_table();
+        return $res;
+   }
+
+
    public function show_website()
    {
     $vue = new accueilVue();
