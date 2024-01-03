@@ -43,7 +43,12 @@ class vehiculeController {
         $res = $prinvh_model-> get_prinvh_table($ids);
         return $res;
    }
-
+   public function get_vhById ($id_vhc)
+   {
+        $vh_model = new vehiculeModel();
+        $res = $vh_model-> get_veh_byId($id_vhc);
+        return $res;
+   }
 
    public function show_website()
    {

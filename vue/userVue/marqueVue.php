@@ -174,24 +174,85 @@ class marqueVue {
     ?>
 </select>
 <?php
-    $prinVh =  $ctr2->get_prinvh_v ($ids);
-    
+  //  $prinVh =  $ctr2->get_prinvh_v ($ids);
+
     ?>
-<h2>Principales marques</h2>
-<select id="p">
+<h2>Principales marques test</h2>
+<select id="pr">
     <option value="" selected>vehicule</option> 
     <?php
-    foreach ($prinVh as $row) {
+    foreach ($ids as $row) {
        
-            $modele = $row['modele'];
-            $version = $row['version'];
-            $annee = $row['annee'];
-            echo "<option value='$id'>$modele $version $annee</option>";
+            $idp = $row['veh_p'];
+            echo "<option value='$idp'> $idp</option>";
     }
     ?>
 </select>
         <?php
+    
+    ?>
+<h2>Principales vehicules</h2>
+<select id="p">
+    <option value="" selected>vehicule</option> 
+    <?php
+    foreach ($ids as $row) {
+            $idp = $row['veh_p'];
+            $prinVh =  $ctr2->get_vhById($idp);
+            foreach ($prinVh as $vh) {
+       
+                $modele = $vh['modele'];
+                $version = $vh['version'];
+                $annee = $vh['annee'];
+                echo "<option value='$id'>$modele $version $annee</option>";
+            }
     }
+    ?>
+</select>
+        <?php
+
+?>
+<h1><h2>Principales vehicules 22 </h2>
+ </h1>
+<div class="prinVh">
+    <?php
+    $images = array();
+    foreach ($ids as $row) {
+        $idp = $row['veh_p'];
+        $prinVh =  $ctr2->get_vhById($idp);
+        foreach ($prinVh as $vh) {
+            $images[] = array('image' => $vh['image'], 'modele' => $vh['modele'], 'version' => $vh['version'], 'annee' => $vh['annee'] , 'Id_veh' => $vh['Id_veh']);
+        }
+    }
+
+
+    $rows = array_chunk($images, 2 );
+
+foreach ($rows as $rowImages) {
+echo '<div class="logo-row">';
+
+// Loop through each image in the row
+foreach ($rowImages as $vehData) {
+    $base64Img = base64_encode($vehData['image']);
+    $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+
+    echo '<div class="brand-container">';
+    
+    // Create a link with the correct id_mrq in the URL
+    echo '<a href="../../router/userRouter/vehiculeRouter.php?id_veh=' . $vehData['Id_veh'] . '">';
+    echo '<img src="' . $imgSrc . '" alt="Image">';
+    echo '</a>';
+    
+    echo '<div class="brand-name">' . htmlspecialchars($vehData['modele']) . '</div>';
+    echo '<div class="brand-name">' . htmlspecialchars($vehData['version']) . '</div>';
+    echo '<div class="brand-name">' . htmlspecialchars($vehData['annee']) . '</div>';
+    echo '</div>';
+}
+
+
+echo '</div>';
+}
+    }
+
 
 
         
