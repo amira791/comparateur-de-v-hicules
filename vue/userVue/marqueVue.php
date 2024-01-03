@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../../controller/diapormaContoller.php');
 require_once(__DIR__ . '/../../controller/menuController.php');
 require_once(__DIR__ . '/../../controller/marqueController.php');
 require_once(__DIR__ . '/../../controller/vehiculeController.php');
+require_once(__DIR__ . '/../../controller/aviController.php');
 
 
 class marqueVue {
@@ -251,7 +252,28 @@ foreach ($rowImages as $vehData) {
 
 echo '</div>';
 }
-    }
+$ctr3 = new aviController();
+$avi3 = $ctr3->get_trois_avi_mrq($id);
+?>
+<h2> Les avis </h2>
+<?php
+foreach ($avi3 as $avis) {
+    // Assuming $avis contains the necessary fields
+    $userName = $avis['username'];
+    $reviewContent = $avis['contenu_mrq'];
+    $appreciationCount = $avis['nb_appreciation_mrq'];
+?>
+<div class="avis">
+<div class="user-icon">
+    <img src="../../images/userIcon.jpg" >
+    </div>
+    <div class="user-name"><?php echo $userName; ?></div>
+    <div class="review-content"><?php echo $reviewContent; ?></div>
+    <div class="appreciation-count">Appréciation : <?php echo $appreciationCount; ?></div>
+    <button class="appreciation-button" onclick="addAppreciation(<?php echo $avis['id_avi_mrq']; ?>)">Ajouter Appréciation</button>
+</div>
+<?php
+    } }
 
 
 
