@@ -108,6 +108,34 @@ class vehiculeModel {
 
    }
 
+// get principales vehicules
+public function get_prinvh_table($ids)
+{
+    // Check if the $ids array is not empty
+    if (empty($ids)) {
+        return array(); // Return an empty array if no IDs are provided
+    }
+
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+    // Create a comma-separated list of IDs for the SQL query
+    $idList = implode(',', array_map('intval', $ids));
+
+    $query = "SELECT * FROM vehicule WHERE Id_veh IN ($idList)";
+   
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $carvh = array();
+    while ($row = $res->fetch_assoc()) {
+        $carvh[] = $row;
+    }
+    return  $carvh;
+}
+
+
+
+
 
 
 

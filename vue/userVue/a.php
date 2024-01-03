@@ -142,3 +142,52 @@ send(function (error, response) {
 }
 
 ?>
+
+
+
+
+
+
+
+
+<h1> Les principales vehicules </h1>
+        <div class="vhicule">
+            <?php
+            $images = array();
+    
+            foreach ($prinVh as $row) {
+                $images[] = array('image' => $row['image'], 'modele' => $row['modele'],'version' => $row['version'], 'annee' => $row['annee'], 'Id_veh' => $row['Id_veh']);
+            }
+            
+    
+            // Split the images into rows of 4
+            $rows = array_chunk($images, 2);
+    
+            // Loop through each row
+    // Loop through each row
+    foreach ($rows as $rowImages) {
+        echo '<div class="img-row">';
+
+        // Loop through each image in the row
+        foreach ($rowImages as $brandData) {
+            $base64Img = base64_encode($brandData['image']);
+            $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+        
+            echo '<div class="brand-container">';
+            
+            // Create a link with the correct id_mrq in the URL
+            echo '<a href="../../router/userRouter/vehiculeRouter.php?id_vh=' . $brandData['id_vh'] . '">';
+            echo '<img src="' . $imgSrc . '" alt="Image">';
+            echo '</a>';
+            
+            echo '<div class="brand-name">' . htmlspecialchars($brandData['modele']) . '</div>';
+            echo '<div class="brand-name">' . htmlspecialchars($brandData['version']) . '</div>';
+            echo '<div class="brand-name">' . htmlspecialchars($brandData['annee']) . '</div>';
+            echo '</div>';
+        }
+        
+
+        echo '</div>';
+    }
+    ?>
+</div>

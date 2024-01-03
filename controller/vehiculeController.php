@@ -37,6 +37,13 @@ class vehiculeController {
         return $res;
    }
 
+   public function get_prinvh_v ($ids)
+   {
+        $prinvh_model = new vehiculeModel();
+        $res = $prinvh_model-> get_prinvh_table($ids);
+        return $res;
+   }
+
 
    public function show_website()
    {

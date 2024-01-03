@@ -115,14 +115,18 @@ class marqueVue {
     }
 
 
-  
+  //  $prinVh =  $ctr2->get_prinvh_v ($ids);
     
 
     public function show_details_marque ($id)
     {
         echo "Details for Marque with ID: $id";
         $ctr = new marqueController();
+        $ctr2 = new vehiculeController();
         $marqueDetails = $ctr->get_details($id);
+        $ids = $ctr->get_princVh ($id);
+       
+        $allVh =  $ctr->get_allVh ($id);
 
 
 
@@ -153,10 +157,48 @@ class marqueVue {
             <h1>No details found for Marque <?php echo htmlspecialchars($marqueId); ?></h1>
             <?php
         }
-
-
+        
+        ?>
+       
+<h2>Liste de tous les vehicules</h2>
+<select id="vhSelector">
+    <option value="" selected>vehicule</option> 
+    <?php
+    foreach ($allVh as $row) {
+       
+        $modele = $row['modele'];
+        $version = $row['version'];
+        $annee = $row['annee'];
+        echo "<option value='$id'>$modele $version $annee</option>";
     }
+    ?>
+</select>
+<?php
+    $prinVh =  $ctr2->get_prinvh_v ($ids);
     
+    ?>
+<h2>Principales marques</h2>
+<select id="p">
+    <option value="" selected>vehicule</option> 
+    <?php
+    foreach ($prinVh as $row) {
+       
+            $modele = $row['modele'];
+            $version = $row['version'];
+            $annee = $row['annee'];
+            echo "<option value='$id'>$modele $version $annee</option>";
+    }
+    ?>
+</select>
+        <?php
+    }
+
+
+        
+
+    
+    
+
     public function Head_Page ()
     {
         echo '<head>';

@@ -113,6 +113,42 @@ public function get_mrq_details ($id)
 }
 
 
+// get les vehicule principales pour une marques 
+public function get_princp_veh ($id)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM principalvehicules WHERE marq = $id"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $prin = array();
+    while ($row = $res->fetch_assoc()) {
+        $prin[] = $row;
+    }
+    return  $prin;
+ 
+}
+
+      // get all veh a partir une marque  
+      public function get_all_vh($id)
+      {
+       $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+       $query = "SELECT * FROM vehicule  WHERE marque = $id"; 
+   
+       $res = $this->requete($conn, $query);
+       $this->deconnect($conn);
+   
+       $vehs = array();
+       while ($row = $res->fetch_assoc()) {
+        $vehs[] = $row;
+       }
+       return  $vehs;
+   
+   
+      }
+
+
    
 
 

@@ -36,6 +36,20 @@ class marqueController {
         $res = $mrq_model->get_mrq_details ($id);
         return $res;
    }
+
+   public function get_princVh ($id)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->get_princp_veh ($id);
+        return $res;
+   }
+
+   public function get_allVh ($id)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->get_all_vh($id);
+        return $res;
+   }
     
 
    public function show_website()
