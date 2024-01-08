@@ -7,10 +7,16 @@ require_once(__DIR__ . '/../../controller/vehiculeController.php');
 
 
 
+if (isset($_GET['tableData'])) {
+    $tableData = urldecode($_GET['tableData']);
+    echo $tableData; 
+} else {
+    
+    echo "Table data not available.";
+}
 
 
-
-class AccueilVue {
+class comparateurVue {
 
 
     private function show_title_page()
@@ -23,7 +29,7 @@ class AccueilVue {
     private function show_styling() {
     {
        ?>
-       <link rel="stylesheet" type="text/css" href="../../styling/accueil.css">
+       <link rel="stylesheet" type="text/css" href="../../styling/comparateur.css">
        <?php
     }
 
@@ -49,28 +55,6 @@ class AccueilVue {
         
     }
 
-    private function show_diaporma()
-    {
-        $ctr = new diapormaController();
-        $table = $ctr->get_diaporma();
-        ?>
-        <div class="diap">
-        <?php
-        $images = array();
-    
-        foreach ($table as $row) {
-            $images[] = $row['image_diap']; 
-        }
-    
-        foreach ($images as $imgData) {
-            $base64Img = base64_encode($imgData);
-            $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
-            echo '<img src="' . $imgSrc . '" alt="Image">';
-        }
-        ?>
-        </div>
-        <?php
-    }
 
     private function show_menu()
     {
@@ -844,19 +828,28 @@ private function show_form4()
   // Methodes pour construre le tableau comparatif a partir les donnes selctionnes dans les inputs 
 
 
+  private function show_carac()
+  {
+    $ctr = new vehiculeController();
+    $table_carac =  $ctr->get_carac();
+    foreach ($table_carac as $row) {
+        $id_type = $row['id_carac'];
+        $type = $row['nom_carac'];
+       
+    }
 
+  }
   private function show_button_comparer()
   {
       $ctr = new vehiculeController();
-      $table_vehicule = $ctr->get_vehicule(); // to get id veh + prix + image
+      $table_vehicule = $ctr->get_vehicule(); // to get id veh + image
       $table_caracvh = $ctr->get_caracvh(); // to get tous les id carac tech a partir id veh
       $table_carac =  $ctr->get_carac(); // to get tous les cara a partir le id
       ?>
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script>
-          $(document).ready(function () {
+     $(document).ready(function () {
               var images = [];
-  
               function filterAndStoreImages(object) {
                   var hiddenSelect = $("#hiddenSelect");
   
@@ -898,71 +891,74 @@ private function show_form4()
                   });
   
                   console.log("Final Images Array:", images);
+          } 
+  
+            function handleButtonClick() {
+                for (var i = 1; i <= 4; i++) {
+                    var object = {
+                        selectedMrq: $("#mrqSelector" + i).val(),
+                        selectedMod: $("#modSelector" + i).val(),
+                        selectedVer: $("#verSelector" + i).val(),
+                        selectedAn: $("#anSelector" + i).val()
+                    };
+                    filterAndStoreImages(object, i);
+                    console.log(object); }
+                
+
+                    console.log("Final Images Array:", images);
+                     createComparisonTable();
+  
               }
   
-              function handleButtonClick() {
-                var object1 = {
-        selectedMrq: $("#mrqSelector1").val(),
-        selectedMod: $("#modSelector1").val(),
-        selectedVer: $("#verSelector1").val(),
-        selectedAn: $("#anSelector1").val()
-    };
-    filterAndStoreImages(object1);
-    console.log(object1);
+         
+              function createComparisonTable() {
+    $("#comparisonTable").empty();
 
-    var object2 = {
-        selectedMrq: $("#mrqSelector2").val(),
-        selectedMod: $("#modSelector2").val(),
-        selectedVer: $("#verSelector2").val(),
-        selectedAn: $("#anSelector2").val()
-    };
-    filterAndStoreImages(object2);
-    console.log(object2);
+    var headerRow = "<tr><th>Features</th>";
+    for (var i = 1; i <= 4; i++) {
+        var vehicleDetails = $("#hiddenSelect" + i + " option:selected").data();
+        headerRow += "<th>" + vehicleDetails.data-mrq + " " + vehicleDetails.data-mod + " " + vehicleDetails.data-ver + " " + vehicleDetails.data-an + "</th>";
+    }
+    headerRow += "</tr>";
+    $("#comparisonTable").append(headerRow);
 
-    var object3 = {
-        selectedMrq: $("#mrqSelector3").val(),
-        selectedMod: $("#modSelector3").val(),
-        selectedVer: $("#verSelector3").val(),
-        selectedAn: $("#anSelector3").val()
-    };
-    filterAndStoreImages(object3);
-    console.log(object3);
+    var features = ["Feature 1", "Feature 2", "Feature 3", "Feature 4"];
+    for (var j = 0; j < features.length; j++) {
+        var tableRow = "<tr><td>" + features[j] + "</td>";
+        for (var k = 1; k <= 4; k++) {
+            tableRow += "<td><img src='" + images[k] + "' alt='Image " + k + "'></td>";
+        }
+        tableRow += "</tr>";
+        $("#comparisonTable").append(tableRow);
+    }
+}
+$("#myButton").on("click", handleButtonClick);  });
 
-    var object4 = {
-        selectedMrq: $("#mrqSelector4").val(),
-        selectedMod: $("#modSelector4").val(),
-        selectedVer: $("#verSelector4").val(),
-        selectedAn: $("#anSelector4").val()
-    };
-    filterAndStoreImages(object4);
-    console.log(object4);
-
-    console.log("Final Images Array:", images);
-              }
-  
-              // Your existing code for handleButtonClick function
-  
-              // Your existing HTML button
-              $("#myButton").on("click", handleButtonClick);
-          });
       </script>
   
       <!-- Add your HTML structure for selectors and hiddenSelect here -->
       <select id="hiddenSelect"></select>
       <select id="filteredSelect"></select>
       <button id="myButton">Comparer</button>
-      <!-- Add your other HTML elements here -->
+      <table id="comparisonTable" style="border: 1px solid black;"></table>
+    
       
       <?php
   }
   
+
+
+
+
+
+
   private function show_comparaison_table()
   {
       ?>
       <select id="hiddenSelect"></select>   <!-- hidden to store all vehicules-->
       <select id="filteredSelect"></select> <!-- hidden to store filtered vehicules-->
       <button id="myButton">Comparer</button>
-      <table id="comparisonTable" style="display: none;"></table>
+      <table id="comparisonTable" ></table>
       <?php
   
       $ctr = new vehiculeController();
@@ -1094,22 +1090,53 @@ private function show_form4()
     tableRow += "</tr>";
     $("#comparisonTable").append(tableRow);
 }
-return $("#comparisonTable").html();
+
 
               }
   
               // Call the function when the button is clicked
               $("#myButton").on("click", function () {
-                var generatedTableHTML = create_table();
-               var encodedTableData = encodeURIComponent(generatedTableHTML);
-               window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/comparateurRouter.php?tableData=' + encodedTableData;
-              
+                  create_table();
               });
           });
       </script>
       <?php
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1132,7 +1159,6 @@ return $("#comparisonTable").html();
     {
         echo '<body>';
         $this->show_top_bar();
-        $this->show_diaporma();
         $this->show_menu();
         $this->show_marque();
         $this->show_list_type();
