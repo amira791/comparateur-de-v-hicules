@@ -1,7 +1,7 @@
 <?php
-require_once('../../vue/userVue/gestionVehiculeVue.php');
+require_once('../../vue/adminVue/gestionVehiculeVue.php');
 
-$vue = new vehiculeVue();
+$vue = new gestionVehiculeVue();
 $vue->show_website();
 
 

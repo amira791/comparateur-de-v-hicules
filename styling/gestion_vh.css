@@ -1,0 +1,87 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+/******************* Styling the Top Bar **************************/
+#logo {
+    position: fixed;
+    left: 0;
+    top: 10px;
+    padding: 10px;
+    height: 80px;
+    width: 200px;
+    z-index: 2; /* Increase the z-index value */
+}
+
+.top-bar {
+    background-color: #333;
+    height: 110px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+/************************* Styling tables **************************/
+/* Style for marque container */
+
+.marque-container {
+    top: 150px;
+    margin-bottom: 20px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+    width: 900px;
+}
+
+/* Style for marque name */
+.marque-container h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #333; 
+    text-align: center; 
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+
+/* Style for the table */
+.marque-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.marque-container:first-of-type {
+    margin-top: 200px; /* Adjust the space as needed */
+}
+
+/* Style for table headers */
+.marque-container th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Style for table cells */
+.marque-container td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+/* Style for table image */
+.marque-container img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+}
