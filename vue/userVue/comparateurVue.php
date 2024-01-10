@@ -7,13 +7,7 @@ require_once(__DIR__ . '/../../controller/vehiculeController.php');
 
 
 
-if (isset($_GET['tableData'])) {
-    $tableData = urldecode($_GET['tableData']);
-    echo $tableData; 
-} else {
-    
-    echo "Table data not available.";
-}
+
 
 
 class comparateurVue {

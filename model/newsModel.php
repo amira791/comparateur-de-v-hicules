@@ -42,7 +42,7 @@ class newsModel {
     public function get_news_table()
    {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "SELECT * FROM news"; 
+    $query = "SELECT * FROM news WHERE type = 'news'"; 
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
