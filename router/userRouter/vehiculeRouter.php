@@ -1,20 +1,30 @@
 <?php
-require_once('../../vue/userVue/marqueVue.php');
+require_once('../../vue/userVue/vehiculeVue.php');
 
-$vue = new marqueVue();
+$vue = new vehiculeVue();
 $vue->show_website();
 
+$router = new vehiculeRouter();
 
 
 if (isset($_GET['id_veh'])) {
-    // Get the id_mrq value from the URL
+   
     $id_vh = $_GET['id_veh'];
+    $router->show_details_vehicule($id_vh);
 
     
     echo '<h1>Selected Marque ID: ' . htmlspecialchars($id_vh) . '</h1>';
 } else {
-    // Handle the case when id_mrq is not present in the URL
+    
     echo '<h1>No Marque ID specified</h1>';
+}
+
+class vehiculeRouter 
+{
+    public function show_details_vehicule($id_vh) {
+        $vehiculeVue = new vehiculeVue();
+        $vehiculeVue->show_details_vh($id_vh);
+    }
 }
 
 

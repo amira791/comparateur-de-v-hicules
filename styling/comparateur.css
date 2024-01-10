@@ -242,3 +242,56 @@
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
+
+
+
+#myButton {
+  
+  top: 700px;
+  
+  background: linear-gradient(to bottom right, #b6a404, #FF9A5A);
+  border: 10px;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+
+}
+/******************************* Style Table ****************************************************/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+thead {
+  background-color: #c6db3b;
+  color: #fff;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #d4edf7;
+}

@@ -53,7 +53,24 @@ class newsModel {
     }
     return $new;
    }
+    
 
+
+   //get news pay id 
+   public function get_news_byId($id)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM news WHERE id_news = '$id'"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $news = array();
+    while ($row = $res->fetch_assoc()) {
+        $news[] = $row;
+    }
+    return $news;
+   }
 
 
 

@@ -114,7 +114,7 @@ class newsVue {
             $content = $row['contenu'];
             $date_pub = $row['date_publication'];
             
-            // Assuming your image column is named 'image_pr' and is a long blob
+           
             $imageBlob = $row['image_pr'];
             $imgSrc = 'data:image/png;base64,' . base64_encode($imageBlob);
 
@@ -125,7 +125,7 @@ class newsVue {
             echo '<p>' . $shortContent . '...</p>';
             echo '<img src="' . $imgSrc . '" alt="Image">';
             echo '<p>Date de publication: ' . $date_pub . '</p>';
-            echo '<a href="news_details.php?id=' . $id . '">Plus de détails</a>';
+            echo '<a href="../../router/userRouter/newsDetailsRouter.php?id=' . $id . '">Plus de détails</a>';
             echo '</div>';
         }
 

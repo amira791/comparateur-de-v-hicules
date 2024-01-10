@@ -10,9 +10,8 @@ if (isset($_GET['username'])) {
     $router->is_connected($username);
 
 } else {
-    $router->is_connected("NoUser");
-
- 
+    $username = "NoUser";
+    $router->is_connected($username);
 }
 $vue = new accueilVue();
 $vue->show_website();

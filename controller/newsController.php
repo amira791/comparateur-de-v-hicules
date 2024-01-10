@@ -16,6 +16,13 @@ class newsController {
         return $res;
     }
 
+    public function get_news_Id ($id)
+    {
+        $news_model = new newsModel();
+        $res = $news_model->get_news_byId($id);
+        return $res;
+    }
+
    public function show_website()
    {
     $vue = new newsVue();
