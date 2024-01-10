@@ -1,0 +1,310 @@
+/* Styling for the logo */
+
+
+.topBar {
+    background-color: black;
+    color: #FFFFFF;
+  }
+  
+   #logo {
+      position: fixed;
+      left: 0;
+      top: 10px;
+      padding: 10px;
+      height: 80px;
+      width: 200px;
+  
+    }
+    
+    /* Styling for the connection and registration buttons */
+    .topBar .auth {
+      position: fixed;
+      top: 30px;
+      background: linear-gradient(to bottom right, #b6a404, #FF9A5A);
+      border: 10px;
+      border-radius: 12px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 2.5;
+      outline: transparent;
+      padding: 0 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: box-shadow .2s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+  
+    }
+    
+    .topBar .auth:not([disabled]):focus,
+    .topBar .auth:not([disabled]):hover {
+      box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    }
+    
+    /* Adjust the position of the connection and registration buttons */
+    #connec {
+      z-index: 1;
+      right: 20px;
+    }
+    
+    #ins {
+      z-index: 2;
+      right: 150px;
+    }
+  
+    #admin
+    {
+      z-index: 2;
+      right: 280px;
+    }
+  
+    #username {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 18px; /* Adjust the font size as needed */
+      color: #ffffff;
+      margin-left: 20px;
+      margin-right: 20px; /* Adjust the right margin for more space */
+  }
+  
+  #username img {
+      width: 40px; /* Adjust the width as needed */
+      height: 40px; /* Adjust the height as needed */
+      border-radius: 50%; /* Create a circular shape for the avatar */
+      margin-right: 10px;
+  }
+  
+    /* Styling for the logo and top bar (if needed) */
+  
+  /* Styling Diaporma */
+  
+  
+  .diap {
+    margin-top: 100px;
+    position: relative;
+    padding: 40px;
+    margin-left: 0px;
+    margin-right: 100px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .diap img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 100px;
+    animation-name: imagefade;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    justify-content: center;
+  }
+  
+  @keyframes imagefade {
+    0% {
+      opacity: 1;
+    }
+    17% {
+      opacity: 1;
+    }
+    25% {
+      opacity: 0;
+    }
+    92% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .diap img:nth-of-type(1) {
+    animation-delay: 5s; /* Adjusted delay for the first image */
+  }
+  
+  .diap img:nth-of-type(2) {
+    animation-delay: 7s; /* Adjusted delay for the second image */
+  }
+  .background-container {
+    position: relative;
+  }
+  
+  /* Styling for the background rectangle */
+  .background-rectangle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    z-index: -1; /* Place it behind other elements */
+  }
+  
+  /* Styling Menu */
+  .menu {
+    display: flex;
+    background-color: #333;
+    padding: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 100px; 
+  }
+  
+  .menu-item {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  
+  .menu-item a:hover {
+    background-color: #555; /* Hover background color */
+  }
+  
+  /* Styling for the logos container */
+  h1 {
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold; /* Set the font weight to bold */
+    color: #333; /* Set the text color to a desired color */
+    text-align: center; /* Center-align the text */
+    margin-top: 20px; /* Adjust the top margin as needed */
+    margin-bottom: 20px; /* Adjust the bottom margin as needed */
+  }
+  .marque {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px; /* Adjust the margin as needed */
+  }
+  
+  /* Styling for each row of logos */
+  .logo-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%; /* Ensure each row takes the full width */
+    margin-bottom: 20px; /* Adjust the margin between rows as needed */
+  }
+  
+  /* Styling for each logo image */
+  .marque img {
+    width: 100px; /* Adjust the width of each logo image */
+    height: auto;
+    margin: 5px; /* Adjust the margin around each logo image as needed */
+  }
+  
+  
+  
+  
+  h2 {
+    color: #333; /* Set text color */
+  }
+  
+  
+  
+  .custom-list {
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .list-item {
+    background-color: #f0f0f0; /* Set background color */
+    padding: 8px; /* Add padding to each list item */
+    margin: 5px 0; /* Add margin between list items */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+  .list-item:hover {
+    background-color: #ddd; /* Change background color on hover */
+    cursor: pointer; /* Show pointer cursor on hover */
+  }
+  
+  /*************************************** Styling Form *****************************************************/
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2, h3, h4 {
+    color: #333;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #e8ec62;
+  }
+  .form-container1 {
+    margin-top: 1000px;
+    display: flex;
+   
+    margin-bottom: 20px; /* Space between form-container elements */
+  }
+  
+  .form-space {
+    width: 20px; 
+  }
+  
+  
+  
+  
+  #hiddenSelect,
+    #filteredSelect {
+      display: none; /* or visibility: hidden; */
+    }
+
+/******************************* Description ************************************/
+.description-box {
+    background-color: #e9f05a;
+    color: #000000;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    margin-top: 110px;
+}
+
+.description-box h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.description-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.description-box p:first-of-type {
+    margin-top: 0;
+}
