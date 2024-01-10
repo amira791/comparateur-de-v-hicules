@@ -24,6 +24,10 @@ class AccueilVue {
     {
        ?>
        <link rel="stylesheet" type="text/css" href="../../styling/accueil.css">
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="pragma" content="no cache" />
        <?php
     }
 
@@ -35,19 +39,34 @@ class AccueilVue {
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <?php
 
-    }
 
-    private function show_top_bar ()
+    }
+    public function show_top_bar($username)
     {
         ?>
-      <div class="topBar" id="top">
-             <img src="../../images/logo" id="logo"   >
-             <button class="auth" id="connec"> Sign In </button>
-             <button class="auth" id="ins"> Sign Up </button>       
-      </div>
-       <?php
         
+        <div class="topBar" id="top">
+            <img src="../../images/logo" id="logo">
+            <div class="background-rectangle"></div>
+            <?php
+            if ($username == "NoUser") {
+                ?>
+                <button class="auth" id="connec" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/connectionRouter.php'">Connection</button>
+                <button class="auth" id="ins" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/inscriptionRouter.php'">Inscription</button>
+                <button class="auth" id="admin" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/connectionRouter.php'">Connection as Admin</button>
+                <?php
+            } else {
+                ?>
+                <h1 id="username"><img src="../../images/userIcon.png" alt="Avatar"><?php echo htmlspecialchars($username); ?></h1>
+                <?php
+            }
+            ?>
+        </div>
+        <?php
     }
+    
+
+
 
     private function show_diaporma()
     {
@@ -1131,7 +1150,6 @@ return $("#comparisonTable").html();
     public function Body_Page()
     {
         echo '<body>';
-        $this->show_top_bar();
         $this->show_diaporma();
         $this->show_menu();
         $this->show_marque();

@@ -38,14 +38,14 @@ class marqueVue {
     private function show_top_bar()
     {
         ?>
-        <div class="background-container">
+       
             
                 <img src="../../images/logo" id="logo">
                 <button class="auth" id="connec">Sign In</button>
                 <button class="auth" id="ins">Sign Up</button>
             
             <div class="background-rectangle"></div>
-        </div>
+        
         <?php
     }
     private function show_menu()
