@@ -41,7 +41,7 @@ body {
     border-radius: 8px;
     background-color: #f9f9f9;
     margin-top: 20px;
-    width: 900px;
+    width: 1200px;
 }
 
 /* Style for marque name */
@@ -53,6 +53,7 @@ body {
     text-align: center; 
     margin-top: 20px; 
     margin-bottom: 20px;
+    text-decoration: none;
 }
 
 /* Style for the table */
@@ -62,13 +63,13 @@ body {
     margin-top: 15px;
 }
 .marque-container:first-of-type {
-    margin-top: 200px; /* Adjust the space as needed */
+    margin-top: 220px; /* Adjust the space as needed */
 }
 
 /* Style for table headers */
 .marque-container th {
-    background-color: #333;
-    color: #fff;
+    background-color: #EDF68B;
+    color: #333;
     padding: 10px;
 }
 
@@ -84,4 +85,205 @@ body {
     max-width: 100px;
     max-height: 100px;
     border-radius: 5px;
+}
+
+.add-vehicle-button {
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 1200px;
+    background-color: #EDF68B;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; 
+    text-align: center;
+    line-height: 1.5;
+}
+
+.add-vehicle-button:hover {
+    background-color: #bbca12; 
+}
+
+
+/***************************** Styling the pupup **********************************/
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/*************************** Stying the add form ***************************************/
+.add-vehicle-form {
+    margin-top: 50px; /* Add some spacing between the button and the form */
+}
+
+.form-field {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.add-vehicle-button {
+    padding: 15px;
+    display: block;
+    margin: 0 auto;
+    background-color: #EDF68B;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; 
+    text-align: center;
+    line-height: 1.5;
+}
+
+.add-vehicle-button:hover {
+    background-color: #bbca12; 
+}
+
+
+/* Add this to your existing CSS file or create a new one */
+
+.file-input-container {
+    display: flex;
+   
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px; 
+}
+
+.file-input {
+    position: absolute;
+    font-size: 100px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-label {
+    padding: 10px 20px;
+    background-color: #EDF68B;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-label:hover {
+    background-color: #bbca12;
+}
+
+
+/********************************** Style the modify form *****************************/
+.modify-vehicle-form {
+    max-width: 400px; /* Adjust as needed */
+    margin: 20px auto;
+}
+
+.modify-vehicle-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.current-image {
+    display: block;
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 10px;
+}
+
+.modify-vehicle-button {
+    padding: 15px;
+    display: block;
+    margin: 0 auto;
+    background-color: #EDF68B;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; 
+    text-align: center;
+    line-height: 1.5;
+}
+
+.modify-vehicle-button:hover {
+    background-color: #bbca12;
+}
+
+.file-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px; 
+}
+
+.file-input {
+    position: absolute;
+    font-size: 100px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-label {
+    padding: 10px 20px;
+    background-color: #EDF68B;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-label:hover {
+    background-color: #bbca12;
+}
+
+.file-name {
+    margin-top: 5px; 
+}
+
+
+.current-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 800px;
+}
+
+.current-image {
+    max-width: 300px;
+    max-height: 200px;
 }

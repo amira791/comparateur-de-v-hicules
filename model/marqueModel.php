@@ -148,6 +148,18 @@ public function get_princp_veh ($id)
    
       }
 
+      // suppresion logique marque
+public function supp_log_vh ($id_mrq)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "UPDATE marque SET supp_logique = '0' WHERE id_mrq = '$id_mrq' "; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+}
+
+// add a new marque 
 
    
 

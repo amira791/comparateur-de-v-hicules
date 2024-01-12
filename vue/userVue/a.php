@@ -191,3 +191,68 @@ send(function (error, response) {
     }
     ?>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+require_once('../../vue/adminVue/gestionVehiculeVue.php');
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $id_mrq = $_POST["id_mrq"];
+    $modele = $_POST["modele"];
+    $version = $_POST["version"];
+    $annee = $_POST["annee"];
+    $image = $_POST["image"];
+  
+
+
+
+// Checking if the file was uploaded successfully
+if(isset($_FILES["image"]) && $_FILES["image"]["error"] == UPLOAD_ERR_OK) {
+    $imageBlob = file_get_contents($_FILES["image"]["tmp_name"]);
+
+    // For illustration purposes, you can echo the received data
+    echo "ID_MRQ: " . $id_mrq . "<br>";
+    echo "Modele: " . $modele . "<br>";
+    echo "Version: " . $version . "<br>";
+    echo "Annee: " . $annee . "<br>";
+
+    
+    $targetDir = "C:/Users/DELL/Desktop/2CS/TDW/Projet/img_dev/"; // Change this to your desired directory
+    $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+
+    if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+        echo "File uploaded successfully.";
+    } else {
+        echo "Error uploading file.";
+    }
+} else {
+    echo "Error: No file uploaded or an error occurred.";
+}
+
+
+} 
+
+$vue = new gestionVehiculeVue();
+$vue->show_website();
+
+class accueilRouter 
+    {
+        public function is_connected($username) {
+            $accueil = new accueilVue();
+            $accueil->show_top_bar($username);
+        }
+    }
+
+
+?>

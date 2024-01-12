@@ -49,6 +49,20 @@ class vehiculeController {
         $res = $vh_model-> get_veh_byId($id_vhc);
         return $res;
    }
+   public function add_vehicule ($marque, $modele, $version, $annee, $image, $type)
+   {
+        $vhi_model = new vehiculeModel();
+        $res = $vhi_model-> add_vehicle_table($marque, $modele, $version, $annee, $image, $type);
+        
+   }
+
+   public function modify_vehicule ($id_vh, $marque, $modele, $version, $annee, $image)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model-> update_vehicule_table($id_vh, $marque, $modele, $version, $annee, $image);
+        
+   }
+
 
    public function show_website()
    {
