@@ -136,36 +136,32 @@ class gestionVehiculeVue {
 
                 /***************  The modifiction form **************/
                 echo '<div id="modifyVehiclePopup_' . $id_vh . '" class="popup">';
-    echo '<div class="popup-content">';
-    echo '<span class="close" onclick="closeModifyVehiclePopup(' . $id_vh . ');">&times;</span>';
-
-    
-    echo '<form action="../../router/adminRouter/gestionVehiculeRouter.php" method="post" enctype="multipart/form-data" class="modify-vehicle-form">';
-    echo '<input type="text" name="modele" value="' . htmlspecialchars($modele) . '" required class="form-input">';
-
-    echo '<label for="version">Version:</label>';
-    echo '<input type="text" name="version" value="' . htmlspecialchars($version) . '" required class="form-input">';
-
-    echo '<label for="annee">Annee:</label>';
-    echo '<input type="text" name="annee" value="' . htmlspecialchars($annee) . '" required class="form-input">';
-
-    echo '<div class="current-image-container">';
-    echo '<label for="image">Current Image:</label>';
-    echo '<img src="data:image/jpeg;base64,' . base64_encode($image) . '" alt="Current Image" class="current-image">';
-    echo '</div>';
-
-    echo '<label for="newImage" class="file-label">Choose a New Image:</label>';
-    echo '<div class="file-input-container">';
-    echo '<input type="file" name="newImage" accept="image/*" class="file-input" onchange="displayFileName(this)">';
-    echo '<span id="file-name" class="file-name">No file chosen</span>';
-    echo '</div>';
-    echo '<input type="hidden" name="action" value="modify">';
-
-    echo '<button type="submit" class="modify-vehicle-button">Modify Vehicle</button>';
-    echo '</form>';
-
-    echo '</div>';
-    echo '</div>';
+                echo '<div class="popup-content">';
+                echo '<span class="close" onclick="closeModifyVehiclePopup(' . $id_vh . ');">&times;</span>';
+            
+                echo '<form action="../../router/adminRouter/gestionVehiculeRouter.php" method="post" enctype="multipart/form-data" class="modify-vehicle-form">';
+                echo '<input type="hidden" name="id_vh" value="' . $id_vh . '">';
+                echo '<input type="hidden" name="id_mrq" value="' . $id_mrq . '">';
+                echo '<input type="text" name="modele" value="' . htmlspecialchars($modele) . '" required class="form-input">';
+                echo '<label for="version">Version:</label>';
+                echo '<input type="text" name="version" value="' . htmlspecialchars($version) . '" required class="form-input">';
+                echo '<label for="annee">Annee:</label>';
+                echo '<input type="text" name="annee" value="' . htmlspecialchars($annee) . '" required class="form-input">';
+                echo '<div class="current-image-container">';
+                echo '<label for="image">Current Image:</label>';
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($image) . '" alt="Current Image" class="current-image">';
+                echo '<input type="hidden" name="currentImage" value="' . base64_encode($image) . '">';
+                echo '</div>';
+                echo '<label for="newImage" class="file-label">Choose a New Image:</label>';
+                echo '<div class="file-input-container">';
+                echo '<input type="file" name="newImage" accept="image/*" class="file-input" onchange="displayFileName(this)">';
+                echo '<span id="file-name" class="file-name">No file chosen</span>';
+                echo '</div>';
+                echo '<input type="hidden" name="action" value="modify">';
+                echo '<button type="submit" class="modify-vehicle-button">Modify Vehicle</button>';
+                echo '</form>';
+                echo '</div>';
+                echo '</div>';
             
             }
     
@@ -211,7 +207,6 @@ $table = $ctr->get_typeVh();
 <?php
 // Add input for id_type
 echo '<input type="hidden" name="id_type" value="" id="hidden_id_type">';
-
 echo '<label for="image" class="file-input-container">';
 echo '<input type="file" name="image" accept="image/*" required class="file-input" onchange="displayFileName(this)">';
 echo '<span class="file-label">Choose a File</span>';

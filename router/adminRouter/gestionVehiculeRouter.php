@@ -3,7 +3,7 @@ require_once('../../vue/adminVue/gestionVehiculeVue.php');
 
 $router = new gestionVehiculeRouter();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $action = $_POST["action"];
+    $action = isset($_POST["action"]) ? $_POST["action"] : null;
 
     if ($action === "add") {
         // Add vehicle logic
@@ -16,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $router->add_vh($id_mrq, $modele, $version, $annee, $image, $id_type);
     } elseif ($action === "modify") {
-      
+        
+        $id_vh = $_POST["id_vh"];
         $id_mrq = $_POST["id_mrq"];
         $modele = $_POST["modele"];
         $version = $_POST["version"];
@@ -25,11 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_FILES["newImage"]["name"])) {
             $newImage = $_FILES["newImage"];
         } else {
-            $newImage = null;
+            $newImage = base64_decode($_POST["currentImage"] ?? '');
         }
 
         // Call the method to modify the vehicle
-        $router->modify_vh($id_mrq, $modele, $version, $annee, $newImage);
+        $router->modify_vh($id_vh, $id_mrq, $modele, $version, $annee, $newImage);
     }
 }
 
@@ -43,9 +44,9 @@ class gestionVehiculeRouter
         $ges_vh->add_vehicule_form($id_mrq, $modele, $version, $annee, $image, $id_type);
     }
 
-    public function modify_vh($id_mrq, $modele, $version, $annee, $newImage) {
+    public function modify_vh($id_vh, $id_mrq, $modele, $version, $annee, $newImage) {
         $ges_vh = new gestionVehiculeVue();
-        $ges_vh->modify_vehicule_form($id_mrq, $modele, $version, $annee, $image);
+        $ges_vh->modify_vehicule_form($id_vh,$id_mrq, $modele, $version, $annee, $newImage);
     }
 }
 ?>

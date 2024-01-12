@@ -198,24 +198,36 @@ public function add_images_vehicule_table ($id_vh , $image)
 }
 
 
-//updat vehicule 
-public function update_vehicule_table ($id_vh, $marque, $modele, $version, $annee, $image)
+
+
+// In your vehiculeModel.php
+public function update_vehicule_table($id_vh, $marque, $modele, $version, $annee, $image)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+    // Check if $image is an array
+    if (is_array($image) && isset($image['tmp_name'])) { 
+   
+        $imageData = file_get_contents($image['tmp_name']);
+        $escapedImageData = mysqli_real_escape_string($conn, $imageData);
+    } else { 
+       
+        $escapedImageData = mysqli_real_escape_string($conn, $image);
+    }
+
     $query = "UPDATE vehicule 
-    SET 
-    marque ='$marque',
-    modele = '$modele',
-    version = '$version',
-    annee = '$annee',
-    image = '$image' 
-    WHERE Id_veh = '$id_vh'";
+              SET 
+              marque ='$marque',
+              modele = '$modele',
+              version = '$version',
+              annee = '$annee',
+              image = '$escapedImageData' 
+              WHERE Id_veh = '$id_vh'";
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
-
-
 }
+
 // update marque vehicule 
 public function update_marque_vehicule ($marque, $id_vh)
 {
