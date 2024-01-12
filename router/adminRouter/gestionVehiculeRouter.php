@@ -34,6 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $action = isset($_GET["action"]) ? $_GET["action"] : null;
+
+    if ($action === "delete") {
+        $idToDelete = isset($_GET["id"]) ? $_GET["id"] : null;
+        $router->deleteVehicle($idToDelete);
+    }
+}
+
 $vue = new gestionVehiculeVue();
 $vue->show_website();
 
@@ -47,6 +56,11 @@ class gestionVehiculeRouter
     public function modify_vh($id_vh, $id_mrq, $modele, $version, $annee, $newImage) {
         $ges_vh = new gestionVehiculeVue();
         $ges_vh->modify_vehicule_form($id_vh,$id_mrq, $modele, $version, $annee, $newImage);
+    }
+
+    public function deleteVehicle($idToDelete) {
+        $ges_vh = new gestionVehiculeVue();
+        $ges_vh->delete_vehicule_form($idToDelete);
     }
 }
 ?>

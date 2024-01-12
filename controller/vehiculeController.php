@@ -63,6 +63,13 @@ class vehiculeController {
         
    }
 
+   public function delete_vehicule ($id_vh)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model-> supp_log_vh($id_vh);
+        
+   }
+
 
    public function show_website()
    {

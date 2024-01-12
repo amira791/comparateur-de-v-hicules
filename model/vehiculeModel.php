@@ -58,7 +58,7 @@ class vehiculeModel {
    public function get_vehicule_table()
    {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "SELECT * FROM vehicule"; 
+    $query = "SELECT * FROM vehicule Where supp_log = 0"; 
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
@@ -162,7 +162,7 @@ public function get_veh_byId($id_vehc)
 public function supp_log_vh ($id_vh)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "UPDATE vehicule SET supp_log = '0' WHERE Id_veh = '$id_vh' "; 
+    $query = "UPDATE vehicule SET supp_log = '1' WHERE Id_veh = '$id_vh' "; 
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);

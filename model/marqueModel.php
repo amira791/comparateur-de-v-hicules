@@ -134,7 +134,7 @@ public function get_princp_veh ($id)
       public function get_all_vh($id)
       {
        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-       $query = "SELECT * FROM vehicule  WHERE marque = $id"; 
+       $query = "SELECT * FROM vehicule  WHERE marque = $id AND  supp_log = 0"; 
    
        $res = $this->requete($conn, $query);
        $this->deconnect($conn);
