@@ -57,6 +57,11 @@ class gestionVehiculeVue {
         $ctr = new vehiculeController();
         $veh = $ctr->delete_vehicule($id_vh);
     }
+    public function add_principal_vehicule_form ($id_mrq, $id_vh)
+    {
+        $ctr = new vehiculeController();
+        $veh = $ctr->add_vehicule_principal($id_mrq, $id_vh);
+    }
 
     private function show_table_vehicule()
     { 
@@ -133,7 +138,7 @@ class gestionVehiculeVue {
                 // La suppression
                 echo '<td><a href="../../router/adminRouter/gestionVehiculeRouter.php?action=delete&id=' . $id_vh . '">Suppression</a></td>';
                 echo '<td><a href="#" onclick="openModifyVehiclePopup(' . $id_vh . ')" class="modify-button">Modification</a></td>';
-                echo '<td><a href="add_vehicle_princp.php?id_mrq=' . $id_mrq . '">Ajout</a></td>'; 
+                echo '<td><a href="../../router/adminRouter/gestionVehiculeRouter.php?action=addAsMain&id_mrq=' . $id_mrq . '&id_vh=' . $id_vh . '">Ajout comme Principal</a></td>';
                 echo '<td>' . $modele . '</td>';
                 echo '<td>' . $version . '</td>';
                 echo '<td>' . $annee . '</td>';

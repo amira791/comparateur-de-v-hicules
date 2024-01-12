@@ -69,6 +69,12 @@ class vehiculeController {
         $res = $vhe_model-> supp_log_vh($id_vh);
         
    }
+   public function add_vehicule_principal ($id_mrq, $id_vh)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model-> add_vehicule_principal_table($id_mrq, $id_vh);
+        
+   }
 
 
    public function show_website()

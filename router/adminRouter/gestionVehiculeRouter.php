@@ -40,6 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($action === "delete") {
         $idToDelete = isset($_GET["id"]) ? $_GET["id"] : null;
         $router->deleteVehicle($idToDelete);
+    } elseif ($action === "addAsMain") {
+        $idToAddAsMain = isset($_GET["id_vh"]) ? $_GET["id_vh"] : null;
+        $id_mrq = isset($_GET["id_mrq"]) ? $_GET["id_mrq"] : null;
+        $router->addVehicleAsMain($id_mrq, $idToAddAsMain);
+        
     }
 }
 
@@ -61,6 +66,11 @@ class gestionVehiculeRouter
     public function deleteVehicle($idToDelete) {
         $ges_vh = new gestionVehiculeVue();
         $ges_vh->delete_vehicule_form($idToDelete);
+    }
+    public function addVehicleAsMain($id_mrq, $idToAddAsMain) {
+        $ges_vh = new gestionVehiculeVue();
+        $ges_vh->add_principal_vehicule_form($id_mrq, $idToAddAsMain);
+       
     }
 }
 ?>
