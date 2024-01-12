@@ -103,6 +103,8 @@ class gestionVehiculeVue {
             $nom_mrq = $mrq['Nom'];
             $ctr2 = new marqueController();
             $vehicules = $ctr1->get_allVh($id_mrq); // get vehi for a specified marque
+            $ctr3 = new marqueController();
+            $vehicules_prin = $ctr1->get_princVh($id_mrq);
         
             // Output the selected marque information within a container div
             echo '<div class="marque-container">';
@@ -120,6 +122,7 @@ class gestionVehiculeVue {
                     <th>Version</th>
                     <th>Annee</th>
                     <th>Image</th>
+                    <th>Principal ?</th>
                     <th>Caracteristique</th>
                   </tr>';
     
@@ -132,6 +135,14 @@ class gestionVehiculeVue {
                 $image = $vh['image'];
                 $base64Img = base64_encode($image);
                 $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+                $principal = "Non";
+                foreach ($vehicules_prin as $row) {
+                    if ($id_vh == $row['veh_p']) {
+                        $principal = "Oui";
+                        break; // No need to continue checking once found
+                    }
+                }
+               
     
                 // Output a row for each vehicle
                 echo '<tr>';
@@ -143,6 +154,7 @@ class gestionVehiculeVue {
                 echo '<td>' . $version . '</td>';
                 echo '<td>' . $annee . '</td>';
                 echo '<td><img src="' . $imgSrc . '" alt="Vehicle Image" style="max-width: 100px; max-height: 100px;"></td>';
+                echo '<td>' . $principal . '</td>';
                 echo '<td><a href="vehicle_details.php?id=' . $id_vh . '">Caracteristique</a></td>';
                 echo '</tr>';
 
