@@ -187,7 +187,6 @@ public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
 
-    
     if (is_array($logo) && isset($logo['tmp_name'])) { 
    
         $imageData = file_get_contents($logo['tmp_name']);
@@ -197,10 +196,12 @@ public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_
         $escapedImageData = mysqli_real_escape_string($conn, $logo);
     }
 
+   
+
     $query = "UPDATE marque
               SET 
-              logo ='$escapedImageData',
               Nom = '$Nom',
+              logo ='$escapedImageData',
               pays_origine = '$pays_origine',
               siege_social = '$siege_social',
               pays_origine = '$pays_origine',
@@ -215,6 +216,49 @@ public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
 }
+
+// public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web)
+// {
+//     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+//     // Check if $logo is an array and has 'tmp_name' set
+//     if (is_array($logo) && isset($logo['tmp_name'])) {
+        
+//         $imageData = file_get_contents($logo['tmp_name']);
+        
+//         if ($imageData !== false) {
+            
+//             $query = "UPDATE marque
+//                       SET 
+//                       logo = $imageData,
+//                       Nom = $Nom,
+//                       pays_origine =$pays_origine,
+//                       siege_social =$siege_social,
+//                       annee_creation = $annee_creation,
+//                       histoire =  $histoire,
+//                       Fondateurs = $Fondateurs,
+//                       Slogan = $Slogan, 
+//                       Produits = $Produits,
+//                       Site_web = $Site_web
+//                       WHERE id_mrq = $id_mrq";
+
+//          $res = $this->requete($conn, $query);
+//          $this->deconnect($conn);
+           
+           
+
+           
+//         } else {
+//             echo "Error reading image data: " . error_get_last()['message'];
+//         }
+//     } else {
+//         echo "Invalid image data: " . json_encode($logo);
+//     }
+
+    
+//     $this->deconnect($conn);
+// }
+
  
 
 

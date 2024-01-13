@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $newImage = base64_decode($_POST["currentImage"] ?? '');
         }
 
-        $router->modify_mrq($logo, $id_mrq, $nom_mrq, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web, $newImage);
+        $router->modify_mrq( $id_mrq,$newImage, $nom_mrq, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web);
     }
 }
 
@@ -59,9 +59,9 @@ class gestionMarqueRouter
         $ges_mrq->add_marque_form($logo, $nom_mrq, $pay, $siege, $annee, $histoire, $fondateur, $slogan, $produits, $site);
     }
 
-    public function modify_mrq($id_mrq, $nom_mrq, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web, $newImage) {
+    public function modify_mrq($id_mrq,  $newImage, $nom_mrq, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web) {
         $ges_mrq = new gestionMarqueVue();
-        $ges_mrq->modify_marque_form($id_mrq, $nom_mrq, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web, $newImage);
+        $ges_mrq->modify_marque_form($id_mrq, $newImage, $nom_mrq, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web);
     }
 
     public function delete_mrq($idToDelete) {
