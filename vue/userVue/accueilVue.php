@@ -980,7 +980,7 @@ private function show_form4()
       ?>
       <select id="hiddenSelect"></select>   <!-- hidden to store all vehicules-->
       <select id="filteredSelect"></select> <!-- hidden to store filtered vehicules-->
-      <button id="myButton">Comparer</button>
+      <button  id="myButton">Comparer</button>
       <table id="comparisonTable" style="display: none;"></table>
       <?php
   

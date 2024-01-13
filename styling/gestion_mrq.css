@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Arial', sans-serif;
     background-color: #ffffff;
@@ -8,20 +7,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-
-#geVh {
-    font-family: 'Arial', sans-serif;
-    font-size: 40px;
-    font-weight: bold;
-    color: #333; 
-    margin-bottom: 30px;
-    text-align: center;
-    text-transform: uppercase;
-    text-shadow: 2px 5px 5px #EDF68B;
-}
-
-
-/******************* Styling the Top Bar **************************/
+/**************************************************/
 #logo {
     position: fixed;
     left: 0;
@@ -40,19 +26,17 @@ body {
     top: 0;
     z-index: 1;
 }
-
-/************************* Styling tables **************************/
-/* Style for marque container */
-
+/****************************************************/
 .marque-container {
-    top: 150px;
+    top: 170px;
     margin-bottom: 20px;
     padding: 30px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
     margin-top: 20px;
-    width: 1200px;
+    width: 1400px;
+  
 }
 
 /* Style for marque name */
@@ -98,8 +82,8 @@ body {
     border-radius: 5px;
 }
 
-.add-vehicle-button {
-    padding: 20px;
+.add-marque-button {
+    padding: 10px;
     display: block;
     margin: 0 auto;
     width: 1200px;
@@ -113,8 +97,11 @@ body {
     line-height: 1.5;
 }
 
-.add-vehicle-button:hover {
+.add-marque-button:hover {
     background-color: #bbca12; 
+}
+tr:hover {
+    background-color: #e5e5e5;
 }
 
 
@@ -122,11 +109,13 @@ body {
 .popup {
     display: none;
     position: fixed;
-    top: 0;
+    top: 70px;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    overflow :scroll;
+    z-index: 1;
 }
 
 .popup-content {
@@ -143,19 +132,27 @@ body {
 
 
 /*************************** Stying the add form ***************************************/
-.add-vehicle-form {
-    margin-top: 50px; /* Add some spacing between the button and the form */
+.add-marque-form {
+    margin-top: 30px; /* Add some spacing between the button and the form */
 }
 
 .form-field {
     width: 100%;
-    padding: 8px;
+    padding: 0;
     margin-bottom: 10px;
     box-sizing: border-box;
+    display: inline-block;
 }
 
-.add-vehicle-button {
-    padding: 15px;
+.form-label {
+    flex: 1;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+.add-marque-button {
+    padding: 10px;
     display: block;
     margin: 0 auto;
     background-color: #EDF68B;
@@ -168,7 +165,7 @@ body {
     line-height: 1.5;
 }
 
-.add-vehicle-button:hover {
+.add-marque-button:hover {
     background-color: #bbca12; 
 }
 
@@ -177,7 +174,6 @@ body {
 
 .file-input-container {
     display: flex;
-   
     justify-content: center;
     position: relative;
     overflow: hidden;
@@ -186,13 +182,14 @@ body {
 
 .file-input {
     position: absolute;
-    font-size: 100px;
+    font-size: 50px;
     opacity: 0;
     cursor: pointer;
 }
 
 .file-label {
-    padding: 10px 20px;
+    left: 0;
+    padding: 10px ;
     background-color: #EDF68B;
     color: rgb(0, 0, 0);
     border: none;
@@ -206,12 +203,12 @@ body {
 
 
 /********************************** Style the modify form *****************************/
-.modify-vehicle-form {
+.modify-marque-form {
     max-width: 400px; /* Adjust as needed */
     margin: 20px auto;
 }
 
-.modify-vehicle-form label {
+.modify-marque-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -233,7 +230,7 @@ body {
     margin-bottom: 10px;
 }
 
-.modify-vehicle-button {
+.modify-marque-button {
     padding: 15px;
     display: block;
     margin: 0 auto;
@@ -247,7 +244,7 @@ body {
     line-height: 1.5;
 }
 
-.modify-vehicle-button:hover {
+.modify-marque-button:hover {
     background-color: #bbca12;
 }
 
@@ -322,4 +319,5 @@ body {
 .gestion:hover {
     background-color: #bbca12;
 }
+
 

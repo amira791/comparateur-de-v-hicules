@@ -50,6 +50,38 @@ class marqueController {
         $res = $mrq_model->get_all_vh($id);
         return $res;
    }
+
+   public function add_marque ($logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
+   , $Fondateurs, $Slogan, $Produits, $Site_web)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->add_marque_table($logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
+        , $Fondateurs, $Slogan, $Produits, $Site_web);
+        return $res;
+   }
+
+   public function modify_marque ($id_mrq,$logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
+   , $Fondateurs, $Slogan, $Produits, $Site_web)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->update_marque_table($id_mrq,$logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
+        , $Fondateurs, $Slogan, $Produits, $Site_web);
+        return $res;
+   }
+
+   public function delete_marque ($id_mrq)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->supp_log_vh($id_mrq);
+        return $res;
+   }
+
+   public function get_marque_ById ($id)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->get_mrq_Id ($id);
+        return $res;
+   }
     
 
    public function show_website()

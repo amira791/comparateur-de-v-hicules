@@ -30,14 +30,17 @@ class gestionVehiculeVue {
         <?php
     }
 
-    private function show_top_bar ()
-    {
-        ?>
-       <img src="../../images/logo" id="logo">
-       <div class="top-bar"></div>
-       <?php
+    private function show_top_bar()
+{
+    ?>
+    <img src="../../images/logo" id="logo">
 
-    }
+    <div class="top-bar">
+        <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/gestionMarqueRouter.php'">Gestion Marque</button>
+    </div>
+    <?php
+}
+
 
 
     public function add_vehicule_form ($marque, $modele, $version, $annee, $image, $type)
@@ -64,7 +67,8 @@ class gestionVehiculeVue {
     }
 
     private function show_table_vehicule()
-    { 
+    {
+        echo '<h1 id="geVh"> La gestion des vehicules </h1>'; 
         // get all marques 
         $ctr1 = new marqueController();
         $marques = $ctr1->get_marque();
@@ -99,6 +103,7 @@ class gestionVehiculeVue {
        
         foreach ($marques as $mrq)
         {
+            
             $id_mrq = $mrq['id_mrq'];
             $nom_mrq = $mrq['Nom'];
             $ctr2 = new marqueController();
@@ -108,9 +113,9 @@ class gestionVehiculeVue {
         
             // Output the selected marque information within a container div
             echo '<div class="marque-container">';
-            echo '<a href="../../router/adminRouter/gestionMarqueRouter.php?id_mrq=' . $id_mrq . '">';
-            echo '<h1> La marque: ' . htmlspecialchars($nom_mrq) . '</h1>';
+            echo '<h1><a href="../../router/adminRouter/gestionMarqueRouter.php?id_mrq=' . $id_mrq . '">La marque: ' . htmlspecialchars($nom_mrq) . '</a></h1>';
             echo '</a>';
+            
             
             // Create a table for the vehicles of the current marque
             echo '<table border="1">';
@@ -166,6 +171,7 @@ class gestionVehiculeVue {
                 echo '<form action="../../router/adminRouter/gestionVehiculeRouter.php" method="post" enctype="multipart/form-data" class="modify-vehicle-form">';
                 echo '<input type="hidden" name="id_vh" value="' . $id_vh . '">';
                 echo '<input type="hidden" name="id_mrq" value="' . $id_mrq . '">';
+                echo '<label for="version">Modele:</label>';
                 echo '<input type="text" name="modele" value="' . htmlspecialchars($modele) . '" required class="form-input">';
                 echo '<label for="version">Version:</label>';
                 echo '<input type="text" name="version" value="' . htmlspecialchars($version) . '" required class="form-input">';

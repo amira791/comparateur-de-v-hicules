@@ -159,9 +159,89 @@ public function supp_log_vh ($id_mrq)
 
 }
 
-// add a new marque 
+// add a new marque
+public function add_marque_table($logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
+, $Fondateurs, $Slogan, $Produits, $Site_web )
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+    // Handle file upload
+    $imageData = file_get_contents($logo['tmp_name']);
+    
+    // Escape special characters in the binary data to prevent SQL injection
+    $escapedImageData = mysqli_real_escape_string($conn, $imageData);
+
+    // Insert the image data into the database as a BLOB
+    $query = "INSERT INTO marque (logo, Nom, pays_origine, siege_social, annee_creation, histoire, Fondateurs, Slogan, Produits, Site_web) 
+    VALUES ('$escapedImageData', '$Nom', '$pays_origine', '$siege_social', '$annee_creation', '$histoire' , '$Fondateurs', '$Slogan', '$Produits', '$Site_web')";
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+}
+
+
+
+// update marque
+public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
+, $Fondateurs, $Slogan, $Produits, $Site_web)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+    
+    if (is_array($logo) && isset($logo['tmp_name'])) { 
+   
+        $imageData = file_get_contents($logo['tmp_name']);
+        $escapedImageData = mysqli_real_escape_string($conn, $imageData);
+    } else { 
+       
+        $escapedImageData = mysqli_real_escape_string($conn, $logo);
+    }
+
+    $query = "UPDATE marque
+              SET 
+              logo ='$escapedImageData',
+              Nom = '$Nom',
+              pays_origine = '$pays_origine',
+              siege_social = '$siege_social',
+              pays_origine = '$pays_origine',
+              annee_creation = '$annee_creation',
+              pays_origine = '$pays_origine',
+              Fondateurs = '$Fondateurs',
+              Slogan = '$Slogan', 
+              Produits = '$Produits',
+              Site_web = '$Site_web'
+              WHERE id_mrq = '$id_mrq'";
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+}
+ 
+
+
+
+public function get_mrq_Id ($id)
+{
+     
+     if (empty($id)) {
+        return array(); 
+    }
+
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
 
    
+
+    $query = "SELECT * FROM marque WHERE id_mrq = $id";
+   
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $mrq = array();
+    while ($row = $res->fetch_assoc()) {
+        $mrq[] = $row;
+    }
+    return  $mrq;
+
+}
 
 
 
