@@ -41,11 +41,11 @@ class marqueModel {
     }
 
 
-    // get diaporma table 
+    // get marque table 
     public function get_marque_table()
    {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "SELECT * FROM marque"; 
+    $query = "SELECT * FROM marque Where supp_logique = 0"; 
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
@@ -152,7 +152,7 @@ public function get_princp_veh ($id)
 public function supp_log_vh ($id_mrq)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "UPDATE marque SET supp_logique = '0' WHERE id_mrq = '$id_mrq' "; 
+    $query = "UPDATE marque SET supp_logique = '1' WHERE id_mrq = '$id_mrq' "; 
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);

@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $action = isset($_GET["action"]) ? $_GET["action"] : null;
 
     if ($action === "delete") {
-        $idToDelete = isset($_GET["id_mrq"]) ? $_GET["id_mrq"] : null;
+        $idToDelete = isset($_GET["id"]) ? $_GET["id"] : null;
         $router->delete_mrq($idToDelete);
     }
 }
