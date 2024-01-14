@@ -137,15 +137,7 @@ public function get_prinvh_table($ids)
 // get vehicule by id 
 public function get_veh_byId($id_vehc)
 {
-    // Check if the $ids array is not empty
-    if (empty($id_vehc)) {
-        return array(); // Return an empty array if no IDs are provided
-    }
-
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-
-   
-
     $query = "SELECT * FROM vehicule WHERE Id_veh = $id_vehc";
    
     $res = $this->requete($conn, $query);

@@ -37,6 +37,7 @@ class gestionVehiculeVue {
 
     <div class="top-bar">
         <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/gestionMarqueRouter.php'">Gestion Marque</button>
+        <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/gestionRouter.php'">Page Gestion Principal</button>
     </div>
     <?php
 }

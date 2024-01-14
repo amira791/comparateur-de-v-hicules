@@ -40,7 +40,7 @@ class aviModel {
 
   
    // get  les all avis pour une marque 
-   public function get_vehicule_table($id_mrq)
+   public function get_avis_table($id_mrq)
    {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
     $query = "SELECT * FROM avi_mrq WHERE id_mrq = $id_mrq AND avi_status_mrq = 'Valide'";
@@ -58,11 +58,66 @@ class aviModel {
 
    }
 
-      // get  les all avis pour une vehicule 
-      public function get_avi_mrq_table($id_vh)
+      // get avi_vh table valide
+      public function get_avi_table()
       {
        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-       $query = "SELECT * FROM avi_vh WHERE id_vh = $id_vh AND avi_status_mrq = 'Valide'";
+       $query = "SELECT * FROM avi_veh Where status_avi_veh ='Valide' "; 
+   
+       $res = $this->requete($conn, $query);
+       $this->deconnect($conn);
+   
+       $avi = array();
+       while ($row = $res->fetch_assoc()) {
+           $avi[] = $row;
+       }
+       return  $avi;
+      }
+
+   // get avi_vh table 
+   public function get_avi_table_admin()
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM avi_veh "; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $avi = array();
+    while ($row = $res->fetch_assoc()) {
+        $avi[] = $row;
+    }
+    return  $avi;
+   }
+
+
+   // Refuser un avi pour vehicule
+   public function refuse_avi_vh_table ($id_avi)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+       $query = "UPDATE avi_veh SET status_avi_veh ='Non Valide' WHERE id_avi_veh = '$id_avi'";
+    
+   
+       $res = $this->requete($conn, $query);
+       $this->deconnect($conn);
+   }
+
+   // Refuser un avi pour marque
+   public function refuse_avi_mrq_table ($id_avi)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+       $query = "UPDATE avi_mrq SET status_avi_mrq ='Non Valide' WHERE id_avi_mrq = '$id_avi'";
+    
+   
+       $res = $this->requete($conn, $query);
+       $this->deconnect($conn);
+   }
+
+      // get  les all avis pour une vehicule 
+      public function get_avi_veh_table($id_vh)
+      {
+       $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+       $query = "SELECT * FROM avi_veh WHERE id_vh = $id_vh AND status_avi_veh = 'Valide'";
     
    
        $res = $this->requete($conn, $query);
@@ -73,15 +128,13 @@ class aviModel {
            $avis_mrq[] = $row;
        }
        return  $avis_mrq;
-   
-   
       }
 
       // get  les troi avis les plus apprecies pour une vehicule 
       public function get_troisAvi_vh($id_vh)
       {
        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-       $query = "SELECT * FROM avi_mrq WHERE id_vh = $id_vh AND avi_status_mrq = 'Valide' ORDER BY nb_appreciation_mrq DESC LIMIT 3";
+       $query = "SELECT * FROM avi_veh WHERE id_vh = $id_vh AND status_avi_veh = 'Valide' ORDER BY nb_appreciation_mrq DESC LIMIT 3";
 
     
    

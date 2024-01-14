@@ -52,7 +52,7 @@ class gestionVue {
                 <img src="../../images/gestionveh.png" alt="Image Cadre 1">
             </a>
     
-            <a href="../../router/adminRouter/gestionAvisRouter.php" class="cadre">
+            <a href="../../router/adminRouter/gestionAviVhRouter.php" class="cadre">
                 <h3>Gestion Avis </h3>
                 <img src="../../images/gestionavii.webp" alt="Image Cadre 2">
             </a>

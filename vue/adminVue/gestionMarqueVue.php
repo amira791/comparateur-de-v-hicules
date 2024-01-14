@@ -30,14 +30,17 @@ class gestionMarqueVue {
         <?php
     }
 
-    private function show_top_bar ()
-    {
-        ?>
-       <img src="../../images/logo" id="logo">
-       <div class="top-bar"></div>
-       <?php
+    
+    private function show_top_bar()
+{
+    ?>
+    <img src="../../images/logo" id="logo">
 
-    }
+    <div class="top-bar">
+        <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/gestionRouter.php'">Page Gestion Principal</button>
+    </div>
+    <?php
+}
 
     public function add_marque_form ($logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire
     , $Fondateurs, $Slogan, $Produits, $Site_web)
@@ -63,7 +66,7 @@ class gestionMarqueVue {
 
 
  
-    private function show_table_vehicule()
+    private function show_table_marque()
     {
         // get all marques
         $ctr1 = new marqueController();
@@ -263,7 +266,7 @@ class gestionMarqueVue {
     {
         echo '<body>';
         $this->show_top_bar();
-        $this->show_table_vehicule();
+        $this->show_table_marque();
         echo '</body>';
     }
 

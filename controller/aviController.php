@@ -23,6 +23,35 @@ class aviController {
         return $res;
    }
 
+   public function refuse_avi_vh ($id_avi)
+   {
+        $avi = new aviModel();
+        $res = $avi-> refuse_avi_vh_table ($id_avi);
+        return $res;
+   }
+
+   public function refuse_avi_mrq ($id_avi)
+   {
+        $avi2 = new aviModel();
+        $res = $avi2-> refuse_avi_mrq_table ($id_avi);
+        return $res;
+   }
+
+   public function get_avi_adminVh ()
+   {
+        $avi3 = new aviModel();
+        $res = $avi3-> get_avi_table_admin();
+        return $res;
+   }
+
+   public function get_avi_Vh ()
+   {
+        $avi4 = new aviModel();
+        $res = $avi4->  get_avi_table();
+        return $res;
+   }
+
+
 
 
    public function show_website()
