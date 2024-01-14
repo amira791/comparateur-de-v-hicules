@@ -65,7 +65,19 @@ class gestionAvisVue {
         // get all avis for vehicule
         $ctr1 = new aviController();
         $avis = $ctr1->get_avi_adminVh();
-        
+    
+        // Separate avis into two arrays based on status
+        $validAvis = [];
+        $nonValidAvis = [];
+    
+        foreach ($avis as $row) {
+            if ($row['status_avi_veh'] == 'Valide') {
+                $validAvis[] = $row;
+            } else {
+                $nonValidAvis[] = $row;
+            }
+        }
+    
         echo '<div class="aviVh-container">';
         echo '<table border="1">';
         echo '<thead>
@@ -80,6 +92,18 @@ class gestionAvisVue {
                 </tr>
               </thead>';
     
+        // Display validated avis first
+        $this->displayAvis($validAvis);
+    
+        // Display non-validated avis
+        $this->displayAvis($nonValidAvis);
+    
+        echo '</table>';
+        echo '</div>';
+    }
+    
+    private function displayAvis($avis)
+    {
         foreach ($avis as $row) {
             $id_avi = $row['id_avi_veh'];
             $contenu_veh = $row['contenu_veh'];
@@ -87,16 +111,14 @@ class gestionAvisVue {
             $nb_appreciation_veh = $row['nb_appreciation_veh'];
             $username = $row['username'];
             $id_veh = $row['id_veh'];
-            
+    
             $ctr2 = new vehiculeController();
             $veh = $ctr2->get_vhById($id_veh);
-            
+    
             $marque = $veh[0]['marque'];
             $modele = $veh[0]['modele'];
             $version = $veh[0]['version'];
             $annee = $veh[0]['annee'];
-    
-            // Dans l'affichage, je dois afficher les avis qui sont valides avant après qui sont non valides
     
             echo '<tr>';
             echo '<td><a href="../../router/adminRouter/gestionAviVhRouter.php?action=block&id=' . $username . '">Block User</a></td>';
@@ -109,10 +131,9 @@ class gestionAvisVue {
     
             echo '</tr>';
         }
-    
-        echo '</table>';
-        echo '</div>';
     }
+    
+    
     
 
     
