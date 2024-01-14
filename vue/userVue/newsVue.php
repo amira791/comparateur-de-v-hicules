@@ -81,7 +81,6 @@ class newsVue {
                 foreach ($rowImages as $brandData) {
                     $base64Img = base64_encode($brandData['logo']);
                     $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
-
                     echo '<div class="brand-container">';
                     echo '<a href="' . $brandData['lien'] . '">';
                     echo '<img src="' . $imgSrc . '" alt="Image">';
