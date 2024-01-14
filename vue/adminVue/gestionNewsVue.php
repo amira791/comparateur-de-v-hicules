@@ -54,7 +54,7 @@ class gestionNewsVue {
         $veh = $ctr->update_news ($id_new, $titre, $contenu, $date_publication, $newImage);
     }
 
-    public function DeleteNews($idToDelete)
+    public function delete_news_form($idToDelete)
     {
         $ctr = new newsController();
         $veh = $ctr->delete_news($idToDelete);
