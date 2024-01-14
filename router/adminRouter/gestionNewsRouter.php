@@ -15,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $router->AddNews($titre, $contenu, $date_publication, $image);
     } elseif ($action === "modify") {
         
-        $id_new = $_POST["id_new"];
-        $id_mrq = $_POST["titre"];
+        $id_new = $_POST["id_news"];
+        $titre = $_POST["titre"];
         $contenu = $_POST["contenu"];
         $date_publication = $_POST["date_publication"];
         

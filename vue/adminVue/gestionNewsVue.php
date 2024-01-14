@@ -57,7 +57,7 @@ class gestionNewsVue {
     public function DeleteNews($idToDelete)
     {
         $ctr = new newsController();
-        $veh = $ctr->delete_news($id_mrq);
+        $veh = $ctr->delete_news($idToDelete);
     }
 
 
@@ -123,7 +123,7 @@ class gestionNewsVue {
     
             echo '<tr>';
             echo '<td><a href="../../router/adminRouter/gestionNewsRouter.php?action=delete&id=' . $id_new . '">Suppression</a></td>';
-            echo '<td><a href="#" onclick="openModifyMarquePopup(' . $id_new . ')" class="modify-button">Modification</a></td>';
+            echo '<td><a href="#" onclick="openModifyNewsPopup(' . $id_new . ')" class="modify-button">Modification</a></td>';
             echo '<td>' . $date_publication . '</td>';
             echo '<td>' . $titre . '</td>';
             echo '<td>' . $contenu_res . '</td>';
@@ -134,9 +134,8 @@ class gestionNewsVue {
             echo '<div id="modifyNewsPopup_' . $id_new . '" class="popup">';
             echo '<div class="popup-content">';
             echo '<span class="close" onclick="closeModifyNewsPopup(' . $id_new . ');">&times;</span>';
-    
             echo '<form action="../../router/adminRouter/gestionNewsRouter.php" method="post" enctype="multipart/form-data" class="modify-vehicle-form">';
-            echo '<input type="hidden" name="id_mrq" value="' . $id_new . '">';
+            echo '<input type="hidden" name="id_news" value="' . $id_new . '">';
             echo '<label for="titre"> Titre:</label>';
             echo '<input type="text" name="titre" value="' . htmlspecialchars($titre) . '" required class="form-input">';
             echo '<label for="contenu"> Contenu:</label>';
