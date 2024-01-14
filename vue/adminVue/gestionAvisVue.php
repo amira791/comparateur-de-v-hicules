@@ -53,7 +53,7 @@ class gestionAvisVue {
 
     public function blockUserVh($idToBlock)
     {
-        $ctr = new  aviController();
+        $ctr = new  userController();
         $veh = $ctr->user_block ($idToBlock);
     }
 

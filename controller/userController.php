@@ -20,7 +20,7 @@ class userController {
    public function user_block ($username)
    {
         $user = new userModel();
-        $res = $user->block_user();
+        $res = $user->block_user($username);
         return $res;
    }
 
