@@ -31,6 +31,13 @@ class userController {
     
    }
 
+   public function  valide_user($username)
+   {
+    $new_user = new userModel();
+    $new_user-> valide_user_table($username);
+    
+   }
+
 
 
    public function show_website()

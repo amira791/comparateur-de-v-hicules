@@ -69,11 +69,23 @@ class userModel {
    public function add_user_table($username, $password)
    {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "INSERT INTO utilisateur (username, password, est_blockee) VALUES('$username', '$password', 0)";
+    $query = "INSERT INTO utilisateur (username, password, est_blockee, Valide_ins) VALUES('$username', '$password', 0, 'Non Valide')";
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
    }
 
+
+   // valider ins 
+   public function valide_user_table($username)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "UPDATE utilisateur 
+          SET 
+          Valide_ins ='Valide'
+          WHERE username = '$username'";
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+   }
 
 
 

@@ -22,11 +22,7 @@ class connectionVue {
         private function show_form_connection() {
             $ctr = new userController();
             $table = $ctr->get_users();
-            if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) {
-                // User is already logged in, redirect to accueilRouter.php
-                header('Location: http://localhost/tdwProjet/comparateurVehicule/router/userRouter/accueilRouter.php');
-                exit;
-            }
+         
     
             ?>
             <select id="hiddenSelect" style="display:none;"> <!-- Hidden to store all users -->
@@ -35,7 +31,8 @@ class connectionVue {
                     $username = $row['username'];
                     $password = $row['password'];
                     $block = $row['est_blockee'];
-                    echo "<option data-username='$username' data-pass='$password' data-block='$block'>$username - $password - $block </option>";
+                    $valide = $row['Valide_ins'];
+                    echo "<option data-username='$username' data-pass='$password' data-block='$block' data-valide='$valide'>$username - $password - $block - $valide </option>";
                 }
                 ?>
             </select>
@@ -56,25 +53,33 @@ class connectionVue {
     
             <script>
         document.getElementById('loginForm').addEventListener('submit', function (event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        var hiddenSelect = document.getElementById('hiddenSelect');
-        var selectedOption = hiddenSelect.options[hiddenSelect.selectedIndex];
+    var hiddenSelect = document.getElementById('hiddenSelect');
+    var submittedUsername = document.getElementById('username').value;
+    var submittedPassword = document.getElementById('password').value;
 
-        var submittedUsername = document.getElementById('username').value;
-        var submittedPassword = document.getElementById('password').value;
+    for (var i = 0; i < hiddenSelect.options.length; i++) {
+        var option = hiddenSelect.options[i];
+        console.log('Checking:', option.dataset.username, option.dataset.pass);
 
-        // Check if the submitted username and password match and if the user is not blocked
-        if (submittedUsername === selectedOption.dataset.username && submittedPassword === selectedOption.dataset.pass) {
-            if (selectedOption.dataset.block === "1") {
+        if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+            console.log('Match found:', submittedUsername, submittedPassword);
+            if (option.dataset.block === '1') {
                 alert('This user is blocked. Please contact support for assistance.');
-            } else {
+            } else if (option.dataset.valide === 'Valide') {
                 window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/accueilRouter.php?username=' + encodeURIComponent(submittedUsername);
+            } else {
+                alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
             }
-        } else {
-            alert('Invalid username or password');
+            return;  // Exit the loop once a match is found
         }
-    });
+    }
+
+    // If no match is found
+    alert('Invalid username or password');
+});
+
 </script>
 
             <?php
