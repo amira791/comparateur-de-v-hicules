@@ -22,6 +22,7 @@ class accueilRouter
         public function is_connected($username) {
             $accueil = new accueilVue();
             $accueil->show_top_bar($username);
+            $accueil->show_menu($username);
         }
     }
 

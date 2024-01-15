@@ -37,36 +37,64 @@ class comparateurVue {
 
     }
 
-    private function show_top_bar ()
+    public function show_top_bar($username)
     {
         ?>
-      <div class="topBar" id="top">
-             <img src="../../images/logo" id="logo"   >
-             <button class="auth" id="connec"> Sign In </button>
-             <button class="auth" id="ins"> Sign Up </button>       
-      </div>
-       <?php
         
-    }
-
-
-    private function show_menu()
-    {
-        $ctr = new menuController();
-        $table = $ctr->get_menu();
-        ?>
-        <div class="menu">
+        <img src="../../images/logo" id="logo">
+        <div class="top-bar"> 
             <?php
-            foreach ($table as $row) {
-                $designation = htmlspecialchars($row['designation']);
-                $champLocation = htmlspecialchars($row['location']); // Assuming 'champ_location' is the column name in your database
-    
-                // Link each menu item to its champ location with white text color
-                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            if ($username == "NoUser") {
+                ?>
+                <button class="auth" id="connec" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/connectionRouter.php'">Connection</button>
+                <button class="auth" id="ins" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/inscriptionRouter.php'">Inscription</button>
+                <button class="auth" id="admin" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/connectionRouter.php'">Connection as Admin</button>
+                </div>
+                <?php
+            } else {
+                ?>
+                <h1 id="username"><img src="../../images/userIcon.png" alt="Avatar"><?php echo htmlspecialchars($username); ?></h1>
+                </div>
+                <?php
             }
             ?>
         </div>
         <?php
+    }
+
+
+    public function show_menu($username)
+    {
+      
+        $ctr = new menuController();
+        $table = $ctr->get_menu();
+        ?>
+            <?php
+            if ($username == "NoUser") {
+                ?>
+                <div class="menu">
+            <?php
+            foreach ($table as $row) {
+                $designation = htmlspecialchars($row['designation']);
+                $champLocation = htmlspecialchars($row['location']); 
+                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            }
+            ?>
+        </div> 
+                <?php
+            } else {
+                ?>
+                <div class="menu">
+            <?php
+            foreach ($table as $row) {
+                $designation = htmlspecialchars($row['designation']);
+                $champLocation = htmlspecialchars($row['location'] . '?username=' . urlencode($username));
+                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            }
+            ?>
+        </div>
+                <?php
+            }
     }
     
 
@@ -810,16 +838,7 @@ private function show_form4()
     <?php
 }
 
-// foreach ($table as $row) {
-//     $images[] = $row['image_diap']; 
-// }
 
-// foreach ($images as $imgData) {
-//     $base64Img = base64_encode($imgData);
-//     $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
-//     echo '<img src="' . $imgSrc . '" alt="Image">';
-// }
-  // Methodes pour construre le tableau comparatif a partir les donnes selctionnes dans les inputs 
 
 
   private function show_carac()
@@ -1079,7 +1098,10 @@ else {
 var headerRow = "<tr><th>Features</th>";
 for (var i = 0; i < objects.length; i++) {
     var imageSrc = images[i];
-    headerRow += "<th style='text-align: center;'><div style='max-width: 150px; max-height: 150px; margin: 0 auto;'><img src='" + imageSrc + "' alt='Vehicle Image' style='width: 100%; height: 100%; object-fit: contain;'></div><br>" + objects[i].selectedMrq + " " + objects[i].selectedMod + " " + objects[i].selectedVer + " " + objects[i].selectedAn + "</th>";
+    headerRow += "<th style='text-align: center;'><a href='details_page.php?id=" + vehicleId + "'>";
+    headerRow += "<div style='max-width: 150px; max-height: 150px; margin: 0 auto;'>";
+    headerRow += "<img src='" + imageSrc + "' alt='Vehicle Image' style='width: 100%; height: 100%; object-fit: contain;'>";
+    headerRow += "</div><br>" + objects[i].selectedMrq + " " + objects[i].selectedMod + " " + objects[i].selectedVer + " " + objects[i].selectedAn + "</a></th>";
 }
 headerRow += "</tr>";
 $("#comparisonTable").append(headerRow);
@@ -1123,33 +1145,10 @@ $("#comparisonTable").append(headerRow);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  public function show_accueil_table($table)
+  {
+      echo "<table id='acc'>" . $table . "</table>";
+  }
 
 
 
@@ -1175,8 +1174,6 @@ $("#comparisonTable").append(headerRow);
     public function Body_Page()
     {
         echo '<body>';
-        $this->show_top_bar();
-        $this->show_menu();
         $this->show_marque();
         $this->show_list_type();
         // First line of forms

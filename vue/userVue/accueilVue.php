@@ -109,23 +109,38 @@ class AccueilVue {
     
 
 
-    private function show_menu()
+    public function show_menu($username)
     {
+        $this->show_diaporma();
         $ctr = new menuController();
         $table = $ctr->get_menu();
         ?>
-        <div class="menu">
+            <?php
+            if ($username == "NoUser") {
+                ?>
+                <div class="menu">
             <?php
             foreach ($table as $row) {
                 $designation = htmlspecialchars($row['designation']);
-                $champLocation = htmlspecialchars($row['location']); // Assuming 'champ_location' is the column name in your database
-    
-                // Link each menu item to its champ location with white text color
+                $champLocation = htmlspecialchars($row['location']); 
+                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            }
+            ?>
+        </div> 
+                <?php
+            } else {
+                ?>
+                <div class="menu">
+            <?php
+            foreach ($table as $row) {
+                $designation = htmlspecialchars($row['designation']);
+                $champLocation = htmlspecialchars($row['location'] . '?username=' . urlencode($username));
                 echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
             }
             ?>
         </div>
-        <?php
+                <?php
+            }
     }
 
     private function show_pied_page()
@@ -1170,21 +1185,31 @@ private function show_form4()
               function create_table() {
                   // get all objects submitted in the form 
                   var objects = [];
-                  for (var i = 1; i <= 4; i++) {
-                      var object = {
-                          selectedMrq: $("#mrqSelector" + i).val(),
-                          selectedMod: $("#modSelector" + i).val(),
-                          selectedVer: $("#verSelector" + i).val(),
-                          selectedAn: $("#anSelector" + i).val()
-                      };
-                      objects.push(object);
-                  }
-                  console.log(objects);
-                  if (objects.length < 2) {
-                   alert("Vous devez remplir au minimum deux formulaires.");
+
+for (var i = 1; i <= 4; i++) {
+    var selectedMrq = $("#mrqSelector" + i).val();
+    var selectedMod = $("#modSelector" + i).val();
+    var selectedVer = $("#verSelector" + i).val();
+    var selectedAn = $("#anSelector" + i).val();
+
+    // Check if any of the selected values is empty
+    if (selectedMrq !== "" && selectedMod !== "" && selectedVer !== "" && selectedAn !== "") {
+        var object = {
+            selectedMrq: selectedMrq,
+            selectedMod: selectedMod,
+            selectedVer: selectedVer,
+            selectedAn: selectedAn
+        };
+
+        // Add the object to the array
+        objects.push(object);
+    } 
+}
+if (objects.length < 2) {
         
-                 } else {
-                 
+        alert("Vous devez remplir au moins deux formulaires");
+        return;
+    }   else {             
                   // get all features 
                   var features = [
                       <?php foreach ($table_carac as $row): ?>
@@ -1261,7 +1286,7 @@ private function show_form4()
 }
 return $("#comparisonTable").html();
 
-                }  }
+               } }
   
               // Call the function when the button is clicked
               $("#myButton").on("click", function () {
@@ -1296,8 +1321,7 @@ return $("#comparisonTable").html();
     public function Body_Page()
     {
         echo '<body>';
-        $this->show_diaporma();
-        $this->show_menu();
+       
         $this->show_marque();
         $this->show_list_type();
       
