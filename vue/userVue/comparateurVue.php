@@ -910,7 +910,7 @@ private function show_form4()
 
     var headerRow = "<tr><th>Features</th>";
     for (var i = 1; i <= 4; i++) {
-        var vehicleDetails = $("#hiddenSelect" + i + " option:selected").data();
+        var vehicleDetails = $("#hiddenSelect option:selected").data();
         headerRow += "<th>" + vehicleDetails.data-mrq + " " + vehicleDetails.data-mod + " " + vehicleDetails.data-ver + " " + vehicleDetails.data-an + "</th>";
     }
     headerRow += "</tr>";
@@ -999,16 +999,36 @@ $("#myButton").on("click", handleButtonClick);  });
               function create_table() {
                   // get all objects submitted in the form 
                   var objects = [];
-                  for (var i = 1; i <= 4; i++) {
-                      var object = {
-                          selectedMrq: $("#mrqSelector" + i).val(),
-                          selectedMod: $("#modSelector" + i).val(),
-                          selectedVer: $("#verSelector" + i).val(),
-                          selectedAn: $("#anSelector" + i).val()
-                      };
-                      objects.push(object);
-                  }
-                  console.log(objects);
+
+for (var i = 1; i <= 4; i++) {
+    var selectedMrq = $("#mrqSelector" + i).val();
+    var selectedMod = $("#modSelector" + i).val();
+    var selectedVer = $("#verSelector" + i).val();
+    var selectedAn = $("#anSelector" + i).val();
+
+    // Check if any of the selected values is empty
+    if (selectedMrq !== "" && selectedMod !== "" && selectedVer !== "" && selectedAn !== "") {
+        var object = {
+            selectedMrq: selectedMrq,
+            selectedMod: selectedMod,
+            selectedVer: selectedVer,
+            selectedAn: selectedAn
+        };
+
+        // Add the object to the array
+        objects.push(object);
+    } 
+}
+
+console.log(objects);
+
+if (objects.length < 2) {
+        
+        alert("Vous devez remplir au moins deux formulaires");
+        return;
+    }
+else {
+
   
                   // get all features 
                   var features = [
@@ -1055,12 +1075,15 @@ $("#myButton").on("click", handleButtonClick);  });
                   }
   
                   // creation comparaison table 
-                  var headerRow = "<tr><th>Features</th>";
-                  for (var i = 0; i < objects.length; i++) {
-                 headerRow += "<th>" + objects[i].selectedMrq + " " + objects[i].selectedMod + " " + objects[i].selectedVer + " " + objects[i].selectedAn + "</th>";
-                  }
-                headerRow += "</tr>";
-                $("#comparisonTable").append(headerRow);
+                  // creation comparaison table 
+var headerRow = "<tr><th>Features</th>";
+for (var i = 0; i < objects.length; i++) {
+    var imageSrc = images[i];
+    headerRow += "<th style='text-align: center;'><div style='max-width: 150px; max-height: 150px; margin: 0 auto;'><img src='" + imageSrc + "' alt='Vehicle Image' style='width: 100%; height: 100%; object-fit: contain;'></div><br>" + objects[i].selectedMrq + " " + objects[i].selectedMod + " " + objects[i].selectedVer + " " + objects[i].selectedAn + "</th>";
+}
+headerRow += "</tr>";
+$("#comparisonTable").append(headerRow);
+
 
                  for (var j = 0; j < features.length; j++) {
                  var tableRow = "<tr><td>" + features[j].name + "</td>";
@@ -1086,7 +1109,7 @@ $("#myButton").on("click", handleButtonClick);  });
 }
 
 
-              }
+               } }
   
               // Call the function when the button is clicked
               $("#myButton").on("click", function () {

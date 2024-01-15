@@ -75,6 +75,13 @@ class vehiculeController {
         $res = $vhe_model-> add_vehicule_principal_table($id_mrq, $id_vh);
         
    }
+   public function get_pop ()
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_cmp_pop ();
+        return $res;
+        
+   }
 
 
    public function show_website()

@@ -57,6 +57,21 @@ class marqueModel {
     return $marq;
    }
 
+   public function get_marque_principal_table()
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM marque Where supp_logique = 0 and principal = '1'"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $marq = array();
+    while ($row = $res->fetch_assoc()) {
+        $marq[] = $row;
+    }
+    return $marq;
+   }
+
 // get marques a partir le type 
 public function get_marq_typ_table( $idType)
 {
@@ -172,8 +187,8 @@ public function add_marque_table($logo, $Nom, $pays_origine, $siege_social, $ann
     $escapedImageData = mysqli_real_escape_string($conn, $imageData);
 
     // Insert the image data into the database as a BLOB
-    $query = "INSERT INTO marque (logo, Nom, pays_origine, siege_social, annee_creation, histoire, Fondateurs, Slogan, Produits, Site_web) 
-    VALUES ('$escapedImageData', '$Nom', '$pays_origine', '$siege_social', '$annee_creation', '$histoire' , '$Fondateurs', '$Slogan', '$Produits', '$Site_web')";
+    $query = "INSERT INTO marque (logo, Nom, pays_origine, siege_social, annee_creation, histoire, Fondateurs, Slogan, Produits, Site_web, principal) 
+    VALUES ('$escapedImageData', '$Nom', '$pays_origine', '$siege_social', '$annee_creation', '$histoire' , '$Fondateurs', '$Slogan', '$Produits', '$Site_web', '0')";
 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);

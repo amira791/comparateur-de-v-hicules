@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../../controller/diapormaContoller.php');
 require_once(__DIR__ . '/../../controller/menuController.php');
 require_once(__DIR__ . '/../../controller/marqueController.php');
 require_once(__DIR__ . '/../../controller/vehiculeController.php');
+require_once(__DIR__ . '/../../controller/contactController.php');
 
 
 
@@ -24,6 +25,7 @@ class AccueilVue {
     {
        ?>
        <link rel="stylesheet" type="text/css" href="../../styling/accueil.css">
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
        <meta charset="UTF-8">
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,23 +43,25 @@ class AccueilVue {
 
 
     }
+
     public function show_top_bar($username)
     {
         ?>
         
-        <div class="topBar" id="top">
-            <img src="../../images/logo" id="logo">
-            <div class="background-rectangle"></div>
+        <img src="../../images/logo" id="logo">
+        <div class="top-bar"> 
             <?php
             if ($username == "NoUser") {
                 ?>
                 <button class="auth" id="connec" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/connectionRouter.php'">Connection</button>
                 <button class="auth" id="ins" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/inscriptionRouter.php'">Inscription</button>
                 <button class="auth" id="admin" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/connectionRouter.php'">Connection as Admin</button>
+                </div>
                 <?php
             } else {
                 ?>
                 <h1 id="username"><img src="../../images/userIcon.png" alt="Avatar"><?php echo htmlspecialchars($username); ?></h1>
+                </div>
                 <?php
             }
             ?>
@@ -68,28 +72,42 @@ class AccueilVue {
 
 
 
+   
     private function show_diaporma()
     {
         $ctr = new diapormaController();
         $table = $ctr->get_diaporma();
         ?>
+    
         <div class="diap">
-        <?php
-        $images = array();
-    
-        foreach ($table as $row) {
-            $images[] = $row['image_diap']; 
-        }
-    
-        foreach ($images as $imgData) {
-            $base64Img = base64_encode($imgData);
-            $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
-            echo '<img src="' . $imgSrc . '" alt="Image">';
-        }
-        ?>
+            <?php
+            foreach ($table as $index => $row) {
+                $base64Img = base64_encode($row['image_diap']);
+                $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+                echo '<img class="diap-img" src="' . $imgSrc . '" alt="Image" style="display: ' . ($index === 0 ? 'block' : 'none') . ';">';
+            }
+            ?>
         </div>
-        <?php
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var currentIndex = 0;
+                var images = document.querySelectorAll('.diap-img');
+                
+                function showNextImage() {
+                    images[currentIndex].style.display = 'none';
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].style.display = 'block';
+                }
+    
+                setInterval(showNextImage, 3000); // Change image every 5 seconds
+            });
+        </script>
+    <?php
     }
+   
+    
+
 
     private function show_menu()
     {
@@ -109,15 +127,137 @@ class AccueilVue {
         </div>
         <?php
     }
+
+    private function show_pied_page()
+    {
+        ?>
+        <footer>
+            <div class="footer-content">
+              
+    
+                <div class="menuu" >
+                    <?php
+                    $ctr = new menuController();
+                    $table = $ctr->get_menu();
+    
+                    foreach ($table as $row) {
+                        $designation = htmlspecialchars($row['designation']);
+                        $champLocation = htmlspecialchars($row['location']); // Assuming 'location' is the column name in your database
+    
+                        // Link each menu item to its champ location with white text color
+                        echo '<li class="menu-item"><a href="' . $champLocation . '">' . $designation . '</a></li>';
+                    }
+                ?>
+                </div>
+                <?php
+                    
+                    $ctr = new contactController();
+        $table = $ctr->get_contact();
+        ?>
+        <h1> Contactez Nous </h1>
+        <div class="con">
+            <?php
+            $images = array();
+    
+            foreach ($table as $row) {
+                $images[] = array('logo' => $row['image_res'], 'nom' => $row['nom_res'], 'lien' => $row['lien_res']);
+            }
+            $rows = array_chunk($images, 3);
+    
+            foreach ($rows as $rowImages) {
+                echo '<div class="logo-row">';
+    
+                foreach ($rowImages as $brandData) {
+                    $base64Img = base64_encode($brandData['logo']);
+                    $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+    
+                    echo '<div class="brand-container">';
+                    echo '<a href="' . $brandData['lien'] . '">';
+                    echo '<img src="' . $imgSrc . '" alt="Image">';
+                    echo '</a>';
+                    echo '<div class="brand-name">' . htmlspecialchars($brandData['nom']) . '</div>';
+                    echo '</div>';
+                }
+    
+                echo '</div>';
+            }
+            ?>
+        </div>
+                
+            </div>
+        </footer>
+        <?php
+
+    
+     
+    }
+
+
+    private function show_button_guide ()
+    {
+        ?>
+        <button  id="guide" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/guideRouter/connectionRouter.php'"> Guide Achat</button>
+        <?php
+    }
+
+    private function show_popular_comp()
+    {
+        ?>
+        <h1 id="cmp" > Les comparaisons les plus recherches </h1>
+        <?php
+        $ctr = new vehiculeController();
+        $cmp = $ctr->get_pop(); 
+    
+        // Check if $cmp is not null and is an array
+        if (is_array($cmp) && count($cmp) > 0) {
+            foreach ($cmp as $row) {
+                echo '<div class="comparison-frame">';
+    
+                for ($i = 1; $i <= 4; $i++) {
+                    $id_vh = $row["id_vh$i"];
+                    
+                    if ($id_vh !== 0) {
+                        $ctr_vh = new vehiculeController();
+                        $vh = $ctr_vh->get_vhById($id_vh);
+                        
+                        if ($vh) {
+                            $marque = $vh[0]['marque'];
+                            $modele = $vh[0]['modele'];
+                            $version = $vh[0]['version'];
+                            $annee = $vh[0]['annee'];
+                            $image = $vh[0]['image'];
+                            $base64Img = base64_encode($image);
+                            $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+    
+                            // Display each vehicle in a container
+                            echo '<div class="vehicle-container">';
+                            echo '<img src="' . $imgSrc . '" alt="Vehicle Image">';
+                            echo '<p>Marque: ' . $marque . '</p>';
+                            echo '<p>Modèle: ' . $modele . '</p>';
+                            echo '<p>Version: ' . $version . '</p>';
+                            echo '<p>Année: ' . $annee . '</p>';
+                            echo '</div>';
+                        }
+                    }
+                }
+    
+                echo '</div>'; // Close the comparison-frame
+            }
+        } else {
+            echo 'No popular comparisons available.';
+        }
+    }
+    
     
 
     private function show_marque()
     {
         $ctr = new marqueController();
-        $table = $ctr->get_marque();
+        $table = $ctr->get_marque_pr();
         ?>
-        <h1> Les principales marques </h1> 
+       
         <div class="marque">
+        <h1> Les principales marques </h1> 
         <?php
         $images = array();
     
@@ -145,6 +285,7 @@ class AccueilVue {
         </div>
         <?php
     }
+ 
 
 
     
@@ -154,8 +295,9 @@ class AccueilVue {
         $ctr = new vehiculeController();
         $table = $ctr->get_typeVh();
         ?>
+        
+        <select id="typeSelector" >
         <h2>Selectionner le type du vehicule</h2>
-        <select id="typeSelector">
         <option value="" selected>type</option> 
             <?php
             foreach ($table as $row) {
@@ -1038,7 +1180,11 @@ private function show_form4()
                       objects.push(object);
                   }
                   console.log(objects);
-  
+                  if (objects.length < 2) {
+                   alert("Vous devez remplir au minimum deux formulaires.");
+        
+                 } else {
+                 
                   // get all features 
                   var features = [
                       <?php foreach ($table_carac as $row): ?>
@@ -1115,7 +1261,7 @@ private function show_form4()
 }
 return $("#comparisonTable").html();
 
-              }
+                }  }
   
               // Call the function when the button is clicked
               $("#myButton").on("click", function () {
@@ -1154,19 +1300,20 @@ return $("#comparisonTable").html();
         $this->show_menu();
         $this->show_marque();
         $this->show_list_type();
-        // First line of forms
+      
       
         $this->show_form1();
    
         $this->show_form2();
-     
-
-        // Second line of forms
  
         $this->show_form3();
 
         $this->show_form4();
         $this->show_comparaison_table();
+        $this->show_button_guide();
+        $this->show_popular_comp();
+        $this->show_pied_page();
+       
      
  
         

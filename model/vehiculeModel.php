@@ -293,6 +293,23 @@ public function add_carac_vehicule_table($id_vh, $id_carac, $valeure)
 
 }
 
+public function get_cmp_pop ()
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM pop ORDER BY nb_fois DESC LIMIT 3";
+   
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $pop = array();
+    while ($row = $res->fetch_assoc()) {
+        $pop[] = $row;
+    }
+    //var_dump($pop);
+    return  $pop;
+
+}
+
 
 
 

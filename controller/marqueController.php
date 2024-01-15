@@ -21,6 +21,12 @@ class marqueController {
         $res = $mrq_model->get_marque_table();
         return $res;
     }
+    public function get_marque_pr ()
+    {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->get_marque_principal_table();
+        return $res;
+    }
 
 
    public function get_mrqType ()
