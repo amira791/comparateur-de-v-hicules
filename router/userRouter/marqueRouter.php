@@ -25,17 +25,33 @@ if (isset($_GET['username'])) {
     $router->is_connected($username);
 }
 
+if (isset($_GET['username'])) {
+    $submittedUsername = $_GET['username'];
+    $submittedNote = isset($_GET['note']) ? $_GET['note'] : '';
+    $submittedId = isset($_GET['idd']) ? $_GET['idd'] : ''; 
+    
+
+    $router->addNote($submittedId, $submittedNote, $submittedUsername);
+}
+
 
 class marqueRouter 
 {
     public function show_details($id) {
         $marqueVue = new marqueVue();
         $marqueVue->show_details_marque($id);
+        $marqueVue->show_marque_note($id);
     }
     public function is_connected($username) {
-        $contact = new contactVue();
-        $contact->show_top_bar($username);
-        $contact->show_menu($username);
+        $marque = new MarqueVue();
+        $marque->show_top_bar($username);
+        $marque->show_menu($username);
+      
+    }
+    public function addNote($submittedId, $submittedNote, $submittedUsername) {
+        $marque = new MarqueVue();
+        $marque->add_note ($submittedId, $submittedNote, $submittedUsername) ;
+     
     }
 }
 ?>

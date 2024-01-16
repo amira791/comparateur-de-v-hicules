@@ -24,10 +24,10 @@ class userController {
         return $res;
    }
 
-   public function  add_user($username, $password)
+   public function  add_user($username, $password, $nom, $prenom, $sexe, $dateNaissance)
    {
     $new_user = new userModel();
-    $new_user->add_user_table($username, $password);
+    $new_user->add_user_table($username, $password, $nom, $prenom, $sexe, $dateNaissance);
     
    }
 
@@ -37,7 +37,12 @@ class userController {
     $new_user-> valide_user_table($username);
     
    }
-
+   public function get_user ($username)
+   {
+        $user = new userModel();
+        $res = $user->get_userT($username);
+        return $res;
+   }
 
 
    public function show_website()

@@ -28,37 +28,68 @@ class newsVue {
         <?php
     }
 
-    private function show_top_bar()
+    public function show_top_bar($username)
     {
         ?>
-        <div class="top-bar">
-            <img src="../../images/logo" id="logo">
-            <button class="auth" id="connec">Sign In</button>
-            <button class="auth" id="ins">Sign Up</button>
-        </div>
-        <div class="background-rectangle"></div>
-        <?php
-    }
-
-    private function show_menu()
-    {
-        $ctr = new menuController();
-        $table = $ctr->get_menu();
-        ?>
-        <div class="menu">
+        
+        <img src="../../images/logo" id="logo">
+        <div class="top-bar"> 
             <?php
-            foreach ($table as $row) {
-                $designation = htmlspecialchars($row['designation']);
-                $champLocation = htmlspecialchars($row['location']);
-
-                // Link each menu item to its champ location with white text color
-                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            if ($username == "NoUser") {
+                ?>
+                <button class="auth" id="connec" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/connectionRouter.php'">Connection</button>
+                <button class="auth" id="ins" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/inscriptionRouter.php'">Inscription</button>
+                <button class="auth" id="admin" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/connectionRouter.php'">Connection as Admin</button>
+                </div>
+                <?php
+            } else {
+                ?>
+              <h1 id="username">
+    <a href="../../router/userRouter/userRouter.php?username=<?php echo urlencode($username); ?>">
+        <img src="../../images/userIcon.png" alt="Avatar">
+        <?php echo htmlspecialchars($username); ?>
+    </a>
+</h1>
+                </div>
+                <?php
             }
             ?>
         </div>
         <?php
     }
-
+    public function show_menu($username)
+    {
+        
+        $ctr = new menuController();
+        $table = $ctr->get_menu();
+        ?>
+            <?php
+            if ($username == "NoUser") {
+                ?>
+                <div class="menu">
+            <?php
+            foreach ($table as $row) {
+                $designation = htmlspecialchars($row['designation']);
+                $champLocation = htmlspecialchars($row['location']); 
+                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            }
+            ?>
+        </div> 
+                <?php
+            } else {
+                ?>
+                <div class="menu">
+            <?php
+            foreach ($table as $row) {
+                $designation = htmlspecialchars($row['designation']);
+                $champLocation = htmlspecialchars($row['location'] . '?username=' . urlencode($username));
+                echo '<div class="menu-item"><a href="' . $champLocation . '" style="color: white;">' . $designation . '</a></div>';
+            }
+            ?>
+        </div>
+                <?php
+            }
+    }
 
     private function show_contacts()
     {
@@ -147,8 +178,6 @@ class newsVue {
     public function Body_Page()
     {
         echo '<body>';
-        $this->show_top_bar();
-        $this->show_menu();
         $this->show_news();
         echo '</body>';
     }

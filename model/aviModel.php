@@ -117,7 +117,7 @@ class aviModel {
       public function get_avi_veh_table($id_vh)
       {
        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-       $query = "SELECT * FROM avi_veh WHERE id_vh = $id_vh AND status_avi_veh = 'Valide'";
+       $query = "SELECT * FROM avi_veh WHERE id_veh = $id_vh AND status_avi_veh = 'Valide'";
     
    
        $res = $this->requete($conn, $query);
@@ -134,7 +134,7 @@ class aviModel {
       public function get_troisAvi_vh($id_vh)
       {
        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-       $query = "SELECT * FROM avi_veh WHERE id_vh = $id_vh AND status_avi_veh = 'Valide' ORDER BY nb_appreciation_mrq DESC LIMIT 3";
+       $query = "SELECT * FROM avi_veh WHERE id_veh = $id_vh AND status_avi_veh = 'Valide' ORDER BY nb_appreciation_veh DESC LIMIT 3";
 
     
    

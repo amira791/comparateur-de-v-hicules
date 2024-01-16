@@ -51,6 +51,13 @@ class aviController {
         return $res;
    }
 
+   public function get_avi_tois_Vh ($id)
+   {
+        $avi4 = new aviModel();
+        $res = $avi4->  get_troisAvi_vh($id);
+        return $res;
+   }
+
 
 
 

@@ -304,6 +304,49 @@ public function get_mrq_Id ($id)
 }
 
 
+// get notes marques 
+public function get_notes_marque ($id)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM note_marque where id_marq ='$id'"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $marq_notes = array();
+    while ($row = $res->fetch_assoc()) {
+        $marq_notes[] = $row;
+    }
+    return  $marq_notes;
+
+}
+
+
+// add note 
+
+public function add_marque_note($id_mrq, $note, $username)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connesct_error());
+    }
+
+    // Update the query to add quotes around numeric values
+    $query = "INSERT INTO note_marque (id_marq, note, username) VALUES ('$id_mrq', '$note', '$username')";
+
+    $res = $this->requete($conn, $query);
+
+
+    $this->deconnect($conn);
+}
+
+
+
+
+
+
 
 
 

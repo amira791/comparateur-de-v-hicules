@@ -138,7 +138,7 @@ public function get_prinvh_table($ids)
 public function get_veh_byId($id_vehc)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "SELECT * FROM vehicule WHERE Id_veh = $id_vehc";
+    $query = "SELECT * FROM vehicule WHERE Id_veh = $id_vehc and supp_log =0";
    
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
@@ -328,7 +328,103 @@ public function get_guide_achat ($id)
 
 }
 
+// get notes veh 
+public function get_notes_vehicule ($id)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM note_vehicule where id_vh ='$id'"; 
 
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $vh_notes = array();
+    while ($row = $res->fetch_assoc()) {
+        $vh_notes[] = $row;
+    }
+    return  $vh_notes;
+
+}
+
+
+// add note 
+
+public function add_vehicule_note($id_vh, $note, $username )
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+
+
+  
+    $query = "INSERT INTO note_vehicule (id_vh, note, username) VALUES ('$id_vh', '$note', '$username')";
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+}
+
+// get carac veh 
+public function get_carac_vehicule ($id)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM vehicule_carac where id_vh = '$id' "; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $vhCar = array();
+    while ($row = $res->fetch_assoc()) {
+        $vhCar[] = $row;
+    }
+    return  $vhCar;
+
+}
+
+// get carac
+public function get_carac ()
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM caracteristique  "; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $Car = array();
+    while ($row = $res->fetch_assoc()) {
+        $Car[] = $row;
+    }
+    return  $Car;
+
+}
+
+
+// get list_favoris
+public function get_fav_user ($username)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM favoris_vh where username = '$username'";  
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $fav = array();
+    while ($row = $res->fetch_assoc()) {
+        $fav[] = $row;
+    }
+    return  $fav;
+
+}
+
+
+// get list_favoris
+public function add_fav_user ( $id_vh ,$username)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "INSERT INTO favoris_vh (id_vh, username) VALUES ('$id_vh', '$username')";
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    
+
+}
 
 
 

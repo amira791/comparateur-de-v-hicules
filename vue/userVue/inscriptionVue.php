@@ -22,32 +22,48 @@ class inscriptionVue {
     private function show_form_inscription() {
         ?>
         <div class="registration-container">
-            <h2>User Registration</h2>
-            <form action="inscriptionRouter.php" method="post" id="registerForm">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-    
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-    
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required>
-    
-                <button type="submit">Register</button>
-                <button class="return-button" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/accueilRouter.php'">Revenir au page accueil</button>
-            </form>
-        </div>
+    <h2>User Registration</h2>
+    <form action="inscriptionRouter.php" method="post" id="registerForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <label for="nom">Last Name:</label>
+        <input type="text" id="nom" name="nom" required>
+
+        <label for="prenom">First Name:</label>
+        <input type="text" id="prenom" name="prenom" required>
+
+        <label for="sexe">Gender:</label>
+        <select id="sexe" name="sexe" required>
+            <option value="F">Female</option>
+            <option value="M">Male</option>
+        </select>
+
+        <label for="dateNaissance">Date of Birth:</label>
+        <input type="date" id="dateNaissance" name="dateNaissance" required>
+
+        <button type="submit">Register</button>
+        <button class="return-button" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/accueilRouter.php'">Revenir au page accueil</button>
+    </form>
+</div>
+
         <?php
     }
     
     
 
 
-    public function inscrire($username, $password)
+    public function inscrire($username, $password, $nom, $prenom, $sexe, $dateNaissance)
     {
         if ($username && $password) {
             $ctr = new userController();
-            $ctr->add_user($username, $password);
+            $ctr->add_user($username, $password, $nom, $prenom, $sexe, $dateNaissance);
             echo '<script>alert("Vous êtes inscrit avec succès");</script>';
         } else {
             echo '<script>alert("Information manquante: username or password");</script>';

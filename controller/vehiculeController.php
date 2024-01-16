@@ -86,9 +86,51 @@ class vehiculeController {
    {
         $vhe_model = new vehiculeModel();
         $res = $vhe_model->get_guide_achat ($id);
-        return $res;
+        return $res;    
+   }
+   public function get_VehNotes ($id)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_notes_vehicule ($id);
+        return $res;    
+   }
+   public function add_VehNotes ($id_vh, $note, $username)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->add_marque_note($id_vh, $note, $username );
         
    }
+   public function get_VehCar ($id)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_carac_vehicule ($id);
+        return $res;    
+   }
+   public function get_Car ()
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_carac ();
+        return $res;    
+   }
+   public function get_listFav ($username)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_fav_user ($username);
+        return $res;    
+   }
+   public function add_listFav ($id_vh, $username)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->add_fav_user ( $id_vh ,$username);
+        return $res;    
+   }
+   public function get_avis ($id_vh)
+   {
+        $vhe_model = new aviModel();
+        $res = $vhe_model->get_avi_veh_table($id_vh);
+        return $res;    
+   }
+
 
 
    public function show_website()

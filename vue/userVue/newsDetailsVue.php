@@ -66,10 +66,10 @@ class newsDetailsVue {
 
             echo '<div class="news-row">';
              
-                $title = $table['titre'];
-                $content = $table['contenu'];
-                $date_pub = $table['date_publication'];
-                $imageBlob = $table['image_pr'];
+                $title = $table[0]['titre'];
+                $content = $table[0]['contenu'];
+                $date_pub = $table[0]['date_publication'];
+                $imageBlob = $table[0]['image_pr'];
                 $imgSrc = 'data:image/png;base64,' . base64_encode($imageBlob);
 
                 echo '<div class="news-item">';

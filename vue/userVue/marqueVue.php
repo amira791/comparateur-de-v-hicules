@@ -5,6 +5,7 @@ require_once(__DIR__ . '/../../controller/menuController.php');
 require_once(__DIR__ . '/../../controller/marqueController.php');
 require_once(__DIR__ . '/../../controller/vehiculeController.php');
 require_once(__DIR__ . '/../../controller/aviController.php');
+require_once(__DIR__ . '/../../controller/userController.php');
 
 
 class marqueVue {
@@ -100,7 +101,7 @@ class marqueVue {
         $table = $ctr->get_marque();
         ?>
         <div class="after" >
-        <h1> Les principales marques </h1>
+        <h1> Toutes les marques  </h1>
         <div class="marque">
             <?php
             $images = array();
@@ -149,7 +150,7 @@ class marqueVue {
 
     public function show_details_marque ($id)
     {
-        echo "Details for Marque with ID: $id";
+    
         $ctr = new marqueController();
         $ctr2 = new vehiculeController();
         $marqueDetails = $ctr->get_details($id);
@@ -164,7 +165,7 @@ class marqueVue {
     
             // Display the details
             ?>
-            <h1>Details for Marque <?php echo htmlspecialchars($id); ?></h1>
+            
             <div class="marque-details">
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($marqueDetails['logo']); ?>" alt="Marque Logo">
                 <p>Name: <?php echo htmlspecialchars($marqueDetails['Nom']); ?></p>
@@ -176,7 +177,11 @@ class marqueVue {
                 <p>Slogan: <?php echo htmlspecialchars($marqueDetails['Slogan']); ?></p>
                 <p>Products: <?php echo htmlspecialchars($marqueDetails['Produits']); ?></p>
                 <p>Website: <a href="<?php echo htmlspecialchars($marqueDetails['Site_web']); ?>" target="_blank"><?php echo htmlspecialchars($marqueDetails['Site_web']); ?></a></p>
-                <!-- Add more details as needed -->
+
+            <?php
+                $this->show_button_add_note($id);
+             ?>   
+               
             </div>
             <?php
         } else {
@@ -185,61 +190,42 @@ class marqueVue {
             <h1>No details found for Marque <?php echo htmlspecialchars($marqueId); ?></h1>
             <?php
         }
+
         
         ?>
        
-<h2>Liste de tous les vehicules</h2>
-<select id="vhSelector">
-    <option value="" selected>vehicule</option> 
+       ?>
+<h2>Liste de tous les véhicules</h2>
+<select id="vhSelector" onchange="redirectToDetails()">
+    <option value="" selected>Sélectionner un véhicule</option> 
     <?php
     foreach ($allVh as $row) {
-       
+        $id_vh = $row['Id_veh'];
         $modele = $row['modele'];
         $version = $row['version'];
         $annee = $row['annee'];
-        echo "<option value='$id'>$modele $version $annee</option>";
+        echo "<option value='$id_vh'>$modele $version $annee</option>";
     }
     ?>
 </select>
-<?php
-  //  $prinVh =  $ctr2->get_prinvh_v ($ids);
 
-    ?>
-<h2>Principales marques test</h2>
-<select id="pr">
-    <option value="" selected>vehicule</option> 
-    <?php
-    foreach ($ids as $row) {
-       
-            $idp = $row['veh_p'];
-            echo "<option value='$idp'> $idp</option>";
+<script>
+    function redirectToDetails() {
+        var selectedId = document.getElementById("vhSelector").value;
+        if (selectedId) {
+            window.location.href = "../../router/userRouter/vehiculeRouter.php?id_vh=" + selectedId;
+        }
     }
-    ?>
-</select>
-        <?php
-    
-    ?>
-<h2>Principales vehicules</h2>
-<select id="p">
-    <option value="" selected>vehicule</option> 
-    <?php
-    foreach ($ids as $row) {
-            $idp = $row['veh_p'];
-            $prinVh =  $ctr2->get_vhById($idp);
-            foreach ($prinVh as $vh) {
-       
-                $modele = $vh['modele'];
-                $version = $vh['version'];
-                $annee = $vh['annee'];
-                echo "<option value='$id'>$modele $version $annee</option>";
-            }
-    }
-    ?>
-</select>
-        <?php
+</script>
+<?php
+
+
+
+   
+
 
 ?>
-<h1><h2>Principales vehicules 22 </h2>
+<h1><h2>Principales vehicules </h2>
  </h1>
 <div class="prinVh">
     <?php
@@ -285,7 +271,7 @@ $avi3 = $ctr3->get_trois_avi_mrq($id);
 <h2> Les avis </h2>
 <?php
 foreach ($avi3 as $avis) {
-    // Assuming $avis contains the necessary fields
+   
     $userName = $avis['username'];
     $reviewContent = $avis['contenu_mrq'];
     $appreciationCount = $avis['nb_appreciation_mrq'];
@@ -302,7 +288,125 @@ foreach ($avi3 as $avis) {
 <?php
     } }
 
+    public function show_marque_note($id) {
+        $ctr3 = new marqueController();
+        $notes = $ctr3->get_mrqNotes($id);
+    
+        if ($notes) {
+            $allNotes = array();
+            foreach ($notes as $row) {
+                $note = $row['note'];
+                $allNotes[] = $note;
+            }
+    
+            // Calculate the average note
+            $note_moyenne = array_sum($allNotes) / count($allNotes);
+            ?>
+            <div class="marque-note-container">
+                <div class="marque-note-box">
+                    <h1>Note de la marque : <span><?php echo number_format($note_moyenne, 1); ?></span></h1>
+                </div>
+            </div>
+            <?php
+        } else {
+            ?>
+            <div class="marque-note-container">
+                <div class="marque-note-box">
+                    <h1>Note de la marque : <span>12.0</span></h1>
+                </div>
+            </div>
+            <?php
+        }
+    }
+    
+    
+    private function show_button_add_note($id)
+    {
+        $ctr = new userController();
+        $table = $ctr->get_users();
+        ?>
+        <select id="hiddenSelect" style="display:none;">
+            <?php
+            foreach ($table as $row) {
+                $username = $row['username'];
+                $password = $row['password'];
+                $block = $row['est_blockee'];
+                $valide = $row['Valide_ins'];
+                echo "<option data-username='$username' data-pass='$password' data-block='$block' data-valide='$valide'>$username - $password - $block - $valide </option>";
+            }
+            ?>
+        </select>
+        <?php
+        // Display the button
+        ?>
+       <button onclick="openPopup(<?php echo $id; ?>)" type="button">Add Note</button>
+    
+        <!-- Popup form -->
+        <div id="popupForm" style="display: none;">
+            <form id="registrationForm" onsubmit="validateConnection(); return false;">
+            <input type="hidden" id="submittedId" name="submittedId" value="<?php echo $id; ?>">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br>
+    
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+    
+                <label for="note">Note:</label>
+                <input type="number" id="note" name="note" required><br>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+        <script>
+            function openPopup(submittedId) {
+                document.getElementById('submittedId').value = submittedId;
+        document.getElementById('popupForm').style.display = 'block';
+              
+            }
+    
+            function validateConnection() {
+                var hiddenSelect = document.getElementById('hiddenSelect');
+        var submittedUsername = document.getElementById('username').value;
+        var submittedPassword = document.getElementById('password').value;
+        var submittedNote = document.getElementById('note').value;
+        var submittedId = document.getElementById('submittedId').value;
+    
+                for (var i = 0; i < hiddenSelect.options.length; i++) {
+                    var option = hiddenSelect.options[i];
+                    console.log('Checking:', option.dataset.username, option.dataset.pass);
+    
+                    if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+                        console.log('Match found:', submittedUsername, submittedPassword);
+                        if (option.dataset.block === '1') {
+                            alert('This user is blocked. Please contact support for assistance.');
+                        } else if (option.dataset.valide === 'Valide') {
+                            alert("La note est attribuee: " + submittedNote);
+                            window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/marqueRouter.php?username=' + encodeURIComponent(submittedUsername) + '&note=' + encodeURIComponent(submittedNote) + '&idd=' + encodeURIComponent(submittedId);
 
+document.getElementById('popupForm').style.display = 'none';  // Close the popup
+return;
+                        } else {
+                            alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
+                        }
+                        document.getElementById('popupForm').style.display = 'none';  // Close the popup
+                        return;  // Exit the loop once a match is found
+                    }
+                }
+    
+                alert('Invalid credentials. Please try again.');
+            }
+        </script>
+        <?php
+    }
+    
+
+    
+    public function add_note ($id_mrq, $note, $username) 
+    {
+        $ctr = new marqueController();
+        $table = $ctr->add_NoteMrq($id_mrq, $note, $username );
+    }
 
         
 

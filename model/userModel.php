@@ -66,10 +66,10 @@ class userModel {
 
    // add user 
    
-   public function add_user_table($username, $password)
+   public function add_user_table($username, $password, $nom , $prenom , $sexe , $date)
    {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "INSERT INTO utilisateur (username, password, est_blockee, Valide_ins) VALUES('$username', '$password', 0, 'Non Valide')";
+    $query = "INSERT INTO utilisateur (username, password, est_blockee, Valide_ins, nom , prenom, sexe, date_naissance) VALUES('$username', '$password', 0, 'Non Valide', '$nom' , '$prenom' , '$sexe' , '$date')";
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
    }
@@ -86,7 +86,23 @@ class userModel {
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
    }
+   
+   // get user
+ 
+   public function get_userT($username)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM utilisateur where username = '$username'"; 
 
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $users = array();
+    while ($row = $res->fetch_assoc()) {
+        $users[] = $row;
+    }
+    return $users;
+   }
 
 
 

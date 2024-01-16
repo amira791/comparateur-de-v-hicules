@@ -88,6 +88,20 @@ class marqueController {
         $res = $mrq_model->get_mrq_details ($id);
         return $res;
    }
+   public function get_mrqNotes ($id)
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model->get_notes_marque($id);
+        return $res;
+   }
+
+   public function add_NoteMrq($id_mrq, $note, $username )
+   {
+        $mrq_model = new marqueModel();
+        $res = $mrq_model-> add_marque_note($id_mrq, $note, $username );
+        return $res;
+   }
+
     
 
    public function show_website()
