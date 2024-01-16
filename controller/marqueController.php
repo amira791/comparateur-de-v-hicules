@@ -85,7 +85,7 @@ class marqueController {
    public function get_marque_ById ($id)
    {
         $mrq_model = new marqueModel();
-        $res = $mrq_model->get_mrq_Id ($id);
+        $res = $mrq_model->get_mrq_details ($id);
         return $res;
    }
     

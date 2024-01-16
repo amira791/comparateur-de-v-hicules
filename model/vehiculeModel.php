@@ -310,6 +310,23 @@ public function get_cmp_pop ()
 
 }
 
+// guide achat pour une vehicule 
+public function get_guide_achat ($id)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM guideachat WHERE veh_g = '$id'";
+   
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    $guide = array();
+    while ($row = $res->fetch_assoc()) {
+        $guide[] = $row;
+    }
+    //var_dump($pop);
+    return  $guide;
+
+}
 
 
 

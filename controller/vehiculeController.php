@@ -82,6 +82,13 @@ class vehiculeController {
         return $res;
         
    }
+   public function get_guide ($id)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_guide_achat ($id);
+        return $res;
+        
+   }
 
 
    public function show_website()

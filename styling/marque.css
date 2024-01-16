@@ -78,7 +78,7 @@
     .menu {
       position: relative; 
       display: flex;
-      background-color: #EDF68B;
+      background-color: #333;
       padding: 10px;
       justify-content: center;
       margin-top: -625px; /* Adjusted margin to create space between diap and menu */
