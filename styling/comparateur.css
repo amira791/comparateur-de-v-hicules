@@ -313,3 +313,173 @@ tbody tr:hover {
 #acc {
   margin-top: 150px;
 }
+
+/******************************** Style footer *******************************/
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+background-color: #333;
+color: #fff;
+padding: 20px;
+z-index: 2;
+}
+
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+z-index: 2;
+}
+
+.description {
+width: 100%;
+margin-bottom: 20px;
+}
+
+
+
+h1 {
+color: #fff;
+text-align: center;
+}
+
+.con {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+}
+
+.logo-row {
+display: flex;
+margin-bottom: 20px;
+}
+
+.brand-container {
+text-align: center;
+margin: 0 10px;
+}
+
+.brand-name {
+margin-top: 10px;
+color: #fff;
+}
+
+/* Style for Marque Section */
+.marque {
+max-width: 1200px;
+margin: 20px auto;
+text-align: center;
+}
+
+.marque h1 {
+color: #333;
+}
+
+.marque .logo-row {
+display: flex;
+justify-content: space-around;
+margin-bottom: 20px;
+}
+
+.marque img {
+max-width: 100%;
+height: auto;
+}
+.menuu {
+display: flex;
+list-style: none;
+padding: 0;
+}
+
+.menu-item {
+margin-right: 20px; /* Adjust as needed for spacing between menu items */
+}
+
+.menu-item a {
+position: relative;
+color: white;
+text-decoration: none;
+font-size: 16px;
+}
+
+.menu-item a::before {
+content: "";
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 2px;
+background-color: #bbca12; /* Line color on hover */
+transition: width 0.3s ease; /* Add transition for smooth line animation */
+}
+
+.menu-item a:hover::before {
+width: 100%; /* Expand the line on hover */
+}
+
+/**********************************************/
+#guide {
+display: block;
+margin: 20px auto; /* Adjust as needed */
+padding: 10px 20px;
+font-size: 16px;
+font-weight: bold;
+text-align: center;
+text-decoration: none;
+background-color: #EDF68B;
+color: #000000;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+#guide:hover {
+background-color: #bbca12;
+}
+
+/********************* Cmp Pop ***********************************/
+/* Style for comparison frames */
+.comparison-frame {
+display: flex;
+justify-content: space-around;
+border: 1px solid #ddd;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+background-color: #f9f9f9;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.vehicle-container {
+flex: 1;
+text-align: center;
+}
+
+.vehicle-container img {
+max-width: 100%;
+height: auto;
+border-radius: 5px;
+margin-bottom: 10px;
+}
+
+.vehicle-container p {
+margin: 5px 0;
+}
+
+
+
+#cmp {
+font-family: 'Arial', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #333; 
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 2px 5px 5px #EDF68B;
+}

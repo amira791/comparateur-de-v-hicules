@@ -52,7 +52,12 @@ class marqueVue {
                 <?php
             } else {
                 ?>
-                <h1 id="username"><img src="../../images/userIcon.png" alt="Avatar"><?php echo htmlspecialchars($username); ?></h1>
+              <h1 id="username">
+    <a href="../../router/userRouter/userRouter.php?username=<?php echo urlencode($username); ?>">
+        <img src="../../images/userIcon.png" alt="Avatar">
+        <?php echo htmlspecialchars($username); ?>
+    </a>
+</h1>
                 </div>
                 <?php
             }
@@ -285,6 +290,11 @@ foreach ($avi3 as $avis) {
     <div class="appreciation-count">Appréciation : <?php echo $appreciationCount; ?></div>
     <button class="appreciation-button" onclick="addAppreciation(<?php echo $avis['id_avi_mrq']; ?>)">Ajouter Appréciation</button>
 </div>
+
+<div class="Avi" >
+
+</div>
+
 <?php
     } }
 

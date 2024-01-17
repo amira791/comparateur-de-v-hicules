@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #ffffff;
@@ -7,7 +8,20 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-/**************************************************/
+
+#geVh {
+    font-family: 'Arial', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    color: #333; 
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 2px 5px 5px #EDF68B;
+}
+
+
+/******************* Styling the Top Bar **************************/
 #logo {
     position: fixed;
     left: 0;
@@ -26,64 +40,11 @@ body {
     top: 0;
     z-index: 1;
 }
-/****************************************************/
-.news-container {
-    top: 170px;
-    margin-bottom: 20px;
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    margin-top: 20px;
-    width: 1400px;
-  
-}
 
-/* Style for marque name */
-.news-container h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 20px; 
-    font-weight: bold; 
-    color: #333; 
-    text-align: center; 
-    margin-top: 20px; 
-    margin-bottom: 20px;
-    text-decoration: none;
-}
 
-/* Style for the table */
-.news-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-.news-container:first-of-type {
-    margin-top: 220px; /* Adjust the space as needed */
-}
 
-/* Style for table headers */
-.news-container th {
-    background-color: #EDF68B;
-    color: #333;
-    padding: 10px;
-}
-
-/* Style for table cells */
-.news-container td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ccc;
-}
-
-/* Style for table image */
-.news-container img {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 5px;
-}
-
-.add-news-button {
-    padding: 10px;
+.add-vehicle-button {
+    padding: 20px;
     display: block;
     margin: 0 auto;
     width: 1200px;
@@ -97,62 +58,29 @@ body {
     line-height: 1.5;
 }
 
-.add-news-button:hover {
+.add-vehicle-button:hover {
     background-color: #bbca12; 
-}
-tr:hover {
-    background-color: #e5e5e5;
 }
 
 
 /***************************** Styling the pupup **********************************/
-.popup {
-    display: none;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow :scroll;
-    z-index: 1;
-}
-
-.popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
 
 
 
 /*************************** Stying the add form ***************************************/
-.add-news-form {
-    margin-top: 30px; /* Add some spacing between the button and the form */
+.add-vehicle-form {
+    margin-top: 50px; /* Add some spacing between the button and the form */
 }
 
 .form-field {
     width: 100%;
-    padding: 0;
+    padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
-    display: inline-block;
 }
 
-.form-label {
-    flex: 1;
-    margin-right: 10px;
-    text-align: right;
-    font-size: 14px; /* Adjust the font size as needed */
-}
-
-.add-news-button {
-    padding: 10px;
+.add-vehicle-button {
+    padding: 15px;
     display: block;
     margin: 0 auto;
     background-color: #EDF68B;
@@ -165,15 +93,16 @@ tr:hover {
     line-height: 1.5;
 }
 
-.add-news-button:hover {
+.add-vehicle-button:hover {
     background-color: #bbca12; 
 }
 
 
 /* Add this to your existing CSS file or create a new one */
 
-.file-news-container {
+.file-input-container {
     display: flex;
+   
     justify-content: center;
     position: relative;
     overflow: hidden;
@@ -182,14 +111,13 @@ tr:hover {
 
 .file-input {
     position: absolute;
-    font-size: 50px;
+    font-size: 100px;
     opacity: 0;
     cursor: pointer;
 }
 
 .file-label {
-    left: 0;
-    padding: 10px ;
+    padding: 10px 20px;
     background-color: #EDF68B;
     color: rgb(0, 0, 0);
     border: none;
@@ -203,12 +131,12 @@ tr:hover {
 
 
 /********************************** Style the modify form *****************************/
-.modify-news-form {
+.modify-vehicle-form {
     max-width: 400px; /* Adjust as needed */
     margin: 20px auto;
 }
 
-.modify-news-form label {
+.modify-vehicle-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -230,7 +158,7 @@ tr:hover {
     margin-bottom: 10px;
 }
 
-.modify-news-button {
+.modify-vehicle-button {
     padding: 15px;
     display: block;
     margin: 0 auto;
@@ -244,7 +172,7 @@ tr:hover {
     line-height: 1.5;
 }
 
-.modify-news-button:hover {
+.modify-vehicle-button:hover {
     background-color: #bbca12;
 }
 
@@ -319,25 +247,97 @@ tr:hover {
 .gestion:hover {
     background-color: #bbca12;
 }
-
-.gestion {
-    margin-top: 30px;
-    margin-right: 30px;
-    padding: 10px 20px;
+  /******************************* Style Table ****************************************************/
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
     font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    background-color: #EDF68B;
-    color: #000000;
-    border: none;
+  }
+  
+  thead {
+    background-color: #2C7BA6;
+    color: #fff;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:hover {
+    background-color: #d4edf7;
+  }
+  /************************** Style Vh********************/
+  .vehicule-details {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
     border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.vehicule-details img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.vehicule-details p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+/*********************** Popup ************************/
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+#modificationForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#modificationForm label {
+    margin-bottom: 10px;
+}
+
+#modifiedValue {
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    float: right;
 }
 
-.gestion:hover {
-    background-color: #bbca12;
+button:hover {
+    background-color: #0056b3;
 }
 
+button + button {
+    margin-left: 10px;
+}

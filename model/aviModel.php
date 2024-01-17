@@ -173,6 +173,30 @@ class aviModel {
 
 
 
+    // add appreciaton mrq 
+    public function add_appreciation_mrq ($id_avi)
+    {
+        $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+        $query = "UPDATE avi_mrq
+        SET nb_appreciation_mrq = nb_appreciation_mrq + 1 where id_avi_mrq = '$id_avi' ";
+ 
+        $res = $this->requete($conn, $query);
+        $this->deconnect($conn);
+
+    }
+
+     // add appreciaton vh
+     public function add_appreciation_veh ($id_avi)
+     {
+         $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+         $query = "UPDATE avi_veh
+        SET nb_appreciation_veh = nb_appreciation_veh + 1 where id_avi_veh = '$id_avi'";
+  
+         $res = $this->requete($conn, $query);
+         $this->deconnect($conn);
+ 
+     }
+
 
 
 }

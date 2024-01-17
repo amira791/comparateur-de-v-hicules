@@ -161,7 +161,7 @@ class gestionVehiculeVue {
                 echo '<td>' . $annee . '</td>';
                 echo '<td><img src="' . $imgSrc . '" alt="Vehicle Image" style="max-width: 100px; max-height: 100px;"></td>';
                 echo '<td>' . $principal . '</td>';
-                echo '<td><a href="vehicle_details.php?id=' . $id_vh . '">Caracteristique</a></td>';
+                echo '<td><a href="../../router/adminRouter/gestionCarRouter.php?action=car&id=' . $id_vh . '">Caracteristique</a></td>';
                 echo '</tr>';
 
                 /***************  The modifiction form **************/
@@ -267,7 +267,86 @@ echo '</form>';
     }
     
     
+    public function gestion_car($id)
+    {
+        $ctr = new vehiculeController();
+        $vehicule = $ctr->get_vhById($id);
     
+        $ctr1 = new vehiculeController();
+        $vehicule_car = $ctr1->get_VehCar($id);
+    
+        $ctr2 = new vehiculeController();
+        $car = $ctr2->get_Car();
+    
+        $ctr2 = new marqueController();
+        $id = $vehicule[0]['marque'];
+        $marque_table = $ctr2->get_details($id);
+        $marque = $marque_table[0]['Nom'];
+    
+        if (!empty($vehicule)) {
+            $vehicule = $vehicule[0];
+            ?>
+            <h1>Details for Vehicule </h1>
+    
+            <div class="vehicule-details">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($vehicule['image']); ?>" alt="Vehicule Photo">
+                <p>Marque: <?php echo htmlspecialchars($marque); ?></p>
+                <p>Modele: <?php echo htmlspecialchars($vehicule['modele']); ?></p>
+                <p>Version: <?php echo htmlspecialchars($vehicule['version']); ?></p>
+                <p>Annee: <?php echo htmlspecialchars($vehicule['annee']); ?></p>
+            </div>
+    
+            <h1> Plus de details </h1>
+            <h1> Plus de details </h1>
+<table>
+    <thead>
+        <tr>
+            <th>Carateristique</th>
+            <th>Valeur</th>
+            <th>Suppression</th>
+            <th>Modification</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($car as $row) {
+            $carac = $row['nom_carac'];
+            $id_car = $row['id_carac'];
+            $valueFound = false;
+
+            foreach ($vehicule_car as $row1) {
+                if ($id_car == $row1['id_car']) {
+                    $valueFound = true;
+                    $value = $row1['value_car'];
+
+                    // Add links for Suppression and Modification
+                    echo "<tr><td>$carac</td><td>$value</td>";
+                    echo "<td><a href='gestion.php?id=$id_car&action=suppression'>Supprimer</a></td>";
+                    echo "<td><a href='gestion.php?id=$id_car&action=modification'>Modifier</a></td></tr>";
+                    break;
+                }
+            }
+
+            if (!$valueFound) {
+                // Add links for Suppression and Modification with None value
+                echo "<tr><td>$carac</td><td>None</td>";
+                echo "<td><a href='gestion.php?id=$id_car&action=suppression'>Supprimer</a></td>";
+                echo "<td><a href='gestion.php?id=$id_car&action=modification'>Modifier</a></td></tr>";
+            }
+        }
+        ?>
+    </tbody>
+</table>
+    
+        <?php
+        } else {
+            ?>
+            <h1>No details found for Vehicule <?php echo htmlspecialchars($marqueId); ?></h1>
+        <?php
+        }
+    }
+    
+
      
    
 

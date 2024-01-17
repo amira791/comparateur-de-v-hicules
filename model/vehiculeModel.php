@@ -138,7 +138,9 @@ public function get_prinvh_table($ids)
 public function get_veh_byId($id_vehc)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "SELECT * FROM vehicule WHERE Id_veh = $id_vehc and supp_log =0";
+
+    // Use single quotes around the string value
+    $query = "SELECT * FROM vehicule WHERE Id_veh = $id_vehc AND supp_log = '0'";
    
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
@@ -149,6 +151,7 @@ public function get_veh_byId($id_vehc)
     }
     return  $vh;
 }
+
 
 // suppresion logique vehicule 
 public function supp_log_vh ($id_vh)
@@ -423,10 +426,51 @@ public function add_fav_user ( $id_vh ,$username)
     $this->deconnect($conn);
 
     
+}
+
+// update car 
+public function update_car ($id_car, $value, $id_vh)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "UPDATE vehicule_carac SET value_car ='$value' WHERE id_car = '$id_car' and id_vh = '$id_vh";
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+}
+
+// suppresion logique vehicule 
+public function supp_car ($id_car)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "DELETE FROM vehicule_carac WHERE id_car = '$id_car'"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
 
 }
 
 
+// recurer la note d'une veh
+public function get_note_vh ($id, $username)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "SELECT * FROM note_vehicule where username = '$username' and id_vh = $id"; 
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+}
+
+// ajout cara veh
+public function add_veh_car ( $nom)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "INSERT INTO favoris_vh (nom_carac) VALUES ('$nom')";
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+
+    
+}
 
 }
 ?>

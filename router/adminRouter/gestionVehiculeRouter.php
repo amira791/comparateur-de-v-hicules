@@ -1,6 +1,7 @@
 <?php
 require_once('../../vue/adminVue/gestionVehiculeVue.php');
 
+
 $router = new gestionVehiculeRouter();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = isset($_POST["action"]) ? $_POST["action"] : null;
@@ -48,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 }
 
+
+
 $vue = new gestionVehiculeVue();
 $vue->show_website();
 
@@ -72,5 +75,6 @@ class gestionVehiculeRouter
         $ges_vh->add_principal_vehicule_form($id_mrq, $idToAddAsMain);
        
     }
+
 }
 ?>

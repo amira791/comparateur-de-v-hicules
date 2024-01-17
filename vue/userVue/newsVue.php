@@ -163,6 +163,71 @@ class newsVue {
     }
 }
 
+
+private function show_pied_page()
+    {
+        ?>
+        <footer>
+            <div class="footer-content">
+              
+    
+                <div class="menuu" >
+                    <?php
+                    $ctr = new menuController();
+                    $table = $ctr->get_menu();
+    
+                    foreach ($table as $row) {
+                        $designation = htmlspecialchars($row['designation']);
+                        $champLocation = htmlspecialchars($row['location']); // Assuming 'location' is the column name in your database
+    
+                        // Link each menu item to its champ location with white text color
+                        echo '<li class="menu-item"><a href="' . $champLocation . '">' . $designation . '</a></li>';
+                    }
+                ?>
+                </div>
+                <?php
+                    
+                    $ctr = new contactController();
+        $table = $ctr->get_contact();
+        ?>
+        <h1> Contactez Nous </h1>
+        <div class="con">
+            <?php
+            $images = array();
+    
+            foreach ($table as $row) {
+                $images[] = array('logo' => $row['image_res'], 'nom' => $row['nom_res'], 'lien' => $row['lien_res']);
+            }
+            $rows = array_chunk($images, 3);
+    
+            foreach ($rows as $rowImages) {
+                echo '<div class="logo-row">';
+    
+                foreach ($rowImages as $brandData) {
+                    $base64Img = base64_encode($brandData['logo']);
+                    $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+    
+                    echo '<div class="brand-container">';
+                    echo '<a href="' . $brandData['lien'] . '">';
+                    echo '<img src="' . $imgSrc . '" alt="Image">';
+                    echo '</a>';
+                    echo '<div class="brand-name">' . htmlspecialchars($brandData['nom']) . '</div>';
+                    echo '</div>';
+                }
+    
+                echo '</div>';
+            }
+            ?>
+        </div>
+                
+            </div>
+        </footer>
+        <?php
+
+    
+     
+    }
+
     
     
     
@@ -179,6 +244,7 @@ class newsVue {
     {
         echo '<body>';
         $this->show_news();
+        $this->show_pied_page();
         echo '</body>';
     }
 

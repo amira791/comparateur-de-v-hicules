@@ -149,7 +149,7 @@
     background-color: #333;
     padding: 10px;
     justify-content: center;
-    margin-top: 550px; /* Adjusted margin to create space between diap and menu */
+    margin-top: 120px; /* Adjusted margin to create space between diap and menu */
   }
   
   .menu-item {
@@ -317,7 +317,7 @@ body {
     margin: 0;
     font-size: 18px; /* Adjust the font size as needed */
     color: #333;
-    background-color: #a7b009;
+    background-color: #333;
     color: #fff;
 }
 
@@ -331,18 +331,146 @@ body {
     display: block;
     padding: 10px; /* Adjust the padding as needed */
     text-align: center;
-    background-color: #a7b009;
-    color: #fff;
+    background-color: #EDF68B;
+    color: #333;
     text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
 .news-item a:hover {
-    background-color: #a7b009;
+    background-color: #d7e62f;
 }
 
 .news-row::after {
     content: "";
     display: table;
     clear: both;
+}
+/************************** button  **************************/
+
+.gestion {
+  margin-top: 30px;
+  margin-right: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #EDF68B;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  float: right;
+}
+
+.gestion:hover {
+  background-color: #bbca12;
+}
+
+  /******************************** Style footer *******************************/
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  z-index: 2;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.description {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+
+h1 {
+  color: #fff;
+  text-align: center;
+}
+
+.con {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.logo-row {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.brand-container {
+  text-align: center;
+  margin: 0 10px;
+}
+
+.brand-name {
+  margin-top: 10px;
+  color: #fff;
+}
+
+/* Style for Marque Section */
+.marque {
+  max-width: 1200px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.marque h1 {
+  color: #333;
+}
+
+.marque .logo-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.marque img {
+  max-width: 100%;
+  height: auto;
+}
+.menuu {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.menu-item {
+  margin-right: 20px; /* Adjust as needed for spacing between menu items */
+}
+
+.menu-item a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.menu-item a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #bbca12; /* Line color on hover */
+  transition: width 0.3s ease; /* Add transition for smooth line animation */
+}
+
+.menu-item a:hover::before {
+  width: 100%; /* Expand the line on hover */
 }

@@ -44,7 +44,7 @@ class vehiculeVue {
         <img src="../../images/logo" id="logo">
     
         <div class="top-bar">
-            <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/adminRouter/gestionRouter.php'">Page Gestion Principal</button>
+            <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/accueilRouter.php'">Page  Principal</button>
         </div>
         <?php
     }
@@ -322,7 +322,53 @@ foreach ($avis as $row) {
     </div>
     <?php
 } }
-    
+private function show_popular_comp()
+{
+    ?>
+    <h1 id="cmp" > Les comparaisons les plus recherches </h1>
+    <?php
+    $ctr = new vehiculeController();
+    $cmp = $ctr->get_pop(); 
+
+    // Check if $cmp is not null and is an array
+    if (is_array($cmp) && count($cmp) > 0) {
+        foreach ($cmp as $row) {
+            echo '<div class="comparison-frame">';
+
+            for ($i = 1; $i <= 4; $i++) {
+                $id_vh = $row["id_vh$i"];
+                
+                if ($id_vh !== 0) {
+                    $ctr_vh = new vehiculeController();
+                    $vh = $ctr_vh->get_vhById($id_vh);
+                    
+                    if ($vh) {
+                        $marque = $vh[0]['marque'];
+                        $modele = $vh[0]['modele'];
+                        $version = $vh[0]['version'];
+                        $annee = $vh[0]['annee'];
+                        $image = $vh[0]['image'];
+                        $base64Img = base64_encode($image);
+                        $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+
+                        // Display each vehicle in a container
+                        echo '<div class="vehicle-container">';
+                        echo '<img src="' . $imgSrc . '" alt="Vehicle Image">';
+                        echo '<p>Marque: ' . $marque . '</p>';
+                        echo '<p>Modèle: ' . $modele . '</p>';
+                        echo '<p>Version: ' . $version . '</p>';
+                        echo '<p>Année: ' . $annee . '</p>';
+                        echo '</div>';
+                    }
+                }
+            }
+
+            echo '</div>'; // Close the comparison-frame
+        }
+    } else {
+        echo 'No popular comparisons available.';
+    }
+}
 
     public function Head_Page ()
     {

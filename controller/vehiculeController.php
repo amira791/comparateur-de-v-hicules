@@ -130,6 +130,32 @@ class vehiculeController {
         $res = $vhe_model->get_avi_veh_table($id_vh);
         return $res;    
    }
+   public function delete_car ($id_car)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model-> supp_car ($id_car);
+
+        
+   }
+   public function updateCar ($id_car, $value, $id_vh)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->update_car ($id_car, $value, $id_vh);
+        return $res;      
+   }
+   public function getNoteVh ($id_vh, $username)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->get_note_vh ($id, $username);
+        return $res;      
+   }
+   public function addVehCarac ($nom_carac)
+   {
+        $vhe_model = new vehiculeModel();
+        $res = $vhe_model->add_veh_car ($nom_carac);
+        return $res;      
+   }
+
 
 
 

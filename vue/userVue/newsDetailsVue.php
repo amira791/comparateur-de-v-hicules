@@ -30,15 +30,14 @@ class newsDetailsVue {
     private function show_top_bar()
     {
         ?>
+        <img src="../../images/logo" id="logo">
+    
         <div class="top-bar">
-            <img src="../../images/logo" id="logo">
-            <button class="auth" id="connec">Sign In</button>
-            <button class="auth" id="ins">Sign Up</button>
+            <button class="gestion" id="mrqq" onclick="window.location.href='http://localhost/tdwProjet/comparateurVehicule/router/userRouter/accueilRouter.php'">Revenir Page accueil</button>
         </div>
-        <div class="background-rectangle"></div>
         <?php
     }
-
+    
     private function show_menu()
     {
         $ctr = new menuController();

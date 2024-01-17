@@ -33,6 +33,14 @@ if (isset($_GET['username'])) {
 
     $router->addNote($submittedId, $submittedNote, $submittedUsername);
 }
+if (isset($_GET['username'])) {
+    $submittedUsername = $_GET['username'];
+    $submittedNote = isset($_GET['comment']) ? $_GET['comment'] : '';
+    $submittedId = isset($_GET['iddd']) ? $_GET['iddd'] : ''; 
+    
+
+    $router->addComment($submittedId, $submittedNote, $submittedUsername);
+}
 
 
 class marqueRouter 
@@ -51,6 +59,11 @@ class marqueRouter
     public function addNote($submittedId, $submittedNote, $submittedUsername) {
         $marque = new MarqueVue();
         $marque->add_note ($submittedId, $submittedNote, $submittedUsername) ;
+     
+    }
+    public function addComment($submittedId, $submittedNote, $submittedUsername) {
+        $marque = new MarqueVue();
+        $marque->add_comment ($submittedId, $submittedNote, $submittedUsername) ;
      
     }
 }

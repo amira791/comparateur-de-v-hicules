@@ -1157,7 +1157,117 @@ $("#comparisonTable").append(headerRow);
 
 
 
+  private function show_pied_page()
+  {
+      ?>
+      <footer>
+          <div class="footer-content">
+            
+  
+              <div class="menuu" >
+                  <?php
+                  $ctr = new menuController();
+                  $table = $ctr->get_menu();
+  
+                  foreach ($table as $row) {
+                      $designation = htmlspecialchars($row['designation']);
+                      $champLocation = htmlspecialchars($row['location']); // Assuming 'location' is the column name in your database
+  
+                      // Link each menu item to its champ location with white text color
+                      echo '<li class="menu-item"><a href="' . $champLocation . '">' . $designation . '</a></li>';
+                  }
+              ?>
+              </div>
+              <?php
+                  
+                  $ctr = new contactController();
+      $table = $ctr->get_contact();
+      ?>
+      <h1> Contactez Nous </h1>
+      <div class="con">
+          <?php
+          $images = array();
+  
+          foreach ($table as $row) {
+              $images[] = array('logo' => $row['image_res'], 'nom' => $row['nom_res'], 'lien' => $row['lien_res']);
+          }
+          $rows = array_chunk($images, 3);
+  
+          foreach ($rows as $rowImages) {
+              echo '<div class="logo-row">';
+  
+              foreach ($rowImages as $brandData) {
+                  $base64Img = base64_encode($brandData['logo']);
+                  $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+  
+                  echo '<div class="brand-container">';
+                  echo '<a href="' . $brandData['lien'] . '">';
+                  echo '<img src="' . $imgSrc . '" alt="Image">';
+                  echo '</a>';
+                  echo '<div class="brand-name">' . htmlspecialchars($brandData['nom']) . '</div>';
+                  echo '</div>';
+              }
+  
+              echo '</div>';
+          }
+          ?>
+      </div>
+              
+          </div>
+      </footer>
+      <?php
 
+  
+   
+  }
+  private function show_popular_comp()
+  {
+      ?>
+      <h1 id="cmp" > Les comparaisons les plus recherches </h1>
+      <?php
+      $ctr = new vehiculeController();
+      $cmp = $ctr->get_pop(); 
+  
+      // Check if $cmp is not null and is an array
+      if (is_array($cmp) && count($cmp) > 0) {
+          foreach ($cmp as $row) {
+              echo '<div class="comparison-frame">';
+  
+              for ($i = 1; $i <= 4; $i++) {
+                  $id_vh = $row["id_vh$i"];
+                  
+                  if ($id_vh !== 0) {
+                      $ctr_vh = new vehiculeController();
+                      $vh = $ctr_vh->get_vhById($id_vh);
+                      
+                      if ($vh) {
+                          $marque = $vh[0]['marque'];
+                          $modele = $vh[0]['modele'];
+                          $version = $vh[0]['version'];
+                          $annee = $vh[0]['annee'];
+                          $image = $vh[0]['image'];
+                          $base64Img = base64_encode($image);
+                          $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
+  
+                          // Display each vehicle in a container
+                          echo '<div class="vehicle-container">';
+                          echo '<img src="' . $imgSrc . '" alt="Vehicle Image">';
+                          echo '<p>Marque: ' . $marque . '</p>';
+                          echo '<p>Modèle: ' . $modele . '</p>';
+                          echo '<p>Version: ' . $version . '</p>';
+                          echo '<p>Année: ' . $annee . '</p>';
+                          echo '</div>';
+                      }
+                  }
+              }
+  
+              echo '</div>'; // Close the comparison-frame
+          }
+      } else {
+          echo 'No popular comparisons available.';
+      }
+  }
+  
 
 
 
@@ -1194,6 +1304,8 @@ $("#comparisonTable").append(headerRow);
 
         $this->show_form4();
         $this->show_comparaison_table();
+        $this->show_popular_comp();
+        $this->show_pied_page();
      
  
         
