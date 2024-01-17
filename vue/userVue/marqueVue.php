@@ -114,11 +114,8 @@ class marqueVue {
             foreach ($table as $row) {
                 $images[] = array('logo' => $row['logo'], 'nom' => $row['Nom'], 'id_mrq' => $row['id_mrq']);
             }
-            
-    
       
             $rows = array_chunk($images, 4);
-    
 
     foreach ($rows as $rowImages) {
         echo '<div class="logo-row">';
@@ -129,16 +126,12 @@ class marqueVue {
             $imgSrc = 'data:image/jpeg;base64,' . $base64Img;
         
             echo '<div class="brand-container">';
-            
-          
             echo '<a href="../../router/userRouter/marqueRouter.php?id_mrq=' . $brandData['id_mrq'] . '">';
             echo '<img src="' . $imgSrc . '" alt="Image">';
             echo '</a>';
-            
             echo '<div class="brand-name">' . htmlspecialchars($brandData['nom']) . '</div>';
             echo '</div>';
-        }
-        
+        }  
 
         echo '</div>';
     }
@@ -166,9 +159,9 @@ class marqueVue {
 
 
         if (!empty($marqueDetails)) {
-            $marqueDetails = $marqueDetails[0]; // Assuming you want to use the first result if there are multiple rows
+            $marqueDetails = $marqueDetails[0]; 
     
-            // Display the details
+           
             ?>
             
             <div class="marque-details">
@@ -288,12 +281,61 @@ foreach ($avi3 as $avis) {
     <div class="user-name"><?php echo $userName; ?></div>
     <div class="review-content"><?php echo $reviewContent; ?></div>
     <div class="appreciation-count">Appréciation : <?php echo $appreciationCount; ?></div>
-    <button class="appreciation-button" onclick="addAppreciation(<?php echo $avis['id_avi_mrq']; ?>)">Ajouter Appréciation</button>
-</div>
-
-<div class="Avi" >
+    <button class="appreciation-button" onclick="openPopupAvi(<?php echo $avis['id_avi_mrq']; ?>)">Ajouter Appréciation</button>
 
 </div>
+<div id="popupFormm" style="display: none;">
+            <form id="registration" onsubmit="validateConnectionUser(); return false;">
+            <input type="hidden" id="id_avi" name="id_avi" value="<?php echo  $avis['id_avi_mrq']; ?>">
+                <label for="user">Username:</label>
+                <input type="text" id="user" name="user" required><br>
+                <label for="password">Password:</label>
+                <input type="pass" id="pass" name="pass" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+
+
+<script>
+    function openPopupAvi(submittedId) {
+        document.getElementById('id_avi').value = submittedId;
+        document.getElementById('popupFormm').style.display = 'block';
+    }
+
+    function validateConnectionUser() {
+        var submittedUsername = document.getElementById('user').value;
+        var submittedPassword = document.getElementById('pass').value;
+        var submittedId = document.getElementById('id_avi').value;
+        var hiddenSelect = document.getElementById('hiddenSelect');
+
+        for (var i = 0; i < hiddenSelect.options.length; i++) {
+            var option = hiddenSelect.options[i];
+
+            if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+                if (option.dataset.block === '1') {
+                    alert('This user is blocked. Please contact support for assistance.');
+                } else if (option.dataset.valide === 'Valide') {
+                    alert("L'appréciation est bien ajoutée.");
+                    window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/marqueRouter.php?action=ajout&id_avi=' + encodeURIComponent(submittedId);
+
+                    document.getElementById('popupFormm').style.display = 'none';  // Close the popup
+                    return;
+                } else {
+                    alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
+                }
+                document.getElementById('popupFormm').style.display = 'none';  // Close the popup
+                return;
+            }
+        }
+
+        alert('Invalid credentials. Please try again.');
+    }
+</script>
+=
+
+
+
 
 <?php
     } }
@@ -417,7 +459,13 @@ return;
         $ctr = new marqueController();
         $table = $ctr->add_NoteMrq($id_mrq, $note, $username );
     }
+    
+    public function ajout_app ($id_avi)
+    {
+        $ctr = new aviController();
+        $table = $ctr->addApprAvi_Mrq ($id_avi);
 
+    }
         
 
     

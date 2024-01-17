@@ -68,5 +68,6 @@ class gestionMarqueRouter
         $ges_mrq = new gestionMarqueVue();
         $ges_mrq->delete_marque_form($idToDelete);
     }
+  
 }
 ?>

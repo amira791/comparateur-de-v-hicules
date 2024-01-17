@@ -41,7 +41,14 @@ if (isset($_GET['username'])) {
 
     $router->addComment($submittedId, $submittedNote, $submittedUsername);
 }
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $action = isset($_GET["action"]) ? $_GET["action"] : null;
 
+    if ($action === "ajout") {
+        $SubmittedIdAvi = isset($_GET['id_avi']) ? $_GET['id_avi'] : '';
+        $router->addApp($SubmittedIdAvi);
+    } 
+}
 
 class marqueRouter 
 {
@@ -61,9 +68,14 @@ class marqueRouter
         $marque->add_note ($submittedId, $submittedNote, $submittedUsername) ;
      
     }
-    public function addComment($submittedId, $submittedNote, $submittedUsername) {
+    // public function addCommentMrq($submittedId, $submittedNote, $submittedUsername) {
+    //     $marque = new MarqueVue();
+    //     $marque->add_comment ($submittedId, $submittedNote, $submittedUsername) ;
+     
+    // }
+    public function addApp($SubmittedIdAvi) {
         $marque = new MarqueVue();
-        $marque->add_comment ($submittedId, $submittedNote, $submittedUsername) ;
+        $marque->ajout_app ($SubmittedIdAvi) ;
      
     }
 }
