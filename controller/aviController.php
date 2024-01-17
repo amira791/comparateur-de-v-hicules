@@ -69,6 +69,18 @@ class aviController {
         $res = $avi4->add_appreciation_veh($id_avi);
         return $res;
    }
+   public function addAvi_Mrq ($content, $id_mrq, $username)
+   {
+        $avi4 = new aviModel();
+        $res = $avi4->add_avi_mrq ($content, $id_mrq, $username);
+        return $res;
+   }
+   public function addAvi_Veh ($content, $id_veh, $username)
+   {
+        $avi4 = new aviModel();
+        $res = $avi4-> add_avi_veh ($content, $id_veh, $username);
+        return $res;
+   }
 
 
    public function show_website()

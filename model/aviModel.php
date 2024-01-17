@@ -196,6 +196,23 @@ class aviModel {
          $this->deconnect($conn);
  
      }
+     public function add_avi_mrq ($content, $id_mrq, $username)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "INSERT INTO avi_mrq (contenu_mrq, status_avi_mrq, nb_appreciation_mrq, username, id_mrq ) VALUES ('$content', 'Valide' , '0', '$username' , '$id_mrq')";
+
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+            
+   }
+   public function add_avi_veh ($content, $id_veh, $username)
+   {
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
+    $query = "INSERT INTO avi_veh (contenu_veh, status_avi_veh, nb_appreciation_veh, username, id_veh ) VALUES ('$content', 'Valide' , '0', '$username' , '$id_veh')";
+    $res = $this->requete($conn, $query);
+    $this->deconnect($conn);
+            
+   }
 
 
 

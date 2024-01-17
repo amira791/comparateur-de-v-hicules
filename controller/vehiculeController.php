@@ -146,7 +146,7 @@ class vehiculeController {
    public function getNoteVh ($id_vh, $username)
    {
         $vhe_model = new vehiculeModel();
-        $res = $vhe_model->get_note_vh ($id, $username);
+        $res = $vhe_model->get_note_vh ($id_vh, $username);
         return $res;      
    }
    public function addVehCarac ($nom_carac)
@@ -156,6 +156,12 @@ class vehiculeController {
         return $res;      
    }
 
+   public function add_NoteVeh($id_veh, $note, $username )
+   {
+     $vhe_model = new vehiculeModel();
+     $res = $vhe_model->add_vehicule_note($id_veh, $note, $username);
+     return $res; 
+   }
 
 
 

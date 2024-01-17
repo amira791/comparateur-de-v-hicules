@@ -89,12 +89,26 @@ public function show_list_fav ($username)
         $modele = $vehicule[0]['modele'];
         $version = $vehicule[0]['version'];
         $annee = $vehicule[0]['annee'];
+        $ctr2 = new vehiculeController();
+        $n = $ctr1->getNoteVh($id_vh, $username); 
+        
+        
 
         echo "<div class='vehicle-card'>";
         echo "<img src='data:image/jpeg;base64," . base64_encode($vehicule[0]['image']) . "' alt='Vehicle Photo' id='vh'>";
         echo "<h2>$marque $modele</h2>";
         echo "<p>Version: $version</p>";
         echo "<p>Année: $annee</p>";
+        if (!empty($n) && isset($n[0]['note'])) {
+            $note = $n[0]['note'];
+            echo "<p> Votre Note: $note</p>";
+        } else {
+            echo "<p> Aucune note disponible</p>";
+        }
+       
+
+     
+        echo "</div>";
         echo "</div>";
         
     }

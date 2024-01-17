@@ -349,19 +349,7 @@ public function get_notes_vehicule ($id)
 }
 
 
-// add note 
 
-public function add_vehicule_note($id_vh, $note, $username )
-{
-    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-
-
-  
-    $query = "INSERT INTO note_vehicule (id_vh, note, username) VALUES ('$id_vh', '$note', '$username')";
-
-    $res = $this->requete($conn, $query);
-    $this->deconnect($conn);
-}
 
 // get carac veh 
 public function get_carac_vehicule ($id)
@@ -454,10 +442,14 @@ public function supp_car ($id_car)
 public function get_note_vh ($id, $username)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-    $query = "SELECT * FROM note_vehicule where username = '$username' and id_vh = $id"; 
-
+    $query = "SELECT * FROM note_vehicule where username = '$username' and id_vh = '$id'"; 
     $res = $this->requete($conn, $query);
     $this->deconnect($conn);
+    $notes = array();
+    while ($row = $res->fetch_assoc()) {
+        $notes[] = $row;
+    }
+    return  $notes;
 }
 
 // ajout cara veh
@@ -467,9 +459,24 @@ public function add_veh_car ( $nom)
     $query = "INSERT INTO favoris_vh (nom_carac) VALUES ('$nom')";
 
     $res = $this->requete($conn, $query);
-    $this->deconnect($conn);
+    $this->deconnect($conn);   
+}
+public function add_vehicule_note($id_veh, $note, $username)
+{
+    $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
 
-    
+ 
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connesct_error());
+    }
+
+   
+    $query = "INSERT INTO note_vehicule (id_vh, note, username) VALUES ('$id_veh', '$note', '$username')";
+
+    $res = $this->requete($conn, $query);
+
+
+    $this->deconnect($conn);
 }
 
 }

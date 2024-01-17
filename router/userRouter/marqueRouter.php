@@ -33,14 +33,6 @@ if (isset($_GET['username'])) {
 
     $router->addNote($submittedId, $submittedNote, $submittedUsername);
 }
-if (isset($_GET['username'])) {
-    $submittedUsername = $_GET['username'];
-    $submittedNote = isset($_GET['comment']) ? $_GET['comment'] : '';
-    $submittedId = isset($_GET['iddd']) ? $_GET['iddd'] : ''; 
-    
-
-    $router->addComment($submittedId, $submittedNote, $submittedUsername);
-}
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $action = isset($_GET["action"]) ? $_GET["action"] : null;
 
@@ -48,6 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $SubmittedIdAvi = isset($_GET['id_avi']) ? $_GET['id_avi'] : '';
         $router->addApp($SubmittedIdAvi);
     } 
+}
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    
+
+  
+        $submittedId = isset($_GET['id_mrq']) ? $_GET['id_mrq'] : '';
+        $submittedContent = isset($_GET['contenu']) ? $_GET['contenu'] : '';
+        $submittedUsername = isset($_GET['userr']) ? $_GET['userr'] : ''; 
+        $router->addAvi($submittedContent, $submittedId, $submittedUsername);
+     
 }
 
 class marqueRouter 
@@ -68,14 +70,15 @@ class marqueRouter
         $marque->add_note ($submittedId, $submittedNote, $submittedUsername) ;
      
     }
-    // public function addCommentMrq($submittedId, $submittedNote, $submittedUsername) {
-    //     $marque = new MarqueVue();
-    //     $marque->add_comment ($submittedId, $submittedNote, $submittedUsername) ;
-     
-    // }
+
     public function addApp($SubmittedIdAvi) {
         $marque = new MarqueVue();
         $marque->ajout_app ($SubmittedIdAvi) ;
+     
+    }
+    public function addAvi($submittedContent, $submittedId, $submittedUsername) {
+        $marque = new MarqueVue();
+        $marque->ajout_avi ($submittedContent, $submittedId, $submittedUsername) ;
      
     }
 }

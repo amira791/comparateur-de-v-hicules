@@ -34,7 +34,33 @@ if (isset($_GET['id_vhh'])) {
     $router->show_details_vehicule_avi($id_vh);
 
 }
+if (isset($_GET['username'])) {
+    $submittedUsername = $_GET['username'];
+    $submittedNote = isset($_GET['note']) ? $_GET['note'] : '';
+    $submittedId = isset($_GET['idd']) ? $_GET['idd'] : ''; 
+    
 
+    $router->addNote($submittedId, $submittedNote, $submittedUsername);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $action = isset($_GET["action"]) ? $_GET["action"] : null;
+
+    if ($action === "ajout") {
+        $SubmittedIdAvi = isset($_GET['id_avi']) ? $_GET['id_avi'] : '';
+        $router->addApp($SubmittedIdAvi);
+    } 
+}
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    
+
+  
+    $submittedId = isset($_GET['id_veh']) ? $_GET['id_veh'] : '';
+    $submittedContent = isset($_GET['contenu']) ? $_GET['contenu'] : '';
+    $submittedUsername = isset($_GET['userr']) ? $_GET['userr'] : ''; 
+    $router->addAvi($submittedContent, $submittedId, $submittedUsername);
+ 
+}
 class vehiculeRouter {
     public function show_details_vehicule_pr($id_vh) {
         $vehiculeVue = new vehiculeVue();
@@ -55,6 +81,21 @@ class vehiculeRouter {
     public function show_details_vehicule_avi($id_vh) {
         $vehiculeVue = new vehiculeVue();
         $vehiculeVue->show_details_vh_avi($id_vh);
+    }
+    public function addNote($submittedId, $submittedNote, $submittedUsername) {
+        $marque = new VehiculeVue();
+        $marque->add_note_veh ($submittedId, $submittedNote, $submittedUsername) ;
+     
+    }
+    public function addApp($SubmittedIdAvi) {
+        $marque = new  VehiculeVue();
+        $marque->ajout_app_veh ($SubmittedIdAvi) ;
+     
+    }
+    public function addAvi($submittedContent, $submittedId, $submittedUsername) {
+        $marque = new VehiculeVue();
+        $marque->ajout_avi_veh ($submittedContent, $submittedId, $submittedUsername) ;
+     
     }
 }
 

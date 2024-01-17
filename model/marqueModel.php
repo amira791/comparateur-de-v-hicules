@@ -233,49 +233,6 @@ public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_
     $this->deconnect($conn);
 }
 
-// public function update_marque_table($id_mrq, $logo, $Nom, $pays_origine, $siege_social, $annee_creation, $histoire, $Fondateurs, $Slogan, $Produits, $Site_web)
-// {
-//     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
-
-//     // Check if $logo is an array and has 'tmp_name' set
-//     if (is_array($logo) && isset($logo['tmp_name'])) {
-        
-//         $imageData = file_get_contents($logo['tmp_name']);
-        
-//         if ($imageData !== false) {
-            
-//             $query = "UPDATE marque
-//                       SET 
-//                       logo = $imageData,
-//                       Nom = $Nom,
-//                       pays_origine =$pays_origine,
-//                       siege_social =$siege_social,
-//                       annee_creation = $annee_creation,
-//                       histoire =  $histoire,
-//                       Fondateurs = $Fondateurs,
-//                       Slogan = $Slogan, 
-//                       Produits = $Produits,
-//                       Site_web = $Site_web
-//                       WHERE id_mrq = $id_mrq";
-
-//          $res = $this->requete($conn, $query);
-//          $this->deconnect($conn);
-           
-           
-
-           
-//         } else {
-//             echo "Error reading image data: " . error_get_last()['message'];
-//         }
-//     } else {
-//         echo "Invalid image data: " . json_encode($logo);
-//     }
-
-    
-//     $this->deconnect($conn);
-// }
-
- 
 
 
 
@@ -328,12 +285,12 @@ public function add_marque_note($id_mrq, $note, $username)
 {
     $conn = $this->connect($this->servername, $this->username, $this->password, $this->database);
 
-    // Check connection
+ 
     if (!$conn) {
         die("Connection failed: " . mysqli_connesct_error());
     }
 
-    // Update the query to add quotes around numeric values
+   
     $query = "INSERT INTO note_marque (id_marq, note, username) VALUES ('$id_mrq', '$note', '$username')";
 
     $res = $this->requete($conn, $query);

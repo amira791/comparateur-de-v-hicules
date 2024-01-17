@@ -332,13 +332,66 @@ foreach ($avi3 as $avis) {
         alert('Invalid credentials. Please try again.');
     }
 </script>
-=
 
 
 
 
 <?php
-    } }
+    }
+    ?>
+     <button class="avi-button" onclick="openPopupAviAdd(<?php echo $avis['id_mrq']; ?>)">Ajouter Avi</button>
+</div>
+<div id="popupFormmm" style="display: none;">
+            <form id="registration2" onsubmit="validateConnectionUserAvi(); return false;">
+            <input type="hidden" id="id_mrq" name="id_mrq" value="<?php echo  $avis['id_mrq']; ?>">
+                <label for="user">Username:</label>
+                <input type="text" id="userr" name="userr" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="pass" name="passs" required><br>
+                <label for="user">Contenu:</label>
+                <input type="text" id="contenu" name="contenu" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <script>
+    function openPopupAviAdd(submittedId) {
+        document.getElementById('id_mrq').value = submittedId;
+        document.getElementById('popupFormmm').style.display = 'block';
+    }
+
+    function validateConnectionUserAvi() {
+        var submittedUsername = document.getElementById('userr').value;
+        var submittedPassword = document.getElementById('passs').value;
+        var submittedContent = document.getElementById('contenu').value;
+        var submittedId = document.getElementById('id_mrq').value;
+        var hiddenSelect = document.getElementById('hiddenSelect');
+
+        for (var i = 0; i < hiddenSelect.options.length; i++) {
+            var option = hiddenSelect.options[i];
+
+            if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+                if (option.dataset.block === '1') {
+                    alert('This user is blocked. Please contact support for assistance.');
+                } else if (option.dataset.valide === 'Valide') {
+                    alert("L'appréciation est bien ajoutée.");
+                    window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/marqueRouter.php?action=ajoutAvi&id_mrq=' + encodeURIComponent(submittedId) 
+                    + '&content=' + encodeURIComponent(submittedContent)+ '&username=' + encodeURIComponent(submittedUsername);
+
+                    document.getElementById('popupFormmm').style.display = 'none';  // Close the popup
+                    return;
+                } else {
+                    alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
+                }
+                document.getElementById('popupFormmm').style.display = 'none';  // Close the popup
+                return;
+            }
+        }
+
+        alert('Invalid credentials. Please try again.');
+    }
+</script>
+    <?php
+ }
 
     public function show_marque_note($id) {
         $ctr3 = new marqueController();
@@ -451,6 +504,7 @@ return;
         </script>
         <?php
     }
+
     
 
     
@@ -464,6 +518,12 @@ return;
     {
         $ctr = new aviController();
         $table = $ctr->addApprAvi_Mrq ($id_avi);
+
+    }
+    public function ajout_avi ($content, $id_mrq, $username)
+    {
+        $ctr = new aviController();
+        $table = $ctr->addAvi_Mrq ($content, $id_mrq, $username);
 
     }
         

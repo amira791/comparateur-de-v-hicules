@@ -5,6 +5,7 @@ require_once(__DIR__ . '/../../controller/menuController.php');
 require_once(__DIR__ . '/../../controller/marqueController.php');
 require_once(__DIR__ . '/../../controller/vehiculeController.php');
 require_once(__DIR__ . '/../../controller/aviController.php');
+require_once(__DIR__ . '/../../controller/userController.php');
 
 
 class vehiculeVue {
@@ -133,11 +134,13 @@ class vehiculeVue {
             </table>
     
         <?php
+         
         } else {
             ?>
             <h1>No details found for Vehicule <?php echo htmlspecialchars($marqueId); ?></h1>
         <?php
         }
+      
 
     }
 
@@ -241,7 +244,7 @@ class vehiculeVue {
             </div>
             <?php
         }
-
+        $this->show_button_add_note($id);
 
     }  
     
@@ -266,10 +269,112 @@ foreach ($avi3 as $avis) {
     <div class="user-name"><?php echo $userName; ?></div>
     <div class="review-content"><?php echo $reviewContent; ?></div>
     <div class="appreciation-count">Appréciation : <?php echo $appreciationCount; ?></div>
-    <button class="appreciation-button" onclick="addAppreciation(<?php echo $avis['id_avi_veh']; ?>)">Ajouter Appréciation</button>
+    <button class="appreciation-button" onclick="openPopupAvi(<?php echo $avis['id_avi_veh']; ?>)">Ajouter Appréciation</button>
+
 </div>
+<div id="popupFormm" style="display: none;">
+            <form id="registration" onsubmit="validateConnectionUser(); return false;">
+            <input type="hidden" id="id_avi" name="id_avi" value="<?php echo  $avis['id_avi_veh']; ?>">
+                <label for="user">Username:</label>
+                <input type="text" id="user" name="user" required><br>
+                <label for="password">Password:</label>
+                <input type="pass" id="pass" name="pass" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+
+<script>
+    function openPopupAvi(submittedId) {
+        document.getElementById('id_avi').value = submittedId;
+        document.getElementById('popupFormm').style.display = 'block';
+    }
+
+    function validateConnectionUser() {
+        var submittedUsername = document.getElementById('user').value;
+        var submittedPassword = document.getElementById('pass').value;
+        var submittedId = document.getElementById('id_avi').value;
+        var hiddenSelect = document.getElementById('hiddenSelect');
+
+        for (var i = 0; i < hiddenSelect.options.length; i++) {
+            var option = hiddenSelect.options[i];
+
+            if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+                if (option.dataset.block === '1') {
+                    alert('This user is blocked. Please contact support for assistance.');
+                } else if (option.dataset.valide === 'Valide') {
+                    alert("L'appréciation est bien ajoutée.");
+                    window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/vehiculeRouter.php?action=ajout&id_avi=' + encodeURIComponent(submittedId);
+
+                    document.getElementById('popupFormm').style.display = 'none';  // Close the popup
+                    return;
+                } else {
+                    alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
+                }
+                document.getElementById('popupFormm').style.display = 'none';  // Close the popup
+                return;
+            }
+        }
+
+        alert('Invalid credentials. Please try again.');
+    }
+</script>
 <?php
-    } }
+    } 
+?>
+<button class="avi-button" onclick="openPopupAviAdd(<?php echo $id; ?>)">Ajouter Avi</button>
+</div>
+<div id="popupFormmm" style="display: none;">
+            <form id="registration2" onsubmit="validateConnectionUserAvi(); return false;">
+            <input type="hidden" id="id_veh" name="id_veh" value="<?php echo  $id; ?>">
+                <label for="user">Username:</label>
+                <input type="text" id="userr" name="userr" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="pass" name="passs" required><br>
+                <label for="user">Contenu:</label>
+                <input type="text" id="contenu" name="contenu" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <script>
+    function openPopupAviAdd(submittedId) {
+        document.getElementById('id_veh').value = submittedId;
+        document.getElementById('popupFormmm').style.display = 'block';
+    }
+
+    function validateConnectionUserAvi() {
+        var submittedUsername = document.getElementById('userr').value;
+        var submittedPassword = document.getElementById('passs').value;
+        var submittedContent = document.getElementById('contenu').value;
+        var submittedId = document.getElementById('id_veh').value;
+        var hiddenSelect = document.getElementById('hiddenSelect');
+
+        for (var i = 0; i < hiddenSelect.options.length; i++) {
+            var option = hiddenSelect.options[i];
+
+            if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+                if (option.dataset.block === '1') {
+                    alert('This user is blocked. Please contact support for assistance.');
+                } else if (option.dataset.valide === 'Valide') {
+                    alert("L'appréciation est bien ajoutée.");
+                    window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/vehiculeRouter.php?action=ajoutAvi&id_mrq=' + encodeURIComponent(submittedId) 
+                    + '&content=' + encodeURIComponent(submittedContent)+ '&username=' + encodeURIComponent(submittedUsername);
+
+                    document.getElementById('popupFormmm').style.display = 'none';  // Close the popup
+                    return;
+                } else {
+                    alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
+                }
+                document.getElementById('popupFormmm').style.display = 'none';  // Close the popup
+                return;
+            }
+        }
+
+        alert('Invalid credentials. Please try again.');
+    }
+</script>
+<?php
+}
 
     
     public function show_details_vh_avi($id)
@@ -320,8 +425,10 @@ foreach ($avis as $row) {
         <div class="appreciation-count">Appréciation : <?php echo $appreciationCount; ?></div>
         <button class="appreciation-button" onclick="addAppreciation(<?php echo $row['id_avi_veh']; ?>)">Ajouter Appréciation</button>
     </div>
+    
     <?php
-} }
+}
+ }
 private function show_popular_comp()
 {
     ?>
@@ -368,6 +475,105 @@ private function show_popular_comp()
     } else {
         echo 'No popular comparisons available.';
     }
+    
+}
+private function show_button_add_note($id)
+    {
+        $ctr = new userController();
+        $table = $ctr->get_users();
+        ?>
+        <select id="hiddenSelect" style="display:none;">
+            <?php
+            foreach ($table as $row) {
+                $username = $row['username'];
+                $password = $row['password'];
+                $block = $row['est_blockee'];
+                $valide = $row['Valide_ins'];
+                echo "<option data-username='$username' data-pass='$password' data-block='$block' data-valide='$valide'>$username - $password - $block - $valide </option>";
+            }
+            ?>
+        </select>
+        <?php
+        // Display the button
+        ?>
+       <button onclick="openPopup(<?php echo $id; ?>)" type="button">Add Note</button>
+    
+        <!-- Popup form -->
+        <div id="popupForm" style="display: none;">
+            <form id="registrationForm" onsubmit="validateConnection(); return false;">
+            <input type="hidden" id="submittedId" name="submittedId" value="<?php echo $id; ?>">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br>
+    
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+    
+                <label for="note">Note:</label>
+                <input type="number" id="note" name="note" required><br>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+        <script>
+            function openPopup(submittedId) {
+                document.getElementById('submittedId').value = submittedId;
+        document.getElementById('popupForm').style.display = 'block';
+              
+            }
+    
+            function validateConnection() {
+                var hiddenSelect = document.getElementById('hiddenSelect');
+        var submittedUsername = document.getElementById('username').value;
+        var submittedPassword = document.getElementById('password').value;
+        var submittedNote = document.getElementById('note').value;
+        var submittedId = document.getElementById('submittedId').value;
+    
+                for (var i = 0; i < hiddenSelect.options.length; i++) {
+                    var option = hiddenSelect.options[i];
+                    console.log('Checking:', option.dataset.username, option.dataset.pass);
+    
+                    if (submittedUsername === option.dataset.username && submittedPassword === option.dataset.pass) {
+                        console.log('Match found:', submittedUsername, submittedPassword);
+                        if (option.dataset.block === '1') {
+                            alert('This user is blocked. Please contact support for assistance.');
+                        } else if (option.dataset.valide === 'Valide') {
+                            alert("La note est attribuee: " + submittedNote);
+                            window.location.href = 'http://localhost/tdwProjet/comparateurVehicule/router/userRouter/vehiculeRouter.php?username=' + encodeURIComponent(submittedUsername) + '&note=' + encodeURIComponent(submittedNote) + '&idd=' + encodeURIComponent(submittedId);
+
+document.getElementById('popupForm').style.display = 'none';  // Close the popup
+return;
+                        } else {
+                            alert('Inscription n\'est pas encore valide. Please contact support for assistance.');
+                        }
+                        document.getElementById('popupForm').style.display = 'none';  // Close the popup
+                        return;  // Exit the loop once a match is found
+                    }
+                }
+    
+                alert('Invalid credentials. Please try again.');
+            }
+        </script>
+        <?php
+    }
+
+public function add_note_veh ($id_mrq, $note, $username) 
+{
+    $ctr = new vehiculeController();
+    $table = $ctr->add_NoteVeh($id_mrq, $note, $username );
+}
+
+public function ajout_app_veh ($id_avi)
+{
+    $ctr = new aviController();
+    $table = $ctr-> addApprAvi_Veh ($id_avi);
+
+}
+public function ajout_avi_veh ($content, $id_veh, $username)
+{
+    $ctr = new aviController();
+    $table = $ctr-> addAvi_Veh ($content, $id_veh, $username);
+
 }
 
     public function Head_Page ()
